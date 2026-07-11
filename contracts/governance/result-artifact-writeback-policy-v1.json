@@ -1,0 +1,93 @@
+{
+  "schema": "elementary.result-artifact-writeback-policy.v1",
+  "status": "ACTIVE",
+  "purpose": "Canonical governance rule requiring every governed chat, agent, workflow and task to register produced outputs, result artifacts and evidence references.",
+  "applies_to": [
+    "controlled_chat",
+    "specialist_chat",
+    "governed_agent",
+    "github_workflow",
+    "adcp_task",
+    "manual_owner_directed_task"
+  ],
+  "writeback_rule": {
+    "every_governed_output_must_be_registered": true,
+    "result_artifact_registry_required": true,
+    "evidence_reference_required": true,
+    "producer_identity_required": true,
+    "task_or_issue_reference_required_when_available": true,
+    "canonical_location_required": true,
+    "sha256_or_commit_or_artifact_digest_required_for_file_code_or_bundle": true,
+    "problem_solution_entry_required_when_output_changes_operational_learning": true,
+    "registry_update_may_be_append_only_or_safe_overlay": true
+  },
+  "concept_separation": {
+    "message": "Conversation text or communication only.",
+    "task": "Governed execution unit with lifecycle, owner intent and next action.",
+    "artifact": "Produced result or durable work product.",
+    "evidence": "Proof that a task ran, passed validation, produced an artifact, or changed state.",
+    "problem_solution_memory": "Operational learning from blockers, failures, mitigations and reusable solutions. It is not a substitute for artifact registration."
+  },
+  "required_registry_fields": [
+    "schema",
+    "id",
+    "status",
+    "produced_at_utc",
+    "produced_by",
+    "producer_type",
+    "artifact_kind",
+    "title",
+    "canonical_location",
+    "evidence_refs",
+    "task_refs",
+    "governance_boundary",
+    "validation_state"
+  ],
+  "artifact_kinds": [
+    "contract",
+    "registry_entry",
+    "generated_index",
+    "generated_hotset",
+    "workflow",
+    "script",
+    "patch",
+    "pull_request",
+    "issue",
+    "report",
+    "document",
+    "spreadsheet",
+    "presentation",
+    "evidence_bundle",
+    "runtime_inventory",
+    "startup_bundle",
+    "mirror_payload",
+    "other"
+  ],
+  "validation_state_values": [
+    "DRAFT",
+    "VALIDATED",
+    "MERGED",
+    "PUBLISHED",
+    "SUPERSEDED",
+    "REJECTED"
+  ],
+  "safety": {
+    "credential_value_disclosure": false,
+    "token_value_disclosure": false,
+    "raw_environment_dump": false,
+    "private_key_material": false,
+    "unbounded_production_mutation": false,
+    "second_control_plane": false
+  },
+  "startup_integration": {
+    "load_policy_by_default": true,
+    "load_compact_registry_by_default": true,
+    "load_router_by_default": true,
+    "full_artifact_evidence_retrieval_only_when_relevant": true
+  },
+  "canonical_files": {
+    "policy": "contracts/governance/result-artifact-writeback-policy-v1.json",
+    "registry": "contracts/governance/result-artifact-registry-v1.jsonl",
+    "router": "contracts/governance/generated/result-artifact-router-v1.json"
+  }
+}
