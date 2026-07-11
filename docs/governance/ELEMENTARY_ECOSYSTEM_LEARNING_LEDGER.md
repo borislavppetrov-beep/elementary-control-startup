@@ -63,13 +63,17 @@ Do not record:
 
 ## Current seed from July 2026 autonomy work
 
-The initial seed captures the verified lessons from Issues #551, #553, PR #552, PR #554 and earlier autonomy/BoCore/PR313 work:
+The initial seed captures the verified lessons from Issues #551, #553, #555, PR #552, PR #554, PR #556 and earlier autonomy/BoCore/PR313 work:
 
 - visible chat connectors are not the full capability boundary;
 - GitHub Projects V2 access is real through secret-backed governed workflows;
-- BoCore has a self-hosted Linux runner named `github-actions-runner-01` on machine `BoCore`;
-- direct WSL execution of Windows `.exe` files currently fails with `Invalid argument` on this runner despite visible Windows filesystem and `WSL_INTEROP` evidence;
-- the correct path for Windows-only commands is a Windows-side governed service channel;
+- BoCore has self-hosted runner lanes under ADCP governance:
+  - `github-actions-runner-01` on machine `BoCore`, labels include `self-hosted,Linux,X64,elementary-ci`;
+  - `github-actions-runner-02`, WSL/Linux capacity relief lane, labels include `self-hosted,Linux,X64,elementary-ci,elementary-ci-fast,elementary-governance`;
+  - `github-actions-runner-03-windows`, Windows-native extended lane, labels include `self-hosted,Windows,X64,elementary-bocore-windows,elementary-bocore-extended,elementary-service-channel`;
+- `github-actions-runner-03-windows` is operational in scheduled-task background mode through `\ELEMENTARY\GitHub Runner 03 Windows` with log `C:\ELEMENTARY\LocalRunner\logs\runner03-scheduled.log`;
+- direct WSL execution of Windows `.exe` files currently fails with `Invalid argument` on the original Linux runner despite visible Windows filesystem and `WSL_INTEROP` evidence;
+- the correct path for Windows-only commands is the Windows-native runner lane or a Windows-side governed service channel, not arbitrary WSL `.exe` workarounds;
 - PR313 bridge workflows must not globally trigger on unrelated pull requests;
 - production cPanel has PHP/Composer but no Node/npm/npx runtime;
 - new or changed capabilities/versions must be written to canonical files or blocking issues.
