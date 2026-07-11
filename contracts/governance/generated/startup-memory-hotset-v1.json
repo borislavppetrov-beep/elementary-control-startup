@@ -10,16 +10,17 @@
   "entries": [
     {
       "id": "2026-07-11-startup-mirror-token-secret-not-visible",
-      "status": "OPEN",
-      "severity": "BLOCKER",
+      "status": "RESOLVED",
+      "severity": "HIGH",
       "match": [
         "MIRROR_TOKEN=",
         "PUBLIC_STARTUP_MIRROR_TOKEN_REQUIRED=FAIL",
         "ELEMENTARY_PUBLIC_STARTUP_MIRROR_TOKEN",
-        "startup-mirror-sync"
+        "startup-mirror-sync",
+        "secret in public repo"
       ],
-      "next": "Verify ELEMENTARY_PUBLIC_STARTUP_MIRROR_TOKEN as a repository secret in borislavppetrov-beep/elementary-construction-os, then rerun job 86530413883.",
-      "avoid": "Do not recreate runners or rewrite the mirror workflow before secret visibility is fixed. Do not expose token value."
+      "next": "No active blocker. If token visibility fails again, verify ELEMENTARY_PUBLIC_STARTUP_MIRROR_TOKEN is an Actions repository secret in borislavppetrov-beep/elementary-construction-os, not in the public mirror repository.",
+      "avoid": "Do not recreate runners or rewrite startup-mirror-sync before checking repository-secret scope. Do not expose token value."
     },
     {
       "id": "2026-07-11-bocore-runner-wsl-windows-exe-invalid-argument",

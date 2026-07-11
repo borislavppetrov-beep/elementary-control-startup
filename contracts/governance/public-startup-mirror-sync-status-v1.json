@@ -3,8 +3,8 @@
   "status": "READY_TO_SYNC",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
   "public_mirror_repository": "borislavppetrov-beep/elementary-control-startup",
-  "source_sha": "99f2b0230e1fd390869a2fdae208439ee0af35fa",
-  "generated_at_utc": "2026-07-11T11:23:57Z",
+  "source_sha": "f03d8378e135d4ed103fab274daef46ead93801b",
+  "generated_at_utc": "2026-07-11T11:31:56Z",
   "required_files_copied": [
     "contracts/governance/chat-startup-context-bundle-v1.json",
     "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
