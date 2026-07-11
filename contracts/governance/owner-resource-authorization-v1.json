@@ -1,0 +1,111 @@
+{
+  "schema": "elementary.owner-resource-authorization.v1",
+  "authority_issue": 551,
+  "owner": "borislavppetrov-beep",
+  "project_identity": "ELEMENTARY Automation & Control Plane",
+  "orchestration_engine": "ELEMENTARY Autonomous Delivery Control Plane / ADCP",
+  "governance_subsystem": "ELEMENTARY Agent Governance",
+  "repository": "borislavppetrov-beep/elementary-construction-os",
+  "authorization": {
+    "status": "GRANTED",
+    "scope": "ALL_TECHNICALLY_AVAILABLE_PROJECT_RESOURCES",
+    "purpose": [
+      "execute owner-assigned tasks",
+      "serve current project needs",
+      "inspect and verify operational state",
+      "produce evidence and deliverables",
+      "use direct and indirect governed capability paths"
+    ],
+    "resource_use_limit": "UNRESTRICTED_WITHIN_TASK_AND_PROJECT_PURPOSE",
+    "preapproved_categories": [
+      "chat-native connectors and tools",
+      "GitHub repositories issues pull requests actions artifacts and reviews",
+      "GitHub Projects V2 through governed secret-backed workflows",
+      "BoCore and self-hosted runners",
+      "Windows filesystem including C:\\ through governed runner paths",
+      "WSL and PowerShell interop",
+      "controlled browser and CDP execution",
+      "connected storage and document systems",
+      "email calendar contacts and collaboration systems",
+      "Adobe Canva Figma and media production systems",
+      "local sandbox container and data-processing resources"
+    ]
+  },
+  "capability_resolution": {
+    "native_connector_is_complete_boundary": false,
+    "required_sources": [
+      "current chat tool inventory",
+      "repository contracts and allowlists",
+      "merged workflow implementations",
+      "live runtime evidence",
+      "controlled transfer packages",
+      "owner directives"
+    ],
+    "rule": "Do not claim a capability is unavailable solely because no native connector action is visible. Check governed indirect execution paths first."
+  },
+  "mandatory_capability_drift_updates": {
+    "status": "REQUIRED",
+    "rule": "Any chat or governed agent that discovers, verifies, loses or materially changes a project capability must update this canonical authorization contract or record a blocking follow-up issue if it cannot write.",
+    "triggers": [
+      "new connector or tool becomes available",
+      "existing connector or tool capability is reduced or removed",
+      "new indirect governed execution path is proven",
+      "known governed execution path stops working or becomes blocked",
+      "scope of a secret-backed workflow changes",
+      "available repository, project, storage, email, calendar, browser, design or runtime resource changes"
+    ],
+    "required_update_targets": [
+      "contracts/governance/owner-resource-authorization-v1.json",
+      "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md"
+    ],
+    "required_evidence": [
+      "source chat or dispatch reference",
+      "observed capability delta",
+      "verification method or failure evidence",
+      "date of observation",
+      "bounded impact assessment"
+    ],
+    "if_write_path_unavailable": "Create or update a GitHub issue with the evidence and mark the canonical contract update as pending.",
+    "chat_only_record_allowed": false
+  },
+  "proven_indirect_capabilities": {
+    "windows_terminal": {
+      "available": true,
+      "path": "Chat or governed dispatch -> GitHub Actions -> BoCore self-hosted runner -> WSL -> Windows interop -> PowerShell",
+      "filesystem_scope": "C:\\ subject to the selected bounded operation and runtime permissions"
+    },
+    "github_projects_v2": {
+      "available": true,
+      "path": "governed GitHub workflow -> ELEMENTARY_GITHUB_PROJECTS_TOKEN -> GitHub GraphQL Projects V2",
+      "proven_operations": [
+        "owner and project-scope readback",
+        "project list read",
+        "createProjectV2",
+        "updateProjectV2 title-only",
+        "linkProjectV2ToRepository"
+      ]
+    }
+  },
+  "standing_limits": {
+    "secret_or_token_value_disclosure": false,
+    "fabricated_evidence": false,
+    "illegal_or_policy_prohibited_activity": false,
+    "bypass_mandatory_platform_controls": false,
+    "uncontrolled_irreversible_or_destructive_action": false,
+    "ignore_explicit_task_scope": false,
+    "required_controls": [
+      "use the least destructive effective path",
+      "preserve evidence for consequential operations",
+      "use rollback or recovery where applicable",
+      "respect explicit owner and system constraints",
+      "never output secret values"
+    ]
+  },
+  "chat_behavior": {
+    "repeat_capability_questions_to_owner": false,
+    "perform_capability_discovery_proactively": true,
+    "prefer_execution_over_explanation": true,
+    "report_real_boundary_only_after_checking_indirect_paths": true,
+    "record_capability_drift_in_canonical_files": true
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "schema": "elementary.chat-startup-context-bundle.v1",
+  "status": "ACTIVE_AFTER_MERGE",
+  "repository": "borislavppetrov-beep/elementary-construction-os",
+  "canonical_branch": "main",
+  "purpose": "Mandatory startup context for every ELEMENTARY controlled chat, specialist chat, governed agent, transfer package and resume package.",
+  "source_of_truth_rule": {
+    "status": "REQUIRED",
+    "primary_source_of_truth": "live GitHub repository on canonical branch main",
+    "knowledge_upload_role": "fallback bootstrap only",
+    "must_prefer_live_repository_when_available": true,
+    "must_report_when_using_static_snapshot": true,
+    "static_snapshot_may_be_stale": true,
+    "if_live_repository_unavailable": "Use uploaded knowledge only as bootstrap context and state that live repository state could not be verified."
+  },
+  "startup_rule": {
+    "status": "REQUIRED",
+    "must_read_before_capability_claim": true,
+    "must_read_before_runtime_version_claim": true,
+    "must_read_before_repeated_problem_diagnosis": true,
+    "must_read_before_execution": true,
+    "chat_only_memory_allowed": false
+  },
+  "transfer_packaging_rule": {
+    "status": "REQUIRED",
+    "applies_when": "an existing chat is packaged, rolled over, transferred or resumed in a new chat",
+    "must_include_instruction_for_new_chat": true,
+    "instruction_required_text": "Before continuing work, read contracts/governance/chat-startup-context-bundle-v1.json from the live GitHub repository on main when available, then read all files in its read_order. Use uploaded Knowledge only as fallback bootstrap if live repository access is unavailable. Confirm the required startup attestation fields before capability claims, runtime-version claims, repeated-problem diagnoses or execution.",
+    "must_include_or_reference_files": [
+      "contracts/governance/chat-startup-context-bundle-v1.json",
+      "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
+      "contracts/governance/owner-resource-authorization-v1.json",
+      "contracts/governance/canonical-software-runtime-inventory-v1.json",
+      "docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md",
+      "contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl"
+    ],
+    "resume_attestation_must_confirm": [
+      "new_chat_was_instructed_to_read_startup_bundle",
+      "startup_bundle_read_order_preserved",
+      "live_repository_preferred_over_static_snapshot",
+      "all_required_startup_attestation_fields_present",
+      "drift_writeback_status_reported"
+    ],
+    "invalid_transfer_if_missing": true
+  },
+  "read_order": [
+    {
+      "order": 1,
+      "path": "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
+      "reason": "Global capability, authorization, drift and startup behavior."
+    },
+    {
+      "order": 2,
+      "path": "contracts/governance/owner-resource-authorization-v1.json",
+      "reason": "Owner resource authorization and standing limitations."
+    },
+    {
+      "order": 3,
+      "path": "contracts/governance/canonical-software-runtime-inventory-v1.json",
+      "reason": "Exact production/runtime/software inventory and UNVERIFIED placeholders."
+    },
+    {
+      "order": 4,
+      "path": "docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md",
+      "reason": "Human-readable ecosystem problem/solution operating memory."
+    },
+    {
+      "order": 5,
+      "path": "contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl",
+      "reason": "Machine-readable problem, root cause, evidence, solution and next-action ledger."
+    }
+  ],
+  "required_startup_attestation_fields": [
+    "CHAT_STARTUP_CONTEXT_BUNDLE_LOADED",
+    "CAPABILITY_BOOTSTRAP_LOADED",
+    "OWNER_RESOURCE_AUTHORIZATION_LOADED",
+    "CANONICAL_SOFTWARE_INVENTORY_LOADED",
+    "ECOSYSTEM_LEARNING_LEDGER_LOADED",
+    "PROBLEM_SOLUTION_LEDGER_LOADED",
+    "LIVE_GITHUB_SOURCE_OF_TRUTH_CHECKED",
+    "STATIC_KNOWLEDGE_SNAPSHOT_USED_ONLY_AS_FALLBACK",
+    "CAPABILITY_BOUNDARY_CHECKED_BEFORE_LIMITATION_CLAIM",
+    "RUNTIME_INVENTORY_CHECKED_BEFORE_VERSION_CLAIM",
+    "LEARNING_LEDGER_CHECKED_BEFORE_REPEATED_PROBLEM_DIAGNOSIS",
+    "TRANSFER_PACKAGE_INSTRUCTS_NEW_CHAT_TO_READ_STARTUP_BUNDLE"
+  ],
+  "drift_writeback_rule": {
+    "capability_or_authorization_drift": "Update contracts/governance/owner-resource-authorization-v1.json or create blocking issue.",
+    "software_or_runtime_drift": "Update contracts/governance/canonical-software-runtime-inventory-v1.json or create blocking issue.",
+    "problem_or_solution_drift": "Update docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md and contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl or create blocking issue.",
+    "startup_rule_drift": "Update contracts/governance/chat-startup-context-bundle-v1.json and docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md."
+  },
+  "limits": {
+    "secret_value_disclosure": false,
+    "token_value_disclosure": false,
+    "raw_environment_dump": false,
+    "fabricated_evidence": false,
+    "ungoverned_unrestricted_shell": false,
+    "uncontrolled_destructive_actions": false
+  }
+}

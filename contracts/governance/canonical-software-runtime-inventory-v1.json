@@ -1,0 +1,198 @@
+{
+  "schema": "elementary.canonical-software-runtime-inventory.v1",
+  "authority_issue": 551,
+  "repository": "borislavppetrov-beep/elementary-construction-os",
+  "purpose": "Canonical software, language, framework and runtime inventory for every ELEMENTARY chat and governed agent.",
+  "rules": {
+    "must_load_during_chat_bootstrap": true,
+    "must_not_invent_versions": true,
+    "unknown_versions_must_be_marked_unverified": true,
+    "live_readback_overrides_stale_documentation": true,
+    "secret_values_must_not_be_collected": true,
+    "must_update_canonical_inventory_on_version_or_availability_drift": true,
+    "chat_only_version_record_allowed": false
+  },
+  "mandatory_runtime_drift_updates": {
+    "status": "REQUIRED",
+    "rule": "Any chat, governed agent, live collector or transfer/resume package that discovers, verifies, loses or materially changes a software/runtime version or availability fact must update this canonical inventory or record a blocking follow-up issue if it cannot write.",
+    "triggers": [
+      "new exact runtime version verified",
+      "runtime version upgrade verified",
+      "runtime version downgrade verified",
+      "runtime becomes unavailable or blocked",
+      "previously unavailable runtime becomes available",
+      "server, BoCore, runner, WSL, browser, database or build-tool fact changes",
+      "composer.json package constraint changes",
+      "package.json package constraint changes",
+      "composer.lock, package-lock.json, pnpm-lock.yaml, yarn.lock or equivalent exact dependency state changes",
+      "HTML, CSS or ECMAScript target standard changes"
+    ],
+    "required_update_targets": [
+      "contracts/governance/canonical-software-runtime-inventory-v1.json",
+      "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md"
+    ],
+    "required_evidence": [
+      "source chat, dispatch, PR, workflow run or collector reference",
+      "previous recorded value",
+      "new observed value",
+      "verification command or evidence source",
+      "observation date",
+      "impact on production, BoCore, CI, build, browser or deployment behavior"
+    ],
+    "if_write_path_unavailable": "Create or update a GitHub issue with the evidence and mark the canonical inventory update as pending.",
+    "unverified_placeholder": "UNVERIFIED_CURRENT_VERSION",
+    "forbidden_behaviors": [
+      "leave newly discovered versions only in chat text",
+      "guess exact versions from memory",
+      "replace a verified exact version with an unverified assumption",
+      "collect or print secret values while collecting version evidence"
+    ]
+  },
+  "production_server": {
+    "evidence_status": "VERIFIED_LOCKED",
+    "evidence_sources": [
+      "docs/infrastructure/PRODUCTION_RUNTIME_FACTS.md",
+      "docs/infrastructure/cpanel/canonical-profile.json",
+      "data/governance/runtime-toolchain-contract.json"
+    ],
+    "host": {
+      "provider": "SuperHosting.BG / team.blue",
+      "control_plane": "cPanel shared hosting with CloudLinux/CageFS",
+      "hostname": "vesta.superhosting.bg",
+      "root_access": false,
+      "systemd": false,
+      "supervisor": false,
+      "user_cron": true
+    },
+    "application": {
+      "url": "https://erp.elementary.bg",
+      "framework": "Laravel",
+      "framework_version": "13.15.0",
+      "environment": "production",
+      "debug": false,
+      "queue_connection": "database",
+      "session_driver": "database",
+      "cache_store": "file",
+      "mailer": "log"
+    },
+    "languages_and_runtimes": {
+      "php": {
+        "version": "8.5.6",
+        "executable": "/opt/cpanel/ea-php85/root/usr/bin/php",
+        "minimum_application_version": "8.3.0",
+        "wrong_default_shell_version": "7.2.34",
+        "wrong_default_shell_allowed": false
+      },
+      "python": {
+        "version": "3.6.8",
+        "executable": "/bin/python3",
+        "compatibility_baseline": "3.6"
+      },
+      "javascript_runtime": {
+        "node_available": false,
+        "npm_available": false,
+        "production_asset_builds_allowed": false
+      },
+      "html": {
+        "standard": "HTML Living Standard / HTML5-compatible output",
+        "version_model": "NO_RUNTIME_VERSION",
+        "note": "HTML is a document standard, not an installed executable runtime."
+      },
+      "css": {
+        "standard": "modern browser CSS",
+        "version_model": "MODULE_LEVEL_STANDARD"
+      },
+      "javascript_language": {
+        "module_mode": "ES modules",
+        "version_model": "ECMASCRIPT_STANDARD_DEPENDS_ON_BUILD_TARGET"
+      }
+    },
+    "package_and_build_tools": {
+      "composer": {
+        "version": "2.9.8",
+        "executable": "/opt/cpanel/composer/bin/composer",
+        "self_update_allowed": false
+      },
+      "vite": {
+        "declared_constraint": "^8.0.0",
+        "production_execution": false,
+        "source": "application/package.json"
+      },
+      "tailwindcss": {
+        "declared_constraint": "^4.0.0",
+        "source": "application/package.json"
+      },
+      "tailwindcss_vite": {
+        "declared_constraint": "^4.0.0",
+        "source": "application/package.json"
+      },
+      "laravel_vite_plugin": {
+        "declared_constraint": "^3.1",
+        "source": "application/package.json"
+      },
+      "concurrently": {
+        "declared_constraint": "^9.0.1",
+        "source": "application/package.json"
+      }
+    },
+    "database": {
+      "engine": "MariaDB",
+      "version": "10.6.27",
+      "host": "localhost",
+      "port": 3306
+    },
+    "declared_php_dependencies": {
+      "php": "^8.3",
+      "laravel_framework": "^13.8",
+      "laravel_tinker": "^3.0",
+      "phpunit": "^12.5.12",
+      "laravel_pint": "^1.27",
+      "source": "application/composer.json",
+      "note": "Constraints are source declarations; exact installed versions require composer.lock or live readback."
+    }
+  },
+  "bocore_windows_workstation": {
+    "evidence_status": "PARTIALLY_VERIFIED_LIVE_VERSION_REFRESH_REQUIRED",
+    "known_capabilities": [
+      "Windows filesystem including C:\\ through governed operations",
+      "PowerShell through WSL interop",
+      "WSL execution",
+      "self-hosted GitHub Actions runner",
+      "Node.js-based controlled browser scripts",
+      "browser CDP control",
+      "Git and repository tooling",
+      "Python tooling",
+      "Codex CLI where provisioned"
+    ],
+    "version_fields": {
+      "windows": "UNVERIFIED_CURRENT_VERSION",
+      "powershell": "UNVERIFIED_CURRENT_VERSION",
+      "wsl": "UNVERIFIED_CURRENT_VERSION",
+      "linux_distribution": "UNVERIFIED_CURRENT_VERSION",
+      "node": "UNVERIFIED_CURRENT_VERSION",
+      "npm": "UNVERIFIED_CURRENT_VERSION",
+      "npx": "UNVERIFIED_CURRENT_VERSION",
+      "python_windows": "UNVERIFIED_CURRENT_VERSION",
+      "python_wsl": "UNVERIFIED_CURRENT_VERSION",
+      "git_windows": "UNVERIFIED_CURRENT_VERSION",
+      "git_wsl": "UNVERIFIED_CURRENT_VERSION",
+      "github_cli": "UNVERIFIED_CURRENT_VERSION",
+      "powershell_git": "UNVERIFIED_CURRENT_VERSION",
+      "edge": "UNVERIFIED_CURRENT_VERSION",
+      "chrome": "UNVERIFIED_CURRENT_VERSION",
+      "github_actions_runner": "UNVERIFIED_CURRENT_VERSION",
+      "codex_cli": "UNVERIFIED_CURRENT_VERSION"
+    },
+    "collector": "scripts/bocore/collect_canonical_software_inventory.ps1"
+  },
+  "chat_requirement": {
+    "before_reporting_environment_or_capability": [
+      "load this inventory",
+      "load ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
+      "prefer current live readback when available",
+      "distinguish verified exact version from declared dependency constraint",
+      "never claim HTML has an installed runtime version",
+      "write discovered runtime/version drift back to this inventory or record a blocking follow-up issue"
+    ]
+  }
+}
