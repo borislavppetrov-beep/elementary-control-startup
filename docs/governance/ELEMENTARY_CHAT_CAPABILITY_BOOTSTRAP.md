@@ -119,6 +119,26 @@ scripts/bocore/collect_canonical_software_inventory.ps1
 
 It collects bounded version evidence for Windows, PowerShell, WSL, Linux distributions, Node.js, npm, npx, Python, PHP, Composer, Java, .NET, Git, GitHub CLI, Docker, Codex CLI, Edge, Chrome and the GitHub Actions runner without dumping environment variables, credentials, tokens or secret values.
 
+### Verified Windows MSI packaging boundary
+
+The bounded PR #613 inventory is the current source of truth for the Windows packaging lane:
+
+```text
+WORKFLOW_RUN=29165733500
+ARTIFACT=8252089660
+ARTIFACT_DIGEST=sha256:fe2e089be3be26c4387629e54d7f4c0dc4249503cdf32ea68a71f4d2c1dd1b59
+DOTNET_AVAILABLE=false
+SIGNTOOL_AVAILABLE=false
+WIX_SDK=7.0.0_SOURCE_PIN_ONLY_NOT_RESTORED
+MSI_COMPILE_ATTEMPTED=false
+CODE_SIGNING_IDENTITY_PROBED=false
+RUNTIME_MUTATION=false
+PRODUCTION_MUTATION=false
+BLOCKING_ISSUE=#615
+```
+
+Chats and agents must not claim that BoCore can compile or sign the Node MSI until Issue #615 provides newer verified readback. WiX 7.0.0 is a source dependency declaration, not proof that the SDK is restored or installed. Certificate-store or private-key availability must never be inferred from the presence or absence of `signtool.exe`.
+
 ## Ecosystem learning ledger
 
 Every chat and governed agent must load the compact generated memory first:

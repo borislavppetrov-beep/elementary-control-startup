@@ -154,11 +154,15 @@
   "bocore_windows_workstation": {
     "evidence_status": "VERIFIED_LIVE_READBACK_PARTIAL_CONTEXT_LIMITS",
     "last_verified_at_utc": "2026-07-11T08:02:39.7348213Z",
+    "packaging_toolchain_last_verified_at_utc": "2026-07-11T19:42:59Z",
     "evidence_sources": [
       "PR #560",
       "workflow_run 29145442735",
       "artifact 8246598494: bocore-canonical-software-inventory-29145442735",
-      "docs/governance/BROWSER_BRIDGE_9223_FINAL_HEALTH_EVIDENCE.md"
+      "docs/governance/BROWSER_BRIDGE_9223_FINAL_HEALTH_EVIDENCE.md",
+      "PR #613",
+      "workflow_run 29165733500",
+      "artifact 8252089660 digest sha256:fe2e089be3be26c4387629e54d7f4c0dc4249503cdf32ea68a71f4d2c1dd1b59"
     ],
     "known_capabilities": [
       "Windows filesystem including C:\\ through governed operations",
@@ -170,7 +174,8 @@
       "browser CDP control",
       "Git and repository tooling",
       "GitHub CLI",
-      "WSL installation present; distro execution unavailable from Windows local-system/service context"
+      "WSL installation present; distro execution unavailable from Windows local-system/service context",
+      "bounded Windows MSI packaging-toolchain availability readback"
     ],
     "machine": {
       "name": "BOCORE",
@@ -198,7 +203,10 @@
       "edge": "Edg/149.0.4022.98 via Browser Bridge 9223 health",
       "chrome": "NOT_AVAILABLE_IN_RUNNER03_WINDOWS_CONTEXT",
       "github_actions_runner": "2.335.1",
-      "codex_cli": "NOT_AVAILABLE_IN_RUNNER03_WINDOWS_CONTEXT"
+      "codex_cli": "NOT_AVAILABLE_IN_RUNNER03_WINDOWS_CONTEXT",
+      "dotnet": "NOT_AVAILABLE_IN_RUNNER03_WINDOWS_CONTEXT",
+      "signtool": "NOT_AVAILABLE_IN_RUNNER03_WINDOWS_CONTEXT",
+      "wix_sdk_declared": "7.0.0_SOURCE_PIN_ONLY_NOT_RESTORED"
     },
     "availability_fields": {
       "node_available": true,
@@ -211,7 +219,11 @@
       "chrome_available": false,
       "edge_file_probe_available": false,
       "edge_cdp_available": true,
-      "wsl_distro_execution_from_runner03_service_context": false
+      "wsl_distro_execution_from_runner03_service_context": false,
+      "dotnet_available": false,
+      "signtool_available": false,
+      "wix_restore_attempted": false,
+      "msi_compile_attempted": false
     },
     "service_context_limits": {
       "wsl_status": "Running WSL as local system is not supported. Error code: Wsl/WSL_E_LOCAL_SYSTEM_NOT_SUPPORTED",
@@ -219,6 +231,27 @@
       "python_wsl_version": "unverified because WSL distro commands cannot run from Runner 03 local-system/service context",
       "git_wsl_version": "unverified because WSL distro commands cannot run from Runner 03 local-system/service context",
       "edge_file_probe": "unavailable from collector file-path probe, but Edge CDP version is verified through Browser Bridge health"
+    },
+    "windows_packaging_toolchain": {
+      "evidence_status": "VERIFIED_UNAVAILABLE_IN_RUNNER03_CONTEXT",
+      "observed_at_utc": "2026-07-11T19:42:59Z",
+      "workflow_run": 29165733500,
+      "artifact_id": 8252089660,
+      "artifact_digest": "sha256:fe2e089be3be26c4387629e54d7f4c0dc4249503cdf32ea68a71f4d2c1dd1b59",
+      "dotnet_available": false,
+      "dotnet_version": null,
+      "signtool_available": false,
+      "wix_sdk_source_pin": "7.0.0",
+      "wix_sdk_restored": false,
+      "msi_compile_attempted": false,
+      "certificate_store_probed": false,
+      "code_signing_identity_probed": false,
+      "powershell_source_syntax": "PASS",
+      "environment_values_read": false,
+      "secret_values_collected": false,
+      "runtime_mutation": false,
+      "production_mutation": false,
+      "blocking_issue": 615
     },
     "runner_lanes": {
       "runner01_linux_legacy": {
