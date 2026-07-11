@@ -1,0 +1,148 @@
+{
+  "schema": "elementary.codex-capability-profile.v1",
+  "status": "ACTIVE",
+  "observed_at_utc": "2026-07-11T14:43:49.4226288Z",
+  "repository": "borislavppetrov-beep/elementary-construction-os",
+  "purpose": "Canonical classification and governance profile for OpenAI Codex capabilities available to ELEMENTARY chats, repository work and governed execution paths.",
+  "classification_rule": {
+    "product_available": "Capability documented by current official OpenAI Codex documentation. This does not by itself prove that the capability is connected, configured or authorized for ELEMENTARY.",
+    "project_verified": "Capability or source-controlled integration verified in the ELEMENTARY repository or current connected tool surface.",
+    "runtime_active": "Capability proven by current live runtime readback or immutable execution evidence.",
+    "must_not_collapse_levels": true,
+    "must_not_claim_runtime_active_from_installation_report_alone": true
+  },
+  "owner_observation": {
+    "statement": "The owner reports that Codex has been connected or installed.",
+    "verification_state": "PRODUCT_OR_DESKTOP_SURFACE_REPORTED_RUNNER03_CLI_SEPARATELY_VERIFIED_UNAVAILABLE",
+    "allowed_inference": "Codex must be included in startup capability discovery and checked proactively.",
+    "forbidden_inference": "Do not infer an exact CLI version, authentication state, cloud environment, GitHub review permission or local execution availability without evidence.",
+    "runtime_interpretation": "The owner report may refer to the ChatGPT/Codex desktop or cloud surface. The governed Runner 03 service context does not currently resolve a codex CLI command."
+  },
+  "official_product_capabilities": {
+    "status": "PRODUCT_AVAILABLE_NOT_AUTOMATICALLY_PROJECT_ENABLED",
+    "surfaces": [
+      "ChatGPT desktop coding experience on Windows and macOS",
+      "Codex web and cloud tasks",
+      "Codex CLI",
+      "IDE extension",
+      "GitHub integration and pull-request review",
+      "Codex SDK",
+      "GitHub Action",
+      "non-interactive codex exec",
+      "MCP server and client integrations"
+    ],
+    "workflow_features": [
+      "parallel subagents",
+      "isolated Git worktrees",
+      "local and cloud task modes",
+      "scheduled background work",
+      "skills, plugins, hooks and apps",
+      "structured JSONL event output",
+      "output-schema validation",
+      "sandbox and approval profiles",
+      "AGENTS.md repository instructions"
+    ],
+    "official_sources": [
+      "https://learn.chatgpt.com/codex",
+      "https://learn.chatgpt.com/codex/whats-new",
+      "https://learn.chatgpt.com/codex/concepts/subagents",
+      "https://learn.chatgpt.com/codex/app/worktrees",
+      "https://learn.chatgpt.com/codex/sdk",
+      "https://learn.chatgpt.com/codex/noninteractive",
+      "https://learn.chatgpt.com/codex/integrations/github"
+    ]
+  },
+  "elementary_project_state": {
+    "github_connector_repository_access": {
+      "status": "PROJECT_VERIFIED",
+      "scope": "Read and governed write access to the private ELEMENTARY repository through the connected GitHub application.",
+      "not_equivalent_to": [
+        "Codex Cloud environment configured",
+        "Codex GitHub review integration enabled",
+        "Codex CLI installed on BoCore",
+        "Codex runtime authenticated"
+      ]
+    },
+    "repository_instruction_file": {
+      "path": "AGENTS.md",
+      "status": "ACTIVE"
+    },
+    "governed_worktree_executor": {
+      "status": "IMPLEMENTED_DRY_RUN_ONLY",
+      "executor": "scripts/bocore/codex_worktree_executor.py",
+      "contract": "docs/execution/codex/ISSUE341_CODEX_WORKTREE_EXECUTION.md",
+      "workflow": ".github/workflows/codex-worktree-executor-contract.yml",
+      "test": "tests/local_execution/test_codex_worktree_executor.py",
+      "registered_operation": "CODEX_WORKTREE_DRY_RUN_V1",
+      "runtime_state": "DISABLED_UNTIL_BOCORE_ACCEPTANCE",
+      "live_codex_invocation_proven": false
+    },
+    "runner03_codex_cli": {
+      "status": "VERIFIED_NOT_AVAILABLE_IN_RUNNER03_WINDOWS_SERVICE_CONTEXT",
+      "available": false,
+      "executable": null,
+      "version": null,
+      "collector": "scripts/bocore/collect_canonical_software_inventory.ps1",
+      "runner": "github-actions-runner-03-windows",
+      "machine": "BOCORE",
+      "workflow_run": 29156624448,
+      "artifact_id": 8249642440,
+      "artifact_digest": "sha256:3685ac7e6b9587288a6af111003da9a0681e77e818ad3c37c65b8d09cafabdf2",
+      "head_sha": "3e63d95f49e8cf230b2e67b8621e67418c2c770c",
+      "workflow_merge_sha": "be4b1f5922e3334ac40e147ad93d5a19c2c2d95b",
+      "collected_at_utc": "2026-07-11T14:43:49.4226288Z",
+      "policy": {
+        "secret_values_collected": false,
+        "environment_variable_values_dumped": false,
+        "installed_software_registry_dumped": false
+      },
+      "meaning": "The codex executable is not on the PATH visible to the governed Runner 03 Windows service context. This does not disprove availability of the ChatGPT/Codex desktop or cloud surface in the owner's interactive user context."
+    }
+  },
+  "governed_use_policy": {
+    "authority": "ADCP remains lifecycle and orchestration authority; Agent Governance remains policy authority; GitHub remains source and release truth.",
+    "no_second_control_plane": true,
+    "no_second_scheduler": true,
+    "no_second_dispatcher": true,
+    "no_second_runner_backlog": true,
+    "no_second_evidence_authority": true,
+    "one_isolated_worktree_per_admitted_write_task": true,
+    "parallel_subagents": {
+      "preferred_for": [
+        "read-heavy repository exploration",
+        "test analysis",
+        "issue triage",
+        "independent review",
+        "evidence summarization"
+      ],
+      "write_rule": "Parallel write work is allowed only when worktrees and path scopes are independently admitted and non-overlapping.",
+      "avoid": "Multiple agents modifying the same branch, worktree or overlapping paths."
+    },
+    "repository_write_rule": "No direct writes to main. Use a governed branch, validation and pull request.",
+    "result_rule": "Register durable outputs and evidence through the result/artifact writeback policy.",
+    "memory_rule": "Record reusable blockers, workarounds and final solutions in the problem/solution memory or safe overlays.",
+    "security": {
+      "secret_value_disclosure": false,
+      "auth_file_capture": false,
+      "raw_environment_dump": false,
+      "unbounded_shell": false,
+      "sandbox_or_approval_bypass": false,
+      "uncontrolled_network_access": false
+    }
+  },
+  "startup_requirements": {
+    "must_load_during_chat_bootstrap": true,
+    "must_load_before_codex_capability_claim": true,
+    "must_load_before_codex_runtime_claim": true,
+    "must_check_live_runtime_inventory": true,
+    "must_read_repository_agents_md_when_codex_operates_on_repository": true,
+    "attestation_field": "CODEX_CAPABILITY_PROFILE_LOADED"
+  },
+  "drift_writeback": {
+    "product_capability_change": "Update this profile using current official OpenAI documentation.",
+    "project_integration_change": "Update this profile and owner-resource authorization.",
+    "runtime_or_version_change": "Update canonical software runtime inventory with live evidence.",
+    "execution_problem_or_solution": "Update problem/solution memory or a safe overlay.",
+    "durable_output": "Register through result/artifact registry or a safe overlay."
+  }
+}

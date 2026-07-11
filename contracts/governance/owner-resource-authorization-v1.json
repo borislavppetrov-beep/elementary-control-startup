@@ -21,6 +21,8 @@
       "chat-native connectors and tools",
       "GitHub repositories issues pull requests actions artifacts and reviews",
       "GitHub Projects V2 through governed secret-backed workflows",
+      "OpenAI Codex and ChatGPT coding surfaces when technically available and governed",
+      "Codex CLI IDE web cloud SDK GitHub Action GitHub review subagents worktrees skills plugins hooks apps and MCP within admitted scope",
       "BoCore and self-hosted runners",
       "Windows filesystem including C:\\ through governed runner paths",
       "WSL and PowerShell interop",
@@ -38,10 +40,12 @@
       "repository contracts and allowlists",
       "merged workflow implementations",
       "live runtime evidence",
+      "contracts/governance/codex-capability-profile-v1.json",
+      "AGENTS.md for Codex repository work",
       "controlled transfer packages",
       "owner directives"
     ],
-    "rule": "Do not claim a capability is unavailable solely because no native connector action is visible. Check governed indirect execution paths first."
+    "rule": "Do not claim a capability is unavailable solely because no native connector action is visible. Check governed indirect execution paths first. For Codex, distinguish official product capability, verified ELEMENTARY integration and live runtime activation."
   },
   "mandatory_capability_drift_updates": {
     "status": "REQUIRED",
@@ -51,12 +55,14 @@
       "existing connector or tool capability is reduced or removed",
       "new indirect governed execution path is proven",
       "known governed execution path stops working or becomes blocked",
+      "Codex surface is connected configured activated or removed",
       "scope of a secret-backed workflow changes",
       "available repository, project, storage, email, calendar, browser, design or runtime resource changes"
     ],
     "required_update_targets": [
       "contracts/governance/owner-resource-authorization-v1.json",
-      "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md"
+      "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
+      "contracts/governance/codex-capability-profile-v1.json when Codex is involved"
     ],
     "required_evidence": [
       "source chat or dispatch reference",
@@ -84,6 +90,24 @@
         "updateProjectV2 title-only",
         "linkProjectV2ToRepository"
       ]
+    },
+    "codex_project_integration": {
+      "available": true,
+      "status": "PARTIAL_PROJECT_VERIFICATION",
+      "verified": [
+        "current chat can use the connected GitHub application against the private ELEMENTARY repository",
+        "source-controlled Codex isolated-worktree dry-run executor exists",
+        "Codex contract workflow and tests exist",
+        "root AGENTS.md startup/governance instructions are added by the Codex startup update"
+      ],
+      "not_yet_verified": [
+        "Codex CLI availability and exact version on BoCore after the owner installation",
+        "Codex Cloud environment configuration",
+        "Codex GitHub automatic review permission",
+        "live Codex worktree execution through BoCore",
+        "Codex authentication state"
+      ],
+      "authority": "Codex is a bounded worker under ADCP and Agent Governance, not a separate control plane."
     }
   },
   "standing_limits": {
@@ -98,7 +122,9 @@
       "preserve evidence for consequential operations",
       "use rollback or recovery where applicable",
       "respect explicit owner and system constraints",
-      "never output secret values"
+      "never output secret values",
+      "do not read or copy Codex authentication files",
+      "do not infer runtime activation from product availability"
     ]
   },
   "chat_behavior": {
@@ -106,6 +132,7 @@
     "perform_capability_discovery_proactively": true,
     "prefer_execution_over_explanation": true,
     "report_real_boundary_only_after_checking_indirect_paths": true,
-    "record_capability_drift_in_canonical_files": true
+    "record_capability_drift_in_canonical_files": true,
+    "load_codex_profile_before_codex_claim": true
   }
 }

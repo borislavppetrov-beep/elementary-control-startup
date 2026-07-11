@@ -1,6 +1,6 @@
 # ELEMENTARY Chat Startup Read Sequence
 
-Every ELEMENTARY controlled chat, specialist chat, governed agent, transfer package and resume package must load the startup context bundle before reporting capabilities, runtime versions, repeated problem diagnoses or execution plans.
+Every ELEMENTARY controlled chat, specialist chat, governed agent, Codex task, transfer package and resume package must load the startup context bundle before reporting capabilities, runtime versions, Codex state, repeated problem diagnoses, result claims or execution plans.
 
 Canonical startup bundle:
 
@@ -14,43 +14,46 @@ Mandatory startup read order:
 1. docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md
 2. contracts/governance/owner-resource-authorization-v1.json
 3. contracts/governance/canonical-software-runtime-inventory-v1.json
-4. docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md
-5. contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl
+4. contracts/governance/codex-capability-profile-v1.json
+5. contracts/governance/memory-kernel-v1.json
+6. contracts/governance/generated/startup-memory-hotset-v1.json
+7. contracts/governance/generated/problem-solution-router-v1.json
+8. contracts/governance/generated/problem-solution-index-v1.jsonl
+9. contracts/governance/result-artifact-writeback-policy-v1.json
+10. contracts/governance/result-artifact-registry-v1.jsonl
+11. contracts/governance/generated/result-artifact-router-v1.json
 ```
 
-Required startup attestation fields:
+For Codex repository work, `AGENTS.md` is additionally mandatory and must be obeyed.
+
+Required startup attestation fields include:
 
 ```text
-CHAT_STARTUP_CONTEXT_BUNDLE_LOADED=true
-CAPABILITY_BOOTSTRAP_LOADED=true
-OWNER_RESOURCE_AUTHORIZATION_LOADED=true
-CANONICAL_SOFTWARE_INVENTORY_LOADED=true
-ECOSYSTEM_LEARNING_LEDGER_LOADED=true
-PROBLEM_SOLUTION_LEDGER_LOADED=true
-TRANSFER_PACKAGE_INSTRUCTS_NEW_CHAT_TO_READ_STARTUP_BUNDLE=true
+CHAT_STARTUP_CONTEXT_BUNDLE_LOADED=PASS
+CAPABILITY_BOOTSTRAP_LOADED=PASS
+OWNER_RESOURCE_AUTHORIZATION_LOADED=PASS
+CANONICAL_SOFTWARE_INVENTORY_LOADED=PASS
+CODEX_CAPABILITY_PROFILE_LOADED=PASS
+MEMORY_KERNEL_LOADED=PASS
+STARTUP_MEMORY_HOTSET_LOADED=PASS
+PROBLEM_SOLUTION_ROUTER_LOADED=PASS
+PROBLEM_SOLUTION_INDEX_LOADED=PASS
+RESULT_ARTIFACT_WRITEBACK_POLICY_LOADED=PASS
+RESULT_ARTIFACT_REGISTRY_LOADED=PASS
+RESULT_ARTIFACT_ROUTER_LOADED=PASS
+LIVE_GITHUB_SOURCE_OF_TRUTH_CHECKED=PASS
+RUNTIME_INVENTORY_CHECKED_BEFORE_VERSION_CLAIM=PASS
+CODEX_RUNTIME_READBACK_CHECKED_BEFORE_RUNTIME_CLAIM=PASS
+RESULT_ARTIFACT_WRITEBACK_CHECKED_BEFORE_RESULT_CLAIM=PASS
+TRANSFER_PACKAGE_INSTRUCTS_NEW_CHAT_TO_READ_STARTUP_BUNDLE=PASS
 ```
 
-A chat or agent must not claim that a capability is unavailable, must not guess a runtime version, and must not repeat a diagnosis for a known ecosystem problem until this startup bundle and the ledger have been checked.
+A chat or agent must not claim that a capability is unavailable, guess a runtime version, collapse Codex product availability into runtime activation, repeat a known diagnosis or claim a durable result until the required startup sources have been checked.
 
 ## Transfer packaging rule
 
-Whenever an active chat is packaged, rolled over, transferred or resumed in a new chat, the generated transfer package must include an explicit instruction for the new chat:
+Whenever an active chat is packaged, rolled over, transferred or resumed in a new chat, the generated package must explicitly instruct the receiving chat to read the live startup bundle and its complete `read_order`. For Codex work it must also reference `AGENTS.md`.
 
-```text
-Before continuing work, read contracts/governance/chat-startup-context-bundle-v1.json and then read all files in its read_order. Confirm the required startup attestation fields before capability claims, runtime-version claims, repeated-problem diagnoses or execution.
-```
+A transfer package is invalid if it omits the startup instruction, fails to preserve the read order, omits the Codex profile when Codex is involved, or omits result/artifact writeback requirements.
 
-The package must include or reference:
-
-```text
-contracts/governance/chat-startup-context-bundle-v1.json
-docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md
-contracts/governance/owner-resource-authorization-v1.json
-contracts/governance/canonical-software-runtime-inventory-v1.json
-docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md
-contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl
-```
-
-A transfer package is invalid if it omits the startup bundle instruction or fails to preserve the startup read order.
-
-When any of the startup files changes, the next transfer/resume package must cite the new file state and include the startup attestation.
+When any startup file changes, the next transfer/resume package must cite the new state and include the current startup attestation.

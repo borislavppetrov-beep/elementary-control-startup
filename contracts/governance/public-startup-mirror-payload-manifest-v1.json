@@ -1,0 +1,96 @@
+{
+  "schema": "elementary.public-startup-mirror-payload.v1",
+  "status": "PASS",
+  "generated_at_utc": "2026-07-11T15:08:30Z",
+  "source_repository": "borislavppetrov-beep/elementary-construction-os",
+  "source_sha": "ad6609aa7334229cbc929699c4053048a9d1e410",
+  "file_count": 21,
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "13902ad56fec16ca422d8ab65e8103e431cf83c7d7fea85efe110519ab61cfd8"
+    },
+    {
+      "path": "contracts/governance/chat-startup-context-bundle-v1.json",
+      "sha256": "2d85bb8e16effacef11f7681d130a2f6aeda366736cc7fb106ad1cde76b3dc8d"
+    },
+    {
+      "path": "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
+      "sha256": "62683ed2c18329b05900ebe47cc53564074695e0197e2d2f95e5656f9fe4876a"
+    },
+    {
+      "path": "contracts/governance/owner-resource-authorization-v1.json",
+      "sha256": "d514549a27b4e5b44a7970731181828a0fb490f5e1bcbde96eb9fa1be33a8186"
+    },
+    {
+      "path": "contracts/governance/canonical-software-runtime-inventory-v1.json",
+      "sha256": "e9d39d5173575913136f7c3a7b5f8166b976a266c4bf1a5f704255137fb107dc"
+    },
+    {
+      "path": "contracts/governance/codex-capability-profile-v1.json",
+      "sha256": "9ea8fb489eca21ee23373396481df2ff023ee49316a259db83fb0443677f6bec"
+    },
+    {
+      "path": "contracts/governance/memory-kernel-v1.json",
+      "sha256": "5a047622f752195b11df4291c8ade174208a8d5014179130109aabb2a90e16d7"
+    },
+    {
+      "path": "contracts/governance/generated/startup-memory-hotset-v1.json",
+      "sha256": "e8d4c02d6dcdea14a48b5dc4ee42d77738959a91258ed987bcd1499bd9442876"
+    },
+    {
+      "path": "contracts/governance/generated/problem-solution-router-v1.json",
+      "sha256": "c8a8332d01bb4564c66e248b3579a24f4f7e2d50333ed0d0d61401b8ab7907af"
+    },
+    {
+      "path": "contracts/governance/generated/problem-solution-index-v1.jsonl",
+      "sha256": "77be2cce20b33dc5aeabfd966819a8c0f098a89d0b4be48e42fd29f9e6a6f54b"
+    },
+    {
+      "path": "contracts/governance/result-artifact-writeback-policy-v1.json",
+      "sha256": "9d644b241366c66a806749a3d9402cf66c2973c5f62cec415d4327ce5d18f12d"
+    },
+    {
+      "path": "contracts/governance/result-artifact-registry-v1.jsonl",
+      "sha256": "236bc93becee0d20edd3490d28fd027b716e8754e81abc85a06db76b35fb3d0d"
+    },
+    {
+      "path": "contracts/governance/generated/result-artifact-router-v1.json",
+      "sha256": "724b37acbda486d5ce35e46841985a06f2f67f5d88b87f95e5a70995d9a7b685"
+    },
+    {
+      "path": "docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md",
+      "sha256": "e2f94bdef9eaca150498eebe7078153ccfe201b21bd186c21a9013f41dc7a280"
+    },
+    {
+      "path": "contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl",
+      "sha256": "91c0372d3c148562fc6479fdba72403fdde333a44430e3fedf9837c5b4da9a61"
+    },
+    {
+      "path": "docs/governance/ELEMENTARY_CHAT_STARTUP_READ_SEQUENCE.md",
+      "sha256": "329ce8b841e22609b4a2de0f17531263babe8fecd42ed6c85fbb02ce2c0a2a78"
+    },
+    {
+      "path": "docs/governance/ELEMENTARY_DIRECT_MENU_NEW_CHAT_AUTOLOAD_STRATEGY.md",
+      "sha256": "a79030c9f752258c9a01ffe51206dccb853bd98f3ea1e77471ba03eb6bc09b99"
+    },
+    {
+      "path": "docs/governance/RUNNER03_BACKGROUND_MODE_EVIDENCE.md",
+      "sha256": "2a8ea532c8da43779bd2aea67a4c0f01a3b4b39b19dec96c359cf97e160c5c32"
+    },
+    {
+      "path": "docs/governance/BROWSER_BRIDGE_9223_BACKGROUND_EVIDENCE.md",
+      "sha256": "c3082c09e9dbfcdea7011a8a566f92756a106ce0f2051a3f0110834e760563ef"
+    },
+    {
+      "path": "docs/governance/BROWSER_BRIDGE_9223_FINAL_HEALTH_EVIDENCE.md",
+      "sha256": "ef0cb065d937654e4184019224b7906a99f642fe8bc2a5b28e408d8ec9e40b65"
+    },
+    {
+      "path": "contracts/governance/bocore-wsl-user-runtime-inventory-v1.json",
+      "sha256": "c6c4b1efe12de8e0de881b3bd10d0cc6360e93052f2209ff0e63fc2dcf3849e6"
+    }
+  ],
+  "forbidden_value_scan": "PASS",
+  "read_order_validated": true
+}
