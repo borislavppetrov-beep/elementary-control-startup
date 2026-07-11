@@ -1,0 +1,59 @@
+{
+  "schema": "elementary.result-artifact-router.v1",
+  "status": "ACTIVE",
+  "purpose": "Compact routing rules for registering governed outputs and result artifacts.",
+  "routing_priority": [
+    "artifact_kind",
+    "canonical_location",
+    "task_refs",
+    "producer_type",
+    "validation_state"
+  ],
+  "must_register_when": [
+    "a governed chat creates a durable plan, contract, registry entry, report or artifact",
+    "a governed task creates or updates repository files",
+    "a workflow produces an evidence bundle or generated artifact",
+    "a PR, issue, workflow or mirror update changes canonical project state",
+    "a document, spreadsheet, presentation, PDF or generated file is produced for user use",
+    "a result changes startup, runtime, capability, memory, evidence or operational governance"
+  ],
+  "registry_required_for": [
+    "contract",
+    "registry_entry",
+    "generated_index",
+    "generated_hotset",
+    "workflow",
+    "script",
+    "patch",
+    "pull_request",
+    "issue",
+    "report",
+    "document",
+    "spreadsheet",
+    "presentation",
+    "evidence_bundle",
+    "runtime_inventory",
+    "startup_bundle",
+    "mirror_payload"
+  ],
+  "evidence_rules": {
+    "repository_file": "record repository path and commit SHA or PR reference",
+    "workflow_artifact": "record workflow run id, artifact id and digest when available",
+    "local_generated_file": "record sandbox path and SHA-256 when handed to user",
+    "external_document": "record source URL or connector reference when allowed",
+    "chat_only_output": "record conversation/task reference when it materially changes governed operating state"
+  },
+  "do_not_register": [
+    "credential values",
+    "token values",
+    "raw environment dumps",
+    "private key material",
+    "unbounded production execution logs"
+  ],
+  "problem_solution_interlock": {
+    "if_output_contains_new_operational_lesson": "also create or update problem/solution memory",
+    "if_output_only_records_work_product": "result artifact registry is sufficient",
+    "if_failure_or_blocker_discovered": "create problem/solution ledger entry or safe overlay"
+  },
+  "canonical_registry": "contracts/governance/result-artifact-registry-v1.jsonl"
+}
