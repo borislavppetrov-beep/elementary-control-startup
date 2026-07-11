@@ -1,0 +1,69 @@
+{
+  "schema": "elementary.startup-memory-hotset.v1",
+  "status": "ACTIVE",
+  "max_entries": 25,
+  "purpose": "Compact startup memory for new ELEMENTARY chats. Load this instead of the full problem/solution ledger unless deep retrieval is required.",
+  "source_files": [
+    "contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl",
+    "contracts/governance/problem-solution-overlays/*.json"
+  ],
+  "entries": [
+    {
+      "id": "2026-07-11-startup-mirror-token-secret-not-visible",
+      "status": "OPEN",
+      "severity": "BLOCKER",
+      "match": [
+        "MIRROR_TOKEN=",
+        "PUBLIC_STARTUP_MIRROR_TOKEN_REQUIRED=FAIL",
+        "ELEMENTARY_PUBLIC_STARTUP_MIRROR_TOKEN",
+        "startup-mirror-sync"
+      ],
+      "next": "Verify ELEMENTARY_PUBLIC_STARTUP_MIRROR_TOKEN as a repository secret in borislavppetrov-beep/elementary-construction-os, then rerun job 86530413883.",
+      "avoid": "Do not recreate runners or rewrite the mirror workflow before secret visibility is fixed. Do not expose token value."
+    },
+    {
+      "id": "2026-07-11-bocore-runner-wsl-windows-exe-invalid-argument",
+      "status": "MITIGATED",
+      "severity": "HIGH",
+      "match": [
+        "Invalid argument",
+        "powershell.exe",
+        "cmd.exe",
+        "WSL-to-Windows .exe"
+      ],
+      "next": "Route Windows-native operations to Runner 03 or the governed Windows-side service channel.",
+      "avoid": "Do not call Windows .exe directly from WSL/Linux runner jobs."
+    },
+    {
+      "id": "2026-07-11-capability-boundary-native-connectors-not-complete",
+      "status": "RESOLVED",
+      "severity": "HIGH",
+      "match": [
+        "capability unavailable",
+        "connector visibility",
+        "native chat capability",
+        "governed indirect capability"
+      ],
+      "next": "Read startup bundle, owner authorization, runtime inventory and memory index before limitation claims.",
+      "avoid": "Do not treat visible native connectors as complete capability inventory."
+    },
+    {
+      "id": "2026-07-06-bocore-runner-single-lane-capacity",
+      "status": "RESOLVED",
+      "severity": "HIGH",
+      "match": [
+        "runner queue",
+        "single lane",
+        "elementary-ci-fast",
+        "elementary-bocore-extended"
+      ],
+      "next": "Use explicit runner labels for new jobs.",
+      "avoid": "Do not send all workflows to one generic self-hosted lane."
+    }
+  ],
+  "deep_sources": [
+    "docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md",
+    "contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl",
+    "contracts/governance/problem-solution-overlays/*.json"
+  ]
+}

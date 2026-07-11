@@ -2,10 +2,8 @@
   "schema": "elementary.bocore-wsl-user-runtime-inventory.v1",
   "status": "VERIFIED_LIVE_READBACK",
   "repository": "borislavppetrov-beep/elementary-construction-os",
-  "public_mirror_repository": "borislavppetrov-beep/elementary-control-startup",
   "tracking_issue": 553,
   "pull_request": 561,
-  "merged_sha": "c4ddd982b9bb7443b6b54878fbdfd8a034ab00bd",
   "verified_at_utc": "2026-07-11T08:12:39Z",
   "evidence": {
     "workflow": "BoCore WSL user inventory",
@@ -50,5 +48,6 @@
     "sensitive_values_collected": false,
     "environment_values_dumped": false,
     "installed_software_registry_dumped": false
-  }
+  },
+  "canonical_inventory_update_note": "This overlay closes the WSL user-context fields that could not be read from Windows Runner 03 local-system context. The full canonical inventory file should include these values on the next safe write path."
 }

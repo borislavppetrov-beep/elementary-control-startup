@@ -1,0 +1,51 @@
+{
+  "schema": "elementary.problem-solution-memory-kernel.v1",
+  "status": "ACTIVE",
+  "purpose": "Compact cross-chat learning kernel for ELEMENTARY controlled chats.",
+  "source_of_truth": [
+    "contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl",
+    "contracts/governance/problem-solution-overlays/*.json"
+  ],
+  "generated_memory": [
+    "contracts/governance/generated/problem-solution-index-v1.jsonl",
+    "contracts/governance/generated/startup-memory-hotset-v1.json",
+    "contracts/governance/generated/problem-solution-router-v1.json"
+  ],
+  "startup_policy": {
+    "load_full_ledger_by_default": false,
+    "load_generated_hotset_by_default": true,
+    "load_generated_router_by_default": true,
+    "load_generated_index_by_default": true,
+    "deep_ledger_retrieval_only_when_relevant": true
+  },
+  "retrieval_policy": {
+    "priority_order": [
+      "exact_symptom_signature",
+      "scope_match",
+      "active_blocker_match",
+      "root_cause_class_match",
+      "semantic_similarity"
+    ],
+    "status_priority": [
+      "OPEN",
+      "MITIGATED",
+      "RESOLVED",
+      "ARCHIVED"
+    ],
+    "must_check_before_repeated_problem_diagnosis": true,
+    "must_prefer_open_blocker_next_action": true
+  },
+  "writeback_policy": {
+    "new_problem_or_solution_must_create_ledger_entry": true,
+    "safe_overlay_allowed_when_full_file_update_is_risky": true,
+    "full_ledger_jsonl_remains_canonical_source": true,
+    "generated_files_are_compiled_outputs": true
+  },
+  "limits": {
+    "secret_value_disclosure": false,
+    "token_value_disclosure": false,
+    "raw_environment_dump": false,
+    "production_mutation": false,
+    "second_control_plane": false
+  }
+}

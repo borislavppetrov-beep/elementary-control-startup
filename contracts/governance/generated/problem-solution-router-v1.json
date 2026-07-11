@@ -1,0 +1,61 @@
+{
+  "schema": "elementary.problem-solution-router.v1",
+  "status": "ACTIVE",
+  "routing_priority": [
+    "active_blockers",
+    "exact_symptom_signature",
+    "scope",
+    "root_cause_class",
+    "canonical_file"
+  ],
+  "active_blockers": [
+    {
+      "id": "2026-07-11-startup-mirror-token-secret-not-visible",
+      "scope": [
+        "startup-mirror",
+        "github-actions",
+        "repository-secrets"
+      ],
+      "trigger_terms": [
+        "MIRROR_TOKEN=",
+        "PUBLIC_STARTUP_MIRROR_TOKEN_REQUIRED=FAIL",
+        "ELEMENTARY_PUBLIC_STARTUP_MIRROR_TOKEN",
+        "готово 2",
+        "startup mirror sync"
+      ],
+      "next_action": "Rerun failed job 86530413883 only after confirming the exact repository secret exists in borislavppetrov-beep/elementary-construction-os.",
+      "do_not_repeat": [
+        "do not recreate Runner 02",
+        "do not recreate Runner 03",
+        "do not rewrite startup-mirror-sync before checking secret visibility"
+      ]
+    }
+  ],
+  "scope_routes": {
+    "startup-mirror": [
+      "2026-07-11-startup-mirror-token-secret-not-visible"
+    ],
+    "github-actions": [
+      "2026-07-11-startup-mirror-token-secret-not-visible",
+      "2026-07-11-bocore-runner-wsl-windows-exe-invalid-argument",
+      "2026-07-06-bocore-runner-single-lane-capacity",
+      "2026-07-11-github-hosted-runner-unavailable-for-current-repo"
+    ],
+    "capability": [
+      "2026-07-11-capability-boundary-native-connectors-not-complete"
+    ],
+    "production": [
+      "2026-07-03-production-cpanel-no-node-runtime"
+    ],
+    "bocore": [
+      "2026-07-11-bocore-runner-wsl-windows-exe-invalid-argument",
+      "2026-07-06-bocore-runner-single-lane-capacity",
+      "2026-07-11-runner03-windows-background-scheduled-mode"
+    ]
+  },
+  "deep_retrieval_sources": [
+    "docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md",
+    "contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl",
+    "contracts/governance/problem-solution-overlays/*.json"
+  ]
+}

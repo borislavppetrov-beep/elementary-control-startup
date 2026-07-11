@@ -3,7 +3,7 @@
   "status": "ACTIVE_AFTER_MERGE",
   "repository": "borislavppetrov-beep/elementary-construction-os",
   "canonical_branch": "main",
-  "purpose": "Mandatory startup context for every ELEMENTARY controlled chat, specialist chat, governed agent, transfer package and resume package.",
+  "purpose": "Mandatory compact startup context for every ELEMENTARY controlled chat, specialist chat, governed agent, transfer package and resume package.",
   "source_of_truth_rule": {
     "status": "REQUIRED",
     "primary_source_of_truth": "live GitHub repository on canonical branch main",
@@ -19,25 +19,44 @@
     "must_read_before_runtime_version_claim": true,
     "must_read_before_repeated_problem_diagnosis": true,
     "must_read_before_execution": true,
-    "chat_only_memory_allowed": false
+    "chat_only_memory_allowed": false,
+    "full_problem_solution_ledger_loaded_by_default": false,
+    "compact_generated_memory_loaded_by_default": true
+  },
+  "memory_rule": {
+    "status": "ACTIVE",
+    "compact_startup_first": true,
+    "deep_ledger_retrieval_only_when_relevant": true,
+    "memory_kernel": "contracts/governance/memory-kernel-v1.json",
+    "startup_hotset": "contracts/governance/generated/startup-memory-hotset-v1.json",
+    "problem_solution_router": "contracts/governance/generated/problem-solution-router-v1.json",
+    "problem_solution_index": "contracts/governance/generated/problem-solution-index-v1.jsonl",
+    "deep_sources": [
+      "docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md",
+      "contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl",
+      "contracts/governance/problem-solution-overlays/*.json"
+    ]
   },
   "transfer_packaging_rule": {
     "status": "REQUIRED",
     "applies_when": "an existing chat is packaged, rolled over, transferred or resumed in a new chat",
     "must_include_instruction_for_new_chat": true,
-    "instruction_required_text": "Before continuing work, read contracts/governance/chat-startup-context-bundle-v1.json from the live GitHub repository on main when available, then read all files in its read_order. Use uploaded Knowledge only as fallback bootstrap if live repository access is unavailable. Confirm the required startup attestation fields before capability claims, runtime-version claims, repeated-problem diagnoses or execution.",
+    "instruction_required_text": "Before continuing work, read contracts/governance/chat-startup-context-bundle-v1.json from the live GitHub repository on main when available, then read all files in its read_order. Use the compact generated problem/solution memory first. Use full ledger files only as deep retrieval sources when relevant. Use uploaded Knowledge only as fallback bootstrap if live repository access is unavailable. Confirm the required startup attestation fields before capability claims, runtime-version claims, repeated-problem diagnoses or execution.",
     "must_include_or_reference_files": [
       "contracts/governance/chat-startup-context-bundle-v1.json",
       "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
       "contracts/governance/owner-resource-authorization-v1.json",
       "contracts/governance/canonical-software-runtime-inventory-v1.json",
-      "docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md",
-      "contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl"
+      "contracts/governance/memory-kernel-v1.json",
+      "contracts/governance/generated/startup-memory-hotset-v1.json",
+      "contracts/governance/generated/problem-solution-router-v1.json",
+      "contracts/governance/generated/problem-solution-index-v1.jsonl"
     ],
     "resume_attestation_must_confirm": [
       "new_chat_was_instructed_to_read_startup_bundle",
       "startup_bundle_read_order_preserved",
       "live_repository_preferred_over_static_snapshot",
+      "compact_memory_loaded_before_repeated_problem_diagnosis",
       "all_required_startup_attestation_fields_present",
       "drift_writeback_status_reported"
     ],
@@ -61,13 +80,23 @@
     },
     {
       "order": 4,
-      "path": "docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md",
-      "reason": "Human-readable ecosystem problem/solution operating memory."
+      "path": "contracts/governance/memory-kernel-v1.json",
+      "reason": "Rules for compact cross-chat learning and deep ledger retrieval."
     },
     {
       "order": 5,
-      "path": "contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl",
-      "reason": "Machine-readable problem, root cause, evidence, solution and next-action ledger."
+      "path": "contracts/governance/generated/startup-memory-hotset-v1.json",
+      "reason": "Compact active and high-priority problem/solution memory for startup."
+    },
+    {
+      "order": 6,
+      "path": "contracts/governance/generated/problem-solution-router-v1.json",
+      "reason": "Machine routing by scope, active blockers and exact symptom signatures."
+    },
+    {
+      "order": 7,
+      "path": "contracts/governance/generated/problem-solution-index-v1.jsonl",
+      "reason": "Compact machine-readable problem/solution index; full ledger remains deep retrieval source only."
     }
   ],
   "required_startup_attestation_fields": [
@@ -75,19 +104,26 @@
     "CAPABILITY_BOOTSTRAP_LOADED",
     "OWNER_RESOURCE_AUTHORIZATION_LOADED",
     "CANONICAL_SOFTWARE_INVENTORY_LOADED",
-    "ECOSYSTEM_LEARNING_LEDGER_LOADED",
-    "PROBLEM_SOLUTION_LEDGER_LOADED",
+    "MEMORY_KERNEL_LOADED",
+    "STARTUP_MEMORY_HOTSET_LOADED",
+    "PROBLEM_SOLUTION_ROUTER_LOADED",
+    "PROBLEM_SOLUTION_INDEX_LOADED",
     "LIVE_GITHUB_SOURCE_OF_TRUTH_CHECKED",
     "STATIC_KNOWLEDGE_SNAPSHOT_USED_ONLY_AS_FALLBACK",
     "CAPABILITY_BOUNDARY_CHECKED_BEFORE_LIMITATION_CLAIM",
     "RUNTIME_INVENTORY_CHECKED_BEFORE_VERSION_CLAIM",
-    "LEARNING_LEDGER_CHECKED_BEFORE_REPEATED_PROBLEM_DIAGNOSIS",
+    "COMPACT_MEMORY_CHECKED_BEFORE_REPEATED_PROBLEM_DIAGNOSIS",
     "TRANSFER_PACKAGE_INSTRUCTS_NEW_CHAT_TO_READ_STARTUP_BUNDLE"
   ],
+  "compatibility_attestation_aliases": {
+    "ECOSYSTEM_LEARNING_LEDGER_LOADED": "MEMORY_KERNEL_LOADED plus deep source availability checked",
+    "PROBLEM_SOLUTION_LEDGER_LOADED": "PROBLEM_SOLUTION_INDEX_LOADED plus deep source availability checked"
+  },
   "drift_writeback_rule": {
     "capability_or_authorization_drift": "Update contracts/governance/owner-resource-authorization-v1.json or create blocking issue.",
     "software_or_runtime_drift": "Update contracts/governance/canonical-software-runtime-inventory-v1.json or create blocking issue.",
-    "problem_or_solution_drift": "Update docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md and contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl or create blocking issue.",
+    "problem_or_solution_drift": "Update docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md and contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl, or create safe overlay in contracts/governance/problem-solution-overlays/ when full-file update is risky.",
+    "generated_memory_drift": "Run scripts/governance/compile_problem_solution_memory.py and refresh generated problem/solution artifacts.",
     "startup_rule_drift": "Update contracts/governance/chat-startup-context-bundle-v1.json and docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md."
   },
   "limits": {

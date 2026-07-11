@@ -1,0 +1,25 @@
+{
+  "schema": "elementary.public-startup-mirror-sync-status.v1",
+  "status": "READY_TO_SYNC",
+  "source_repository": "borislavppetrov-beep/elementary-construction-os",
+  "public_mirror_repository": "borislavppetrov-beep/elementary-control-startup",
+  "source_sha": "99f2b0230e1fd390869a2fdae208439ee0af35fa",
+  "generated_at_utc": "2026-07-11T11:23:57Z",
+  "required_files_copied": [
+    "contracts/governance/chat-startup-context-bundle-v1.json",
+    "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
+    "contracts/governance/owner-resource-authorization-v1.json",
+    "contracts/governance/canonical-software-runtime-inventory-v1.json",
+    "contracts/governance/memory-kernel-v1.json",
+    "contracts/governance/generated/startup-memory-hotset-v1.json",
+    "contracts/governance/generated/problem-solution-router-v1.json",
+    "contracts/governance/generated/problem-solution-index-v1.jsonl"
+  ],
+  "optional_files_missing": [],
+  "copied_file_count": 16,
+  "forbidden_value_scan": "PASS",
+  "secret_values_collected": false,
+  "environment_variable_values_dumped": false,
+  "production_mutation": false,
+  "source_repository_mutation": false
+}
