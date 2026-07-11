@@ -1,0 +1,54 @@
+{
+  "schema": "elementary.bocore-wsl-user-runtime-inventory.v1",
+  "status": "VERIFIED_LIVE_READBACK",
+  "repository": "borislavppetrov-beep/elementary-construction-os",
+  "public_mirror_repository": "borislavppetrov-beep/elementary-control-startup",
+  "tracking_issue": 553,
+  "pull_request": 561,
+  "merged_sha": "c4ddd982b9bb7443b6b54878fbdfd8a034ab00bd",
+  "verified_at_utc": "2026-07-11T08:12:39Z",
+  "evidence": {
+    "workflow": "BoCore WSL user inventory",
+    "workflow_run_id": 29145744336,
+    "artifact_id": 8246673624,
+    "artifact_name": "bocore-wsl-user-inventory-29145744336",
+    "artifact_digest": "sha256:b065b20add4c39a044a833ea17c1e390976e1111e47470bf2819de9d31fc8155",
+    "collector": "scripts/bocore/collect_wsl_user_inventory.sh",
+    "workflow_file": ".github/workflows/bocore-wsl-user-inventory.yml"
+  },
+  "runner": {
+    "name": "github-actions-runner-02",
+    "os": "Linux",
+    "architecture": "X64",
+    "channel": "RUNNER02_WSL_USER_CONTEXT"
+  },
+  "linux_distribution": {
+    "id": "ubuntu",
+    "pretty_name": "Ubuntu 24.04.4 LTS",
+    "version_id": "24.04",
+    "version_codename": "noble"
+  },
+  "kernel": "Linux BoCore 6.18.33.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun 18 21:54:43 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux",
+  "verified_fields": {
+    "LINUX_DISTRIBUTION_VERSION": "Ubuntu 24.04.4 LTS (ID=ubuntu, VERSION_ID=24.04, CODENAME=noble)",
+    "PYTHON_WSL_VERSION": "Python 3.12.3 (/usr/bin/python3); python command not available",
+    "GIT_WSL_VERSION": "git version 2.43.0 (/usr/bin/git)",
+    "NODE_WSL_VERSION": "v24.18.0 (/usr/local/bin/node)",
+    "NPM_WSL_VERSION": "11.16.0 (/usr/local/bin/npm)",
+    "GITHUB_CLI_WSL_VERSION": "gh version 2.96.0 (2026-07-02)"
+  },
+  "availability": {
+    "python3_available": true,
+    "python_command_available": false,
+    "git_available": true,
+    "node_available": true,
+    "npm_available": true,
+    "github_cli_available": true,
+    "wsl_user_context_verified": true
+  },
+  "collection_policy": {
+    "sensitive_values_collected": false,
+    "environment_values_dumped": false,
+    "installed_software_registry_dumped": false
+  }
+}
