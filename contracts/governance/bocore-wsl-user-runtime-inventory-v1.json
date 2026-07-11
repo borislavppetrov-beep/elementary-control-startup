@@ -3,15 +3,27 @@
   "status": "VERIFIED_LIVE_READBACK",
   "repository": "borislavppetrov-beep/elementary-construction-os",
   "tracking_issue": 553,
-  "pull_request": 561,
-  "verified_at_utc": "2026-07-11T08:12:39Z",
+  "pull_requests": [561, 588],
+  "verified_at_utc": "2026-07-11T15:49:34.2339040Z",
   "evidence": {
-    "workflow": "BoCore WSL user inventory",
-    "workflow_run_id": 29145744336,
-    "artifact_id": 8246673624,
-    "artifact_name": "bocore-wsl-user-inventory-29145744336",
-    "artifact_digest": "sha256:b065b20add4c39a044a833ea17c1e390976e1111e47470bf2819de9d31fc8155",
-    "collector": "scripts/bocore/collect_wsl_user_inventory.sh",
+    "linux_user_context": {
+      "workflow": "BoCore WSL user inventory",
+      "workflow_run_id": 29145744336,
+      "artifact_id": 8246673624,
+      "artifact_name": "bocore-wsl-user-inventory-29145744336",
+      "artifact_digest": "sha256:b065b20add4c39a044a833ea17c1e390976e1111e47470bf2819de9d31fc8155",
+      "collector": "scripts/bocore/collect_wsl_user_inventory.sh"
+    },
+    "windows_interactive_registration_context": {
+      "workflow": "BoCore WSL user inventory",
+      "workflow_run_id": 29158619776,
+      "artifact_id": 8250167876,
+      "artifact_name": "wsl-registration-inventory-29158619776",
+      "artifact_digest": "sha256:85ffc493b86fcab504ff1b975faff33c92f6c67f7043fb67bfd33669b609de8d",
+      "collector": "scripts/bocore/collect_wsl_registration_inventory_via_task.ps1",
+      "channel": "RUNNER03_INTERACTIVE_SCHEDULED_TASK_USER_CONTEXT",
+      "operation": "HKCU_LXSS_DISTRIBUTION_NAME_VALUES"
+    },
     "workflow_file": ".github/workflows/bocore-wsl-user-inventory.yml"
   },
   "runner": {
@@ -19,6 +31,16 @@
     "os": "Linux",
     "architecture": "X64",
     "channel": "RUNNER02_WSL_USER_CONTEXT"
+  },
+  "windows_registration": {
+    "registration_name": "Ubuntu-24.04",
+    "registration_name_count": 1,
+    "source": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Lxss\\*\\DistributionName",
+    "verified_in_interactive_user_context": true,
+    "anchor_user": "boris",
+    "anchor_task": "ELEMENTARY Browser Bridge 9223",
+    "temporary_inventory_task_created": true,
+    "temporary_inventory_task_removed": true
   },
   "linux_distribution": {
     "id": "ubuntu",
@@ -28,6 +50,7 @@
   },
   "kernel": "Linux BoCore 6.18.33.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun 18 21:54:43 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux",
   "verified_fields": {
+    "WSL_REGISTRATION_NAME": "Ubuntu-24.04",
     "LINUX_DISTRIBUTION_VERSION": "Ubuntu 24.04.4 LTS (ID=ubuntu, VERSION_ID=24.04, CODENAME=noble)",
     "PYTHON_WSL_VERSION": "Python 3.12.3 (/usr/bin/python3); python command not available",
     "GIT_WSL_VERSION": "git version 2.43.0 (/usr/bin/git)",
@@ -42,12 +65,24 @@
     "node_available": true,
     "npm_available": true,
     "github_cli_available": true,
-    "wsl_user_context_verified": true
+    "wsl_user_context_verified": true,
+    "wsl_registration_name_verified": true,
+    "wsl_registration_name_available_from_runner02_service_environment": false,
+    "wsl_registration_name_available_from_windows_interactive_context": true
   },
   "collection_policy": {
     "sensitive_values_collected": false,
     "environment_values_dumped": false,
-    "installed_software_registry_dumped": false
+    "installed_software_registry_dumped": false,
+    "bounded_registry_value_read": true,
+    "registry_dumped": false,
+    "runtime_mutation": false,
+    "production_mutation": false
   },
-  "canonical_inventory_update_note": "This overlay closes the WSL user-context fields that could not be read from Windows Runner 03 local-system context. The full canonical inventory file should include these values on the next safe write path."
+  "activation_impact": {
+    "failed_assumption": "Ubuntu",
+    "verified_required_value": "Ubuntu-24.04",
+    "failure_evidence": "Apply run 29158056793 returned WSL_E_DISTRO_NOT_FOUND for registration name Ubuntu.",
+    "required_follow_up": "Update the bounded controlled-runner activation adapter to use exact verified registration name Ubuntu-24.04, validate, and execute Apply only through a new merged activation-request PR."
+  }
 }

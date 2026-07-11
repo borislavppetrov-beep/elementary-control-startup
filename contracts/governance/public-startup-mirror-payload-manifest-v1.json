@@ -1,9 +1,9 @@
 {
   "schema": "elementary.public-startup-mirror-payload.v1",
   "status": "PASS",
-  "generated_at_utc": "2026-07-11T15:30:26Z",
+  "generated_at_utc": "2026-07-11T15:59:11Z",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
-  "source_sha": "9bc15bdd65724dd2eb08d2c3b97852a82a22b06f",
+  "source_sha": "4bdfa3fdaccf01c26e4dc6791f2bd2c08e8308eb",
   "file_count": 21,
   "files": [
     {
@@ -88,7 +88,7 @@
     },
     {
       "path": "contracts/governance/bocore-wsl-user-runtime-inventory-v1.json",
-      "sha256": "c6c4b1efe12de8e0de881b3bd10d0cc6360e93052f2209ff0e63fc2dcf3849e6"
+      "sha256": "f7bca953d688e6d3368b302ffcf4c9e368aa009aabc3fa4124028dc12a8c0591"
     }
   ],
   "forbidden_value_scan": "PASS",
