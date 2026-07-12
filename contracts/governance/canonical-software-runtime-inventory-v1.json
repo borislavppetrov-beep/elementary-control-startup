@@ -164,7 +164,8 @@
       "workflow_run 29165733500",
       "artifact 8252089660 digest sha256:fe2e089be3be26c4387629e54d7f4c0dc4249503cdf32ea68a71f4d2c1dd1b59",
       "PR #645 native Windows Installer backend",
-      "PR #648 bounded native MSI build request"
+      "PR #648 bounded native MSI build request",
+      "Issue #615 development signing run 29203122034 artifact 8262990887"
     ],
     "known_capabilities": [
       "Windows filesystem including C:\\ through governed operations",
@@ -235,7 +236,7 @@
       "edge_file_probe": "unavailable from collector file-path probe, but Edge CDP version is verified through Browser Bridge health"
     },
     "windows_packaging_toolchain": {
-      "evidence_status": "NATIVE_BACKEND_SOURCE_VERIFIED_APPLY_EVIDENCE_PENDING_READBACK",
+      "evidence_status": "NATIVE_MSI_AND_ZERO_BUDGET_DEVELOPMENT_SIGNING_VERIFIED",
       "observed_at_utc": "2026-07-11T19:42:59Z",
       "workflow_run": 29165733500,
       "artifact_id": 8252089660,
@@ -257,7 +258,32 @@
       "canonical_backend": "WindowsInstaller.Installer+makecab.exe",
       "wix_required": false,
       "paid_packaging_dependency_required": false,
-      "legacy_wix_execution_allowed": false
+      "legacy_wix_execution_allowed": false,
+      "development_signing": {
+        "status": "PASS",
+        "run": 29203122034,
+        "job": 86677993655,
+        "source_sha": "97226aaa42860822dc319e3ec0dc831f8a3d085b",
+        "artifact_id": 8262990887,
+        "artifact_digest": "sha256:654d16fbd7188c0082242daa0356a2d7c44a1931da7cbc60830673e24662373a",
+        "unsigned_msi_sha256": "8a417d793ea54e31b18fe212063f1c9f68f1940527a2a2d9f7f0834e2b83c740",
+        "development_signed_msi_sha256": "a39c778a53a2ad25bdfd759ebf25e20dc417e14b56cdc9cf5a955b67bd471d29",
+        "paid_certificate_used": false,
+        "paid_signing_service_used": false,
+        "public_trust_store_mutation": false,
+        "private_key_exported": false,
+        "pfx_created": false,
+        "timestamp_verified": "PASS",
+        "supplied_root_chain_validation": "PASS",
+        "tamper_rejection": "PASS",
+        "expired_certificate_rejection": "PASS",
+        "certificate_store_cleanup": "PASS",
+        "private_key_container_cleanup": "PASS",
+        "msi_installed": false,
+        "runtime_active": false,
+        "production_accepted": false,
+        "distribution_allowed": false
+      }
     },
     "runner_lanes": {
       "runner01_linux_legacy": {

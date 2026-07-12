@@ -1,9 +1,9 @@
 {
   "schema": "elementary.public-startup-mirror-payload.v1",
   "status": "PASS",
-  "generated_at_utc": "2026-07-12T18:06:02Z",
+  "generated_at_utc": "2026-07-12T18:13:46Z",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
-  "source_sha": "97226aaa42860822dc319e3ec0dc831f8a3d085b",
+  "source_sha": "3aac2395c670402b54edeff8d2be906a60bc7ea4",
   "file_count": 21,
   "files": [
     {
@@ -24,7 +24,7 @@
     },
     {
       "path": "contracts/governance/canonical-software-runtime-inventory-v1.json",
-      "sha256": "bb9582cfdf757c97577470f018b6a02756497d233083867470192c6b9ce2739c"
+      "sha256": "22e7e0560ff752e9294f75f54dce2a72466645b3770d03bef7b4b781263432d5"
     },
     {
       "path": "contracts/governance/codex-capability-profile-v1.json",
