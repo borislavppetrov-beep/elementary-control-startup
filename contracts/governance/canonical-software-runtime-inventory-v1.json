@@ -154,7 +154,7 @@
   "bocore_windows_workstation": {
     "evidence_status": "VERIFIED_LIVE_READBACK_PARTIAL_CONTEXT_LIMITS",
     "last_verified_at_utc": "2026-07-11T08:02:39.7348213Z",
-    "packaging_toolchain_last_verified_at_utc": "2026-07-11T19:42:59Z",
+    "packaging_toolchain_last_verified_at_utc": "2026-07-12T18:50:24Z",
     "evidence_sources": [
       "PR #560",
       "workflow_run 29145442735",
@@ -165,7 +165,8 @@
       "artifact 8252089660 digest sha256:fe2e089be3be26c4387629e54d7f4c0dc4249503cdf32ea68a71f4d2c1dd1b59",
       "PR #645 native Windows Installer backend",
       "PR #648 bounded native MSI build request",
-      "Issue #615 development signing run 29203122034 artifact 8262990887"
+      "Issue #615 development signing run 29203122034 artifact 8262990887",
+      "Issue #336 Node MSI acceptance run 29204391799 artifact 8263377088"
     ],
     "known_capabilities": [
       "Windows filesystem including C:\\ through governed operations",
@@ -236,8 +237,8 @@
       "edge_file_probe": "unavailable from collector file-path probe, but Edge CDP version is verified through Browser Bridge health"
     },
     "windows_packaging_toolchain": {
-      "evidence_status": "NATIVE_MSI_AND_ZERO_BUDGET_DEVELOPMENT_SIGNING_VERIFIED",
-      "observed_at_utc": "2026-07-11T19:42:59Z",
+      "evidence_status": "NATIVE_MSI_ZERO_BUDGET_SIGNING_AND_ISOLATED_ACCEPTANCE_VERIFIED",
+      "observed_at_utc": "2026-07-12T18:50:24Z",
       "workflow_run": 29165733500,
       "artifact_id": 8252089660,
       "artifact_digest": "sha256:fe2e089be3be26c4387629e54d7f4c0dc4249503cdf32ea68a71f4d2c1dd1b59",
@@ -280,6 +281,31 @@
         "certificate_store_cleanup": "PASS",
         "private_key_container_cleanup": "PASS",
         "msi_installed": false,
+        "runtime_active": false,
+        "production_accepted": false,
+        "distribution_allowed": false
+      },
+      "native_msi_acceptance": {
+        "status": "PASS",
+        "issue": 336,
+        "run": 29204391799,
+        "source_job": 86681186986,
+        "acceptance_job": 86681749835,
+        "head_sha": "deb563a93292201523f0781b2feb6ba04fb06d65",
+        "artifact_id": 8263377088,
+        "artifact_digest": "sha256:d81e8d6a5a6ec8e9a31692d31229c76caefeea0f745eb14ffb9d0981041a9c36",
+        "signed_msi_sha256": "a39c778a53a2ad25bdfd759ebf25e20dc417e14b56cdc9cf5a955b67bd471d29",
+        "installed": "PASS",
+        "service_registered": "PASS",
+        "service_account": "NT AUTHORITY\\LocalService",
+        "service_start_mode": "Manual",
+        "acl_hardening": "PASS",
+        "health": "PASS",
+        "uninstall": "PASS",
+        "service_removed": "PASS",
+        "clean_reinstall": "PASS",
+        "final_service_running": "PASS",
+        "paid_dependency_used": false,
         "runtime_active": false,
         "production_accepted": false,
         "distribution_allowed": false

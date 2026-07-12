@@ -1,9 +1,9 @@
 {
   "schema": "elementary.public-startup-mirror-payload.v1",
   "status": "PASS",
-  "generated_at_utc": "2026-07-12T18:20:37Z",
+  "generated_at_utc": "2026-07-12T18:59:41Z",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
-  "source_sha": "8e2940e15bc03ae577f600fb5932807303979a79",
+  "source_sha": "5dd41784f9fa52b1e30babecbdc5ab6364579127",
   "file_count": 21,
   "files": [
     {
@@ -16,7 +16,7 @@
     },
     {
       "path": "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
-      "sha256": "eb97378a7d8eef325691fc92c79eaf7c07102aa8cc565a315c527c0e3411e907"
+      "sha256": "5f4d5bfca5227fc17db6b620bfa2baffecb4fa896714e4e248926baac909dac3"
     },
     {
       "path": "contracts/governance/owner-resource-authorization-v1.json",
@@ -24,7 +24,7 @@
     },
     {
       "path": "contracts/governance/canonical-software-runtime-inventory-v1.json",
-      "sha256": "22e7e0560ff752e9294f75f54dce2a72466645b3770d03bef7b4b781263432d5"
+      "sha256": "982ef4a61c68c09b1cd3027c976acdbf5e3dc96fc0bcad3de053c9159b774d59"
     },
     {
       "path": "contracts/governance/codex-capability-profile-v1.json",

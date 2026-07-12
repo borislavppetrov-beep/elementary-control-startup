@@ -121,23 +121,34 @@ It collects bounded version evidence for Windows, PowerShell, WSL, Linux distrib
 
 ### Verified Windows MSI packaging boundary
 
-The bounded PR #613 inventory is the current source of truth for the Windows packaging lane:
+The zero-budget native Windows packaging lane is verified end to end through the built-in `WindowsInstaller.Installer`, `makecab.exe`, PowerShell development signing and the isolated BoCore Windows acceptance runner:
 
 ```text
-WORKFLOW_RUN=29165733500
-ARTIFACT=8252089660
-ARTIFACT_DIGEST=sha256:fe2e089be3be26c4387629e54d7f4c0dc4249503cdf32ea68a71f4d2c1dd1b59
-DOTNET_AVAILABLE=false
-SIGNTOOL_AVAILABLE=false
-WIX_SDK=7.0.0_SOURCE_PIN_ONLY_NOT_RESTORED
-MSI_COMPILE_ATTEMPTED=false
-CODE_SIGNING_IDENTITY_PROBED=false
-RUNTIME_MUTATION=false
-PRODUCTION_MUTATION=false
-BLOCKING_ISSUE=#615
+NATIVE_BACKEND=WindowsInstaller.Installer+makecab.exe
+WIX_REQUIRED=false
+PAID_PACKAGING_DEPENDENCY_REQUIRED=false
+DEVELOPMENT_SIGNING_RUN=29203122034
+DEVELOPMENT_SIGNING_ARTIFACT=8262990887
+DEVELOPMENT_SIGNING_ARTIFACT_DIGEST=sha256:654d16fbd7188c0082242daa0356a2d7c44a1931da7cbc60830673e24662373a
+DEVELOPMENT_SIGNED_MSI_SHA256=a39c778a53a2ad25bdfd759ebf25e20dc417e14b56cdc9cf5a955b67bd471d29
+ISOLATED_ACCEPTANCE_ISSUE=#336
+ISOLATED_ACCEPTANCE_RUN=29204391799
+ISOLATED_ACCEPTANCE_ARTIFACT=8263377088
+ISOLATED_ACCEPTANCE_ARTIFACT_DIGEST=sha256:d81e8d6a5a6ec8e9a31692d31229c76caefeea0f745eb14ffb9d0981041a9c36
+MSI_INSTALL=PASS
+SERVICE_ACCOUNT=NT AUTHORITY\LocalService
+SERVICE_START_MODE=Manual
+ACL_HARDENING=PASS
+HEALTH=PASS
+UNINSTALL=PASS
+CLEAN_REINSTALL=PASS
+FINAL_SERVICE_RUNNING=PASS
+RUNTIME_ACTIVE=false
+PRODUCTION_ACCEPTED=false
+DISTRIBUTION_ALLOWED=false
 ```
 
-Chats and agents must not claim that BoCore can compile or sign the Node MSI until Issue #615 provides newer verified readback. WiX 7.0.0 is a source dependency declaration, not proof that the SDK is restored or installed. Certificate-store or private-key availability must never be inferred from the presence or absence of `signtool.exe`.
+The development signing identity is ephemeral and non-exportable; no PFX, paid certificate, paid signing service or public trust-store mutation is used. This proves zero-budget development packaging, signing and isolated machine acceptance. It does not by itself activate ADCP polling, work execution, live enrollment, production acceptance or public distribution.
 
 ## Ecosystem learning ledger
 
