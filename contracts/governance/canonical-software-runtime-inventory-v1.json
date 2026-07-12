@@ -162,7 +162,9 @@
       "docs/governance/BROWSER_BRIDGE_9223_FINAL_HEALTH_EVIDENCE.md",
       "PR #613",
       "workflow_run 29165733500",
-      "artifact 8252089660 digest sha256:fe2e089be3be26c4387629e54d7f4c0dc4249503cdf32ea68a71f4d2c1dd1b59"
+      "artifact 8252089660 digest sha256:fe2e089be3be26c4387629e54d7f4c0dc4249503cdf32ea68a71f4d2c1dd1b59",
+      "PR #645 native Windows Installer backend",
+      "PR #648 bounded native MSI build request"
     ],
     "known_capabilities": [
       "Windows filesystem including C:\\ through governed operations",
@@ -206,7 +208,7 @@
       "codex_cli": "NOT_AVAILABLE_IN_RUNNER03_WINDOWS_CONTEXT",
       "dotnet": "NOT_AVAILABLE_IN_RUNNER03_WINDOWS_CONTEXT",
       "signtool": "NOT_AVAILABLE_IN_RUNNER03_WINDOWS_CONTEXT",
-      "wix_sdk_declared": "7.0.0_SOURCE_PIN_ONLY_NOT_RESTORED"
+      "wix_sdk_declared": "7.0.0_LEGACY_PROHIBITED_IN_ACTIVE_ZERO_BUDGET_LANE"
     },
     "availability_fields": {
       "node_available": true,
@@ -222,8 +224,8 @@
       "wsl_distro_execution_from_runner03_service_context": false,
       "dotnet_available": false,
       "signtool_available": false,
-      "wix_restore_attempted": false,
-      "msi_compile_attempted": false
+      "wix_restore_attempted": true,
+      "msi_compile_attempted": true
     },
     "service_context_limits": {
       "wsl_status": "Running WSL as local system is not supported. Error code: Wsl/WSL_E_LOCAL_SYSTEM_NOT_SUPPORTED",
@@ -233,7 +235,7 @@
       "edge_file_probe": "unavailable from collector file-path probe, but Edge CDP version is verified through Browser Bridge health"
     },
     "windows_packaging_toolchain": {
-      "evidence_status": "VERIFIED_UNAVAILABLE_IN_RUNNER03_CONTEXT",
+      "evidence_status": "NATIVE_BACKEND_SOURCE_VERIFIED_APPLY_EVIDENCE_PENDING_READBACK",
       "observed_at_utc": "2026-07-11T19:42:59Z",
       "workflow_run": 29165733500,
       "artifact_id": 8252089660,
@@ -241,9 +243,9 @@
       "dotnet_available": false,
       "dotnet_version": null,
       "signtool_available": false,
-      "wix_sdk_source_pin": "7.0.0",
+      "wix_sdk_source_pin": "7.0.0_LEGACY_SUPERSEDED",
       "wix_sdk_restored": false,
-      "msi_compile_attempted": false,
+      "msi_compile_attempted": true,
       "certificate_store_probed": false,
       "code_signing_identity_probed": false,
       "powershell_source_syntax": "PASS",
@@ -251,7 +253,11 @@
       "secret_values_collected": false,
       "runtime_mutation": false,
       "production_mutation": false,
-      "blocking_issue": 615
+      "blocking_issue": 615,
+      "canonical_backend": "WindowsInstaller.Installer+makecab.exe",
+      "wix_required": false,
+      "paid_packaging_dependency_required": false,
+      "legacy_wix_execution_allowed": false
     },
     "runner_lanes": {
       "runner01_linux_legacy": {
@@ -294,5 +300,13 @@
       "never claim HTML has an installed runtime version",
       "write discovered runtime/version drift back to this inventory or record a blocking follow-up issue"
     ]
+  },
+  "zero_budget_operation": {
+    "policy": "contracts/governance/zero-budget-operational-dependency-policy-v1.json",
+    "inventory": "contracts/governance/zero-budget-operational-dependency-inventory-v1.json",
+    "mandatory_incremental_license_budget_eur": 0,
+    "active_paid_packaging_dependency": false,
+    "canonical_node_msi_backend": "WindowsInstaller.Installer+makecab.exe",
+    "external_services_mandatory": false
   }
 }
