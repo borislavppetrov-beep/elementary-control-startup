@@ -1,9 +1,9 @@
 {
   "schema": "elementary.public-startup-mirror-payload.v1",
   "status": "PASS",
-  "generated_at_utc": "2026-07-12T14:13:04Z",
+  "generated_at_utc": "2026-07-12T14:28:00Z",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
-  "source_sha": "2f5a8c53f712bd3fc7470b35aa61399d27fb833a",
+  "source_sha": "607d1a7f8d9e5b185ec4ac1ec84dd328f7c17453",
   "file_count": 21,
   "files": [
     {
