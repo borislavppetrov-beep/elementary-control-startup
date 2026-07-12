@@ -24,7 +24,23 @@
     "chat_only_memory_allowed": false,
     "full_problem_solution_ledger_loaded_by_default": false,
     "compact_generated_memory_loaded_by_default": true,
-    "result_artifact_writeback_loaded_by_default": true
+    "result_artifact_writeback_loaded_by_default": true,
+    "must_read_complete_file_content": true,
+    "metadata_or_filename_only_does_not_count_as_read": true,
+    "partial_or_truncated_tool_output_does_not_count_as_complete": true,
+    "must_continue_until_end_of_every_read_order_file": true
+  },
+  "full_content_read_rule": {
+    "status": "REQUIRED",
+    "definition_of_read": "The complete substantive content of the startup bundle and every file in read_order has been retrieved and processed from beginning to end.",
+    "opening_or_fetching_file_is_not_sufficient": true,
+    "filename_metadata_sha_or_first_page_only_is_not_sufficient": true,
+    "truncated_response_requires_continuation": true,
+    "paginated_or_line_ranged_response_requires_all_remaining_ranges": true,
+    "jsonl_requires_every_line": true,
+    "attestation_must_not_be_pass_before_completion": true,
+    "required_attestation_field": "FULL_READ_ORDER_CONTENT_READ",
+    "allowed_pass_value": "PASS"
   },
   "codex_rule": {
     "status": "ACTIVE",
@@ -64,7 +80,7 @@
     "status": "REQUIRED",
     "applies_when": "an existing chat is packaged, rolled over, transferred or resumed in a new chat",
     "must_include_instruction_for_new_chat": true,
-    "instruction_required_text": "Before continuing work, read contracts/governance/chat-startup-context-bundle-v1.json from the live GitHub repository on main when available, then read all files in its read_order. For Codex repository work, also obey AGENTS.md. Distinguish product availability, project integration and live runtime activation. Use the compact generated problem/solution memory first. Register produced outputs through the result/artifact writeback policy. Use full ledger files only as deep retrieval sources when relevant. Use uploaded Knowledge only as fallback bootstrap if live repository access is unavailable. Confirm the required startup attestation fields before capability claims, runtime-version claims, repeated-problem diagnoses, result/artifact claims or execution.",
+    "instruction_required_text": "Before continuing work, read contracts/governance/chat-startup-context-bundle-v1.json from the live GitHub repository on main when available, then read the complete substantive content of every file in its read_order from beginning to end. Merely opening a file, reading metadata, reading only the first returned chunk, or receiving truncated output does not count as read; continue through every remaining line or range before attesting PASS. For Codex repository work, also obey AGENTS.md. Distinguish product availability, project integration and live runtime activation. Use the compact generated problem/solution memory first. Register produced outputs through the result/artifact writeback policy. Use full ledger files only as deep retrieval sources when relevant. Use uploaded Knowledge only as fallback bootstrap if live repository access is unavailable. Confirm the required startup attestation fields, including FULL_READ_ORDER_CONTENT_READ=PASS, before capability claims, runtime-version claims, repeated-problem diagnoses, result/artifact claims or execution.",
     "must_include_or_reference_files": [
       "AGENTS.md",
       "contracts/governance/chat-startup-context-bundle-v1.json",
@@ -83,6 +99,7 @@
     "resume_attestation_must_confirm": [
       "new_chat_was_instructed_to_read_startup_bundle",
       "startup_bundle_read_order_preserved",
+      "complete_substantive_content_of_every_read_order_file_was_read",
       "live_repository_preferred_over_static_snapshot",
       "codex_capability_profile_loaded_before_codex_claim",
       "compact_memory_loaded_before_repeated_problem_diagnosis",
@@ -151,6 +168,7 @@
   ],
   "required_startup_attestation_fields": [
     "CHAT_STARTUP_CONTEXT_BUNDLE_LOADED",
+    "FULL_READ_ORDER_CONTENT_READ",
     "CAPABILITY_BOOTSTRAP_LOADED",
     "OWNER_RESOURCE_AUTHORIZATION_LOADED",
     "CANONICAL_SOFTWARE_INVENTORY_LOADED",

@@ -1,9 +1,9 @@
 {
   "schema": "elementary.public-startup-mirror-payload.v1",
   "status": "PASS",
-  "generated_at_utc": "2026-07-12T17:35:18Z",
+  "generated_at_utc": "2026-07-12T17:45:34Z",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
-  "source_sha": "cd586ab83b9d9f00849f08cd300a79ffb2a3bbf9",
+  "source_sha": "154172bc39868e26c546823b774f61d295e62718",
   "file_count": 21,
   "files": [
     {
@@ -12,11 +12,11 @@
     },
     {
       "path": "contracts/governance/chat-startup-context-bundle-v1.json",
-      "sha256": "2d85bb8e16effacef11f7681d130a2f6aeda366736cc7fb106ad1cde76b3dc8d"
+      "sha256": "0864581db42e5d3b321f1b61b500461cbce9999851df1fdb3581242d71d43c74"
     },
     {
       "path": "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
-      "sha256": "6d8fe1530a0d360f6ba54aa1b4281131f877a3f0e36c3bdb78c7ca384c892e67"
+      "sha256": "eb97378a7d8eef325691fc92c79eaf7c07102aa8cc565a315c527c0e3411e907"
     },
     {
       "path": "contracts/governance/owner-resource-authorization-v1.json",
@@ -68,7 +68,7 @@
     },
     {
       "path": "docs/governance/ELEMENTARY_CHAT_STARTUP_READ_SEQUENCE.md",
-      "sha256": "329ce8b841e22609b4a2de0f17531263babe8fecd42ed6c85fbb02ce2c0a2a78"
+      "sha256": "fa1f918b7f0a592b7258b71988d4a39c3305f375ded82c00acf478ddc42e129d"
     },
     {
       "path": "docs/governance/ELEMENTARY_DIRECT_MENU_NEW_CHAT_AUTOLOAD_STRATEGY.md",

@@ -240,3 +240,11 @@ contracts/governance/generated/result-artifact-router-v1.json
 ```
 
 The resume attestation must confirm the complete bundle `read_order`, including `CODEX_CAPABILITY_PROFILE_LOADED`, before reporting capability boundaries, Codex state, runtime versions, repeated problems or beginning execution.
+
+## Mandatory full-content startup read
+
+A startup source is not considered read merely because its path was opened, its metadata or SHA was returned, or its first chunk was retrieved. The complete substantive content of the startup bundle and every file in its `read_order` must be processed from beginning to end.
+
+When connector output is truncated, paginated or limited to a line range, every remaining page or range must be retrieved. Every JSONL record must be read. Until that is complete, the chat or agent must not return `FULL_READ_ORDER_CONTENT_READ=PASS` and must not claim that startup loading is complete.
+
+Every transfer/resume package must preserve this requirement explicitly. A `PASS` attestation based only on file opening, path enumeration, metadata, summaries or partial content is invalid.

@@ -8,6 +8,19 @@ Canonical startup bundle:
 contracts/governance/chat-startup-context-bundle-v1.json
 ```
 
+## Mandatory full-content read rule
+
+`Read`, `loaded` and `completed` mean that the complete substantive content of the startup bundle and every file in its `read_order` has been retrieved and processed from beginning to end.
+
+The following do **not** count as a completed read:
+
+- opening or fetching a file without processing its content;
+- reading only its filename, metadata, SHA, summary or first returned chunk;
+- accepting tool output that is marked truncated;
+- omitting later pages, line ranges or JSONL records.
+
+When a connector or tool truncates, paginates or line-ranges a response, the chat or agent must continue through every remaining part before returning `PASS`. It must not claim completion merely because all file paths were contacted.
+
 Mandatory startup read order:
 
 ```text
@@ -30,6 +43,7 @@ Required startup attestation fields include:
 
 ```text
 CHAT_STARTUP_CONTEXT_BUNDLE_LOADED=PASS
+FULL_READ_ORDER_CONTENT_READ=PASS
 CAPABILITY_BOOTSTRAP_LOADED=PASS
 OWNER_RESOURCE_AUTHORIZATION_LOADED=PASS
 CANONICAL_SOFTWARE_INVENTORY_LOADED=PASS
@@ -48,12 +62,14 @@ RESULT_ARTIFACT_WRITEBACK_CHECKED_BEFORE_RESULT_CLAIM=PASS
 TRANSFER_PACKAGE_INSTRUCTS_NEW_CHAT_TO_READ_STARTUP_BUNDLE=PASS
 ```
 
+`FULL_READ_ORDER_CONTENT_READ=PASS` is forbidden until the startup bundle and all files in `read_order` have been read completely. When any response is truncated or partial, this field must remain `FAIL`, `INCOMPLETE` or `BLOCKED` until the missing content is retrieved.
+
 A chat or agent must not claim that a capability is unavailable, guess a runtime version, collapse Codex product availability into runtime activation, repeat a known diagnosis or claim a durable result until the required startup sources have been checked.
 
 ## Transfer packaging rule
 
-Whenever an active chat is packaged, rolled over, transferred or resumed in a new chat, the generated package must explicitly instruct the receiving chat to read the live startup bundle and its complete `read_order`. For Codex work it must also reference `AGENTS.md`.
+Whenever an active chat is packaged, rolled over, transferred or resumed in a new chat, the generated package must explicitly instruct the receiving chat to read the live startup bundle and the complete substantive content of every file in its `read_order`. For Codex work it must also reference `AGENTS.md`.
 
-A transfer package is invalid if it omits the startup instruction, fails to preserve the read order, omits the Codex profile when Codex is involved, or omits result/artifact writeback requirements.
+A transfer package is invalid if it omits the startup instruction, treats file opening as full reading, fails to preserve the read order, omits the Codex profile when Codex is involved, or omits result/artifact writeback requirements.
 
 When any startup file changes, the next transfer/resume package must cite the new state and include the current startup attestation.
