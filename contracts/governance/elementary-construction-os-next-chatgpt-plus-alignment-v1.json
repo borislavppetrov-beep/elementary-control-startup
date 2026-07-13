@@ -1,0 +1,84 @@
+{
+  "schema": "elementary.construction-os-next.chatgpt-plus-alignment.v1",
+  "status": "CANONICAL_SUBORDINATE_ALIGNMENT",
+  "effective_date": "2026-07-13",
+  "authority": {
+    "owner_direction": "Apply current ChatGPT Plus capabilities across all ELEMENTARY work and determine whether the overall plan requires update.",
+    "master_plan": "contracts/governance/elementary-construction-os-next-master-plan-v1.json",
+    "architecture_document": "docs/architecture/ELEMENTARY_CONSTRUCTION_OS_NEXT_MASTER_PLAN_V1.md",
+    "capability_document": "docs/architecture/ELEMENTARY_CHATGPT_PLUS_EXECUTION_SURFACE_V1.md",
+    "capability_profile": "contracts/governance/chatgpt-plus-capability-profile-v1.json"
+  },
+  "decision": {
+    "overall_plan_update_required": true,
+    "update_type": "CROSS_CUTTING_CAPABILITY_AND_DELIVERY_ALIGNMENT",
+    "business_architecture_rewrite_required": false,
+    "roadmap_replacement_required": false,
+    "new_architecture_line_created": false,
+    "new_control_plane_created": false,
+    "new_scheduler_authority_created": false,
+    "n0_to_n9_sequence_changed": false,
+    "master_plan_version_effect": "1.0.0 plus this canonical subordinate alignment; consolidate into the next planned master revision"
+  },
+  "preserved_invariants": [
+    "ONE_ERP",
+    "ONE_MASTER_PLAN",
+    "ONE_CONTROL_PLANE",
+    "ONE_SOURCE_RELEASE_PLANE",
+    "NO_CHAT_MEMORY_AS_SOURCE_OF_TRUTH",
+    "NO_PROVIDER_OWNS_CANONICAL_BUSINESS_TRUTH",
+    "GOVERNED_EXECUTION_ONLY",
+    "ZERO_INCREMENTAL_MANDATORY_RUNTIME_LICENSE_BUDGET"
+  ],
+  "execution_surface": {
+    "provider": "OpenAI ChatGPT Plus",
+    "role": "OPTIONAL_PERSONAL_EXECUTION_AND_INTERACTION_SURFACE",
+    "canonical_truth": false,
+    "orchestration_authority": false,
+    "release_authority": false,
+    "evidence_authority": false,
+    "activation_model": "CAPABILITY_BY_CAPABILITY_AFTER_PRODUCT_ACCOUNT_PROJECT_RUNTIME_CHECKS"
+  },
+  "global_application": {
+    "work": "Preferred for multi-stage deliverables, cross-app synthesis and document/presentation/spreadsheet/report creation when account-visible.",
+    "codex": "Preferred for bounded repository coding, testing and review under branch/worktree, PR and CI rules.",
+    "scheduled_tasks": "Preferred for recurring informational delivery and condition monitoring that does not duplicate ADCP lifecycle authority.",
+    "plugins_and_apps": "Use least privilege and explicit confirmation for external writes; verify plan, region and connection.",
+    "deep_research": "Use for source-restricted cited research; connected-app actions remain read-only.",
+    "projects_memory_custom_gpts": "Use for continuity and reusable working context, never as canonical truth.",
+    "browser_vision_files": "Use for evidence review and UI/document/image analysis with provenance and rights controls.",
+    "record_voice_video": "Use for intake and meeting assistance; require explicit promotion receipt before canonicalization.",
+    "sites_canvas": "Use for bounded prototypes when visible; no production publication without separate acceptance."
+  },
+  "stage_application": {
+    "N0": ["deep_research", "work", "projects"],
+    "N1": ["work", "connected_apps", "files"],
+    "N2": ["codex", "vision", "files"],
+    "N3": ["work", "spreadsheets", "interactive_analysis"],
+    "N4": ["deep_research", "work"],
+    "N5": ["work", "scheduled_tasks", "connected_apps"],
+    "N5A": ["work", "scheduled_tasks", "connected_apps"],
+    "N6": ["vision", "images", "files", "browser", "node_workers"],
+    "N7": ["codex", "files", "vision"],
+    "N8": ["plugins", "apps", "work"],
+    "N9": ["scheduled_tasks", "work", "codex", "independent_verification"]
+  },
+  "plan_boundaries": {
+    "openai_api_included": false,
+    "full_custom_mcp_write_on_plus": false,
+    "business_workspace_governance_included": false,
+    "custom_apps_in_agent_mode": false,
+    "deep_research_custom_app_actions": "READ_AND_FETCH_ONLY",
+    "rollout_and_region_check_required": true,
+    "sites_and_computer_use_region_caveat_required": true
+  },
+  "acceptance": {
+    "official_openai_source_current": true,
+    "product_account_project_runtime_levels_separated": true,
+    "all_master_stages_mapped": true,
+    "external_write_confirmation_required": true,
+    "artifact_writeback_required": true,
+    "provider_neutral_fallback_required": true,
+    "production_mutation_authorized": false
+  }
+}

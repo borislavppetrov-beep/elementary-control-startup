@@ -1,0 +1,234 @@
+{
+  "schema": "elementary.chatgpt-plus-capability-profile.v1",
+  "status": "ACTIVE",
+  "observed_at_utc": "2026-07-13T00:00:00Z",
+  "account_plan": "ChatGPT Plus personal",
+  "repository": "borislavppetrov-beep/elementary-construction-os",
+  "purpose": "Canonical plan-aware classification of current ChatGPT Plus product capabilities, account-visible surfaces, ELEMENTARY project verification and live runtime activation.",
+  "classification_rule": {
+    "product_available": "Documented by a current official OpenAI source for ChatGPT Plus or all ChatGPT plans. This does not prove rollout, account visibility, regional availability, connection, authorization or successful execution.",
+    "account_visible": "The capability is visible in the owner's current ChatGPT account or current chat tool inventory. Visibility can vary by rollout, platform and region.",
+    "project_verified": "The capability or governed integration is verified in ELEMENTARY repository source, connected tools or immutable execution evidence.",
+    "runtime_active": "The capability has current live readback or execution evidence in the applicable surface.",
+    "must_not_collapse_levels": true,
+    "must_recheck_after_product_plan_region_or_ui_change": true
+  },
+  "official_sources": [
+    {
+      "title": "ChatGPT pricing",
+      "url": "https://chatgpt.com/pricing/",
+      "role": "current Plus feature and plan comparison"
+    },
+    {
+      "title": "ChatGPT Plus",
+      "url": "https://openai.com/chatgpt/plus/",
+      "role": "Plus product overview"
+    },
+    {
+      "title": "ChatGPT release notes",
+      "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+      "role": "current rollout, platform and regional caveats"
+    },
+    {
+      "title": "ChatGPT Work",
+      "url": "https://openai.com/index/introducing-chatgpt-work/",
+      "role": "Work execution surface and approval behavior"
+    },
+    {
+      "title": "Developer mode and custom MCP apps",
+      "url": "https://help.openai.com/en/articles/12584461-developer-mode-and-custom-mcp-apps-in-chatgpt",
+      "role": "custom MCP plan boundary and action restrictions"
+    },
+    {
+      "title": "Deep research in ChatGPT",
+      "url": "https://help.openai.com/en/articles/10500283-deep-research-in-chatgpt",
+      "role": "research planning, sources, connected-app read boundary and export"
+    }
+  ],
+  "plus_product_capabilities": {
+    "models_and_reasoning": {
+      "classification": "PRODUCT_AVAILABLE",
+      "capabilities": [
+        "GPT-5.6 advanced reasoning",
+        "expanded messages and uploads",
+        "expanded memory and context",
+        "vision and file analysis",
+        "interactive tables and charts",
+        "image generation including reasoning-assisted generation"
+      ]
+    },
+    "work": {
+      "classification": "PRODUCT_AVAILABLE_ROLLOUT_DEPENDENT",
+      "capabilities": [
+        "multi-step work across apps, files, browser and approved context",
+        "documents, presentations, spreadsheets, reports and site prototypes",
+        "recurring work and update watching",
+        "approval requests before consequential actions",
+        "desktop use of local files, apps, browser and Codex"
+      ]
+    },
+    "codex": {
+      "classification": "PRODUCT_AVAILABLE",
+      "capabilities": [
+        "desktop, web, cloud, CLI and IDE coding surfaces subject to actual connection",
+        "background and remote coding tasks",
+        "multiple repository workflows and pull-request review",
+        "computer and browser use where available",
+        "isolated worktrees, subagents and structured execution"
+      ],
+      "project_profile": "contracts/governance/codex-capability-profile-v1.json"
+    },
+    "scheduled_tasks": {
+      "classification": "PRODUCT_AVAILABLE",
+      "capabilities": [
+        "one-time and recurring tasks",
+        "condition monitoring and meaningful-change notification",
+        "web and connected-app monitoring",
+        "maximum supported frequency once per hour"
+      ]
+    },
+    "projects_and_memory": {
+      "classification": "PRODUCT_AVAILABLE",
+      "capabilities": [
+        "projects and shared projects",
+        "expanded memory",
+        "past-chat memory",
+        "custom GPT creation"
+      ]
+    },
+    "plugins_and_apps": {
+      "classification": "PRODUCT_AVAILABLE_PLAN_AND_APP_DEPENDENT",
+      "capabilities": [
+        "Plugin Directory connections",
+        "approved read and selected action capabilities",
+        "personal permission controls",
+        "apps connecting to external and internal tools when supported"
+      ]
+    },
+    "deep_research": {
+      "classification": "PRODUCT_AVAILABLE",
+      "capabilities": [
+        "editable research plan",
+        "site restriction and prioritization",
+        "connected-app research with read-only app actions",
+        "citations, activity history and report export"
+      ]
+    },
+    "browser_and_media": {
+      "classification": "PRODUCT_AVAILABLE_WITH_PLATFORM_REGION_CAVEATS",
+      "capabilities": [
+        "built-in browser",
+        "voice and video",
+        "record mode",
+        "Sites beta",
+        "desktop local-file and local-app context"
+      ]
+    }
+  },
+  "plan_boundaries": {
+    "api_usage_included_in_plus": false,
+    "api_billing_separate": true,
+    "usage_limits_may_vary": true,
+    "workspace_agents_available": false,
+    "company_knowledge_available": false,
+    "dedicated_workspace_available": false,
+    "admin_console_available": false,
+    "sso_available": false,
+    "centralized_app_governance_available": false,
+    "full_custom_mcp_write_apps_available_on_plus": false,
+    "full_custom_mcp_write_apps_current_plans": [
+      "Business",
+      "Enterprise",
+      "Edu"
+    ],
+    "custom_apps_in_agent_mode": false,
+    "custom_apps_in_deep_research": "READ_AND_FETCH_ONLY",
+    "sites_public_publishing_in_eea": "ROLLOUT_OR_REGION_DEPENDENT_UNVERIFIED",
+    "computer_use_in_eea": "SURFACE_AND_ROLLOUT_DEPENDENT_UNVERIFIED"
+  },
+  "elementary_operating_model": {
+    "role": "OPTIONAL_PERSONAL_EXECUTION_AND_INTERACTION_SURFACE",
+    "source_of_truth": false,
+    "control_plane": false,
+    "scheduler_authority": false,
+    "release_authority": false,
+    "evidence_authority": false,
+    "canonical_authorities": {
+      "business_truth": "ELEMENTARY Construction OS",
+      "orchestration": "ADCP",
+      "source_release": "GitHub",
+      "policy": "ELEMENTARY Agent Governance"
+    },
+    "required_behavior": [
+      "use the strongest account-visible capability when it reduces manual steps without weakening governance",
+      "prefer Work for multi-stage deliverables and cross-app synthesis when visible",
+      "prefer scheduled tasks for recurring monitoring and meaningful-change alerts that do not require ADCP lifecycle authority",
+      "prefer Codex for bounded repository coding under isolated branch/worktree and pull-request rules",
+      "use plugins and apps only with least-privilege permission and explicit confirmation for external writes",
+      "use deep research for evidence acquisition and cited synthesis, not authoritative mutation",
+      "use projects and memory for continuity and convenience, never as canonical project truth",
+      "register durable outputs and execution evidence in the canonical repository",
+      "retain browser, GitHub OIDC, Node and manual governed fallbacks for product or rollout unavailability"
+    ]
+  },
+  "workflow_mapping": {
+    "research_and_regulatory_evidence": [
+      "deep_research",
+      "search",
+      "plugins_read",
+      "cited_report_export"
+    ],
+    "documents_presentations_spreadsheets": [
+      "work",
+      "connected_apps",
+      "local_files",
+      "artifact_writeback"
+    ],
+    "software_delivery": [
+      "codex",
+      "github_connector",
+      "isolated_branch_or_worktree",
+      "pull_request",
+      "ci_evidence"
+    ],
+    "recurring_operations": [
+      "scheduled_tasks",
+      "condition_watch",
+      "meaningful_change_notification"
+    ],
+    "meetings_and_intake": [
+      "record_mode_when_visible",
+      "voice_and_video",
+      "explicit_promotion_to_business_dossier"
+    ],
+    "prototypes_and_public_surfaces": [
+      "sites_beta_when_visible",
+      "canvas",
+      "image_generation",
+      "governed_export"
+    ]
+  },
+  "acceptance_gates": [
+    "official_source_current",
+    "account_surface_visible",
+    "plan_and_region_allowed",
+    "connection_and_permissions_verified",
+    "task_scope_and_authority_admitted",
+    "external_write_confirmation_present",
+    "output_and_evidence_written_back",
+    "fallback_and_portability_preserved"
+  ],
+  "startup_requirements": {
+    "must_load_during_chat_bootstrap": true,
+    "must_load_before_chatgpt_plan_or_feature_claim": true,
+    "must_distinguish_product_account_project_and_runtime_state": true,
+    "attestation_field": "CHATGPT_PLUS_CAPABILITY_PROFILE_LOADED"
+  },
+  "drift_writeback": {
+    "plan_or_product_change": "Update this profile from current official OpenAI sources.",
+    "account_visibility_change": "Record account-visible evidence without exposing private content or credentials.",
+    "project_integration_change": "Update owner authorization, capability bootstrap and applicable integration contracts.",
+    "runtime_change": "Update the canonical runtime inventory or a dedicated runtime evidence record.",
+    "durable_output": "Register through the result/artifact writeback policy."
+  }
+}

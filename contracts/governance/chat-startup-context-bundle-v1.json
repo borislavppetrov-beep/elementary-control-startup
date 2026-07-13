@@ -21,6 +21,7 @@
     "must_read_before_execution": true,
     "must_read_before_result_or_artifact_claim": true,
     "must_read_before_codex_use_or_claim": true,
+    "must_read_before_chatgpt_plan_or_feature_claim": true,
     "chat_only_memory_allowed": false,
     "full_problem_solution_ledger_loaded_by_default": false,
     "compact_generated_memory_loaded_by_default": true,
@@ -50,6 +51,15 @@
     "owner_installation_report_requires_live_runtime_readback": true,
     "existing_adcp_and_bocore_authority_preserved": true,
     "no_second_control_plane": true
+  },
+  "chatgpt_plus_rule": {
+    "status": "ACTIVE",
+    "profile": "contracts/governance/chatgpt-plus-capability-profile-v1.json",
+    "architecture_alignment": "docs/architecture/ELEMENTARY_CHATGPT_PLUS_EXECUTION_SURFACE_V1.md",
+    "must_distinguish_product_account_project_and_runtime_state": true,
+    "must_recheck_official_openai_sources_for_current_plan_or_feature_claims": true,
+    "must_not_infer_full_custom_mcp_write_support_from_generic_developer_mode": true,
+    "existing_adcp_github_and_agent_governance_authority_preserved": true
   },
   "memory_rule": {
     "status": "ACTIVE",
@@ -87,6 +97,7 @@
       "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
       "contracts/governance/owner-resource-authorization-v1.json",
       "contracts/governance/canonical-software-runtime-inventory-v1.json",
+      "contracts/governance/chatgpt-plus-capability-profile-v1.json",
       "contracts/governance/codex-capability-profile-v1.json",
       "contracts/governance/memory-kernel-v1.json",
       "contracts/governance/generated/startup-memory-hotset-v1.json",
@@ -127,41 +138,46 @@
     },
     {
       "order": 4,
+      "path": "contracts/governance/chatgpt-plus-capability-profile-v1.json",
+      "reason": "Current ChatGPT Plus plan, product, account-surface, project-integration and runtime capability classification and governance."
+    },
+    {
+      "order": 5,
       "path": "contracts/governance/codex-capability-profile-v1.json",
       "reason": "Codex product, project-integration and live-runtime capability classification and governance."
     },
     {
-      "order": 5,
+      "order": 6,
       "path": "contracts/governance/memory-kernel-v1.json",
       "reason": "Rules for compact cross-chat learning and deep ledger retrieval."
     },
     {
-      "order": 6,
+      "order": 7,
       "path": "contracts/governance/generated/startup-memory-hotset-v1.json",
       "reason": "Compact active and high-priority problem/solution memory for startup."
     },
     {
-      "order": 7,
+      "order": 8,
       "path": "contracts/governance/generated/problem-solution-router-v1.json",
       "reason": "Machine routing by scope, active blockers and exact symptom signatures."
     },
     {
-      "order": 8,
+      "order": 9,
       "path": "contracts/governance/generated/problem-solution-index-v1.jsonl",
       "reason": "Compact machine-readable problem/solution index; full ledger remains deep retrieval source only."
     },
     {
-      "order": 9,
+      "order": 10,
       "path": "contracts/governance/result-artifact-writeback-policy-v1.json",
       "reason": "Rules requiring produced governed outputs and artifacts to be registered."
     },
     {
-      "order": 10,
+      "order": 11,
       "path": "contracts/governance/result-artifact-registry-v1.jsonl",
       "reason": "Machine-readable registry of governed outputs, artifacts and evidence references."
     },
     {
-      "order": 11,
+      "order": 12,
       "path": "contracts/governance/generated/result-artifact-router-v1.json",
       "reason": "Compact routing rules for deciding when and how to register produced outputs."
     }
@@ -172,6 +188,8 @@
     "CAPABILITY_BOOTSTRAP_LOADED",
     "OWNER_RESOURCE_AUTHORIZATION_LOADED",
     "CANONICAL_SOFTWARE_INVENTORY_LOADED",
+    "CHATGPT_PLUS_CAPABILITY_PROFILE_LOADED",
+    "CHATGPT_PLAN_AND_SURFACE_CHECKED_BEFORE_FEATURE_CLAIM",
     "CODEX_CAPABILITY_PROFILE_LOADED",
     "MEMORY_KERNEL_LOADED",
     "STARTUP_MEMORY_HOTSET_LOADED",
@@ -196,6 +214,7 @@
   "drift_writeback_rule": {
     "capability_or_authorization_drift": "Update contracts/governance/owner-resource-authorization-v1.json or create blocking issue.",
     "software_or_runtime_drift": "Update contracts/governance/canonical-software-runtime-inventory-v1.json or create blocking issue.",
+    "chatgpt_plan_product_account_or_surface_drift": "Update contracts/governance/chatgpt-plus-capability-profile-v1.json, the ChatGPT Plus architecture alignment and startup capability bootstrap as applicable after checking current official OpenAI sources and the exact account surface.",
     "codex_product_or_integration_drift": "Update contracts/governance/codex-capability-profile-v1.json, AGENTS.md and capability bootstrap as applicable.",
     "problem_or_solution_drift": "Update docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md and contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl, or create safe overlay in contracts/governance/problem-solution-overlays/ when full-file update is risky.",
     "generated_memory_drift": "Run scripts/governance/compile_problem_solution_memory.py and refresh generated problem/solution artifacts.",

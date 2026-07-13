@@ -1,10 +1,10 @@
 {
   "schema": "elementary.public-startup-mirror-payload.v1",
   "status": "PASS",
-  "generated_at_utc": "2026-07-13T02:59:44Z",
+  "generated_at_utc": "2026-07-13T07:43:34Z",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
-  "source_sha": "87cdce02337ec751d4175b372b1ad2277fa494d1",
-  "file_count": 21,
+  "source_sha": "c103701fa62b31c86972c830b01765383771fbe0",
+  "file_count": 24,
   "files": [
     {
       "path": "AGENTS.md",
@@ -12,7 +12,7 @@
     },
     {
       "path": "contracts/governance/chat-startup-context-bundle-v1.json",
-      "sha256": "0864581db42e5d3b321f1b61b500461cbce9999851df1fdb3581242d71d43c74"
+      "sha256": "3df9d88d7ccf2f4c531c95600e38301ef8b73f525faf21bd961fdc415ddd421b"
     },
     {
       "path": "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
@@ -25,6 +25,10 @@
     {
       "path": "contracts/governance/canonical-software-runtime-inventory-v1.json",
       "sha256": "982ef4a61c68c09b1cd3027c976acdbf5e3dc96fc0bcad3de053c9159b774d59"
+    },
+    {
+      "path": "contracts/governance/chatgpt-plus-capability-profile-v1.json",
+      "sha256": "76d0a6e6ccf0bf66140cca7e76675d754dba55cbb3aa230ba01449dea0aa607c"
     },
     {
       "path": "contracts/governance/codex-capability-profile-v1.json",
@@ -73,6 +77,14 @@
     {
       "path": "docs/governance/ELEMENTARY_DIRECT_MENU_NEW_CHAT_AUTOLOAD_STRATEGY.md",
       "sha256": "a79030c9f752258c9a01ffe51206dccb853bd98f3ea1e77471ba03eb6bc09b99"
+    },
+    {
+      "path": "docs/architecture/ELEMENTARY_CHATGPT_PLUS_EXECUTION_SURFACE_V1.md",
+      "sha256": "9fd96b27e015fa9cbbea4f39d143a0e034cb24206a1122392c8d6130eb491a01"
+    },
+    {
+      "path": "contracts/governance/elementary-construction-os-next-chatgpt-plus-alignment-v1.json",
+      "sha256": "1fe91ac03f7ac215d543cf6e127b6fffc1a4071fd52612f1102646178f28b894"
     },
     {
       "path": "docs/governance/RUNNER03_BACKGROUND_MODE_EVIDENCE.md",
