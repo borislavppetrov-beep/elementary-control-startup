@@ -1,6 +1,7 @@
 {
   "schema": "elementary.problem-solution-router.v1",
   "status": "ACTIVE",
+  "generated_at_utc": "2026-07-13T15:28:15Z",
   "routing_priority": [
     "active_blockers",
     "exact_symptom_signature",
@@ -8,49 +9,961 @@
     "root_cause_class",
     "canonical_file"
   ],
-  "active_blockers": [],
+  "active_blockers": [
+    {
+      "id": "2026-07-11-node-race-validation-toolchain-blocker-v1",
+      "scope": [
+        "ISSUE_283",
+        "ISSUE_604",
+        "ELEMENTARY_NODE",
+        "NODE_AGENT_CORE",
+        "GO_RACE_DETECTOR",
+        "CGO",
+        "C_COMPILER",
+        "SELF_HOSTED_RUNNER",
+        "HOSTED_RUNNER_AVAILABILITY",
+        "PRE_RUNTIME_GATE"
+      ],
+      "trigger_terms": [
+        "C_COMPILER_NOT_AVAILABLE"
+      ],
+      "next_action": "Resolve Issue #604, run .github/workflows/node-agent-core-v0-1-race-validation.yml, and accept the gate only after compiler, CGO and race-test evidence all pass. Until then keep RUNTIME_ACTIVE=NO and PRODUCTION_ACCEPTED=NO.",
+      "do_not_repeat": [
+        "Do not mark race validation PASS when the detector did not start.",
+        "Do not treat a missing compiler as a data-race finding.",
+        "Do not hide package installation inside source validation.",
+        "Do not make a new executor, scheduler or control plane to solve a CI toolchain gap.",
+        "Do not infer runtime or production acceptance from source unit tests."
+      ]
+    },
+    {
+      "id": "2026-07-11-node-windows-msi-packaging-toolchain-gap-v1",
+      "scope": [
+        "ELEMENTARY_NODE",
+        "ISSUE_283",
+        "ISSUE_615",
+        "WINDOWS_MSI",
+        "DOTNET",
+        "WIX",
+        "SIGNTOOL",
+        "AUTHENTICODE"
+      ],
+      "trigger_terms": [
+        "PASS"
+      ],
+      "next_action": "Execute Issue #615 through a separately authorized provisioning PR/run, update canonical inventory with exact versions, and then produce a compiled but still non-installed MSI evidence package for review.",
+      "do_not_repeat": [
+        "Do not install packaging tools implicitly in PR validation.",
+        "Do not assume WiX is installed because the SDK version is pinned in source.",
+        "Do not probe, export or upload certificate private keys during discovery.",
+        "Do not call a Windows PE payload an MSI.",
+        "Do not call an unsigned MSI distributable.",
+        "Do not mark compile or signing PASS unless the commands execute and their outputs are verified."
+      ]
+    },
+    {
+      "id": "2026-07-11-node-windows-scm-service-host-gap-v1",
+      "scope": [
+        "ELEMENTARY_NODE",
+        "ISSUE_283",
+        "ISSUE_614",
+        "WINDOWS_SCM",
+        "NODE_SERVICE_HOST",
+        "NODE_SUPERVISOR",
+        "ONE_MACHINE_ONE_NODE"
+      ],
+      "trigger_terms": [],
+      "next_action": "Implement and validate Issue #614 as a separate source PR, then integrate the proven service executable into a later MSI revision without live installation.",
+      "do_not_repeat": [
+        "Do not register a console CLI as a Windows service.",
+        "Do not move Browser Bridge or interactive desktop automation into LocalSystem.",
+        "Do not create a second Windows runner identity or recovery authority.",
+        "Do not add MSI ServiceInstall elements before SCM lifecycle tests pass.",
+        "Do not claim runtime active from source implementation alone."
+      ]
+    }
+  ],
   "scope_routes": {
-    "startup-mirror": [
-      "2026-07-11-startup-mirror-token-secret-not-visible"
+    "ACTIVE_RUNS": [
+      "2026-07-13-issue289-active-zero-proof-gate-v1"
     ],
-    "github-actions": [
-      "2026-07-11-startup-mirror-token-secret-not-visible",
+    "ACTIVE_RUN_DRAIN": [
+      "2026-07-13-issue289-active-run-drain-order-v1",
+      "2026-07-13-issue289-enrollment-preactive-drain-and-hmac-recovery-v1"
+    ],
+    "ADCP_RUNNER_REGISTRY": [
+      "2026-07-11-node-persistent-identity-enrollment-binding-v1"
+    ],
+    "AGENT_STATUS_EVIDENCE": [
+      "2026-07-12-runner-capability-allowlist-production-drift-v1"
+    ],
+    "ATTESTATION": [
+      "2026-07-12-startup-file-opened-not-fully-read-v1"
+    ],
+    "AUTH0": [
+      "2026-07-13-chatgpt-plus-mcp-plan-boundary-v1"
+    ],
+    "AUTHENTICODE": [
+      "2026-07-11-node-windows-msi-packaging-toolchain-gap-v1",
+      "2026-07-12-issue615-zero-budget-development-signing-v1"
+    ],
+    "AUTHENTICODE_CHAIN": [
+      "2026-07-12-issue615-ephemeral-development-ca-chain-v1"
+    ],
+    "AUTONOMOUS_CHAT_ROLLOVER": [
+      "2026-07-11-windows-desktop-runner-finalization-capability-validation-v1",
+      "2026-07-11-windows-desktop-runner-finalization-gap-v1",
+      "2026-07-11-wsl-controlled-runner-auth-and-loopback-bridge-boundary-v1",
+      "2026-07-12-runner-capability-allowlist-production-drift-v1",
+      "2026-07-12-windows-desktop-runner-native-process-boundary-v1"
+    ],
+    "BROWSER_BRIDGE_9223": [
+      "2026-07-11-node-windows-installer-nondisruptive-lane-consolidation-v1",
+      "2026-07-11-windows-desktop-runner-finalization-capability-validation-v1",
+      "2026-07-11-windows-desktop-runner-finalization-gap-v1",
+      "2026-07-11-wsl-controlled-runner-auth-and-loopback-bridge-boundary-v1"
+    ],
+    "CANONICALIZATION": [
+      "2026-07-11-node-identity-claim-canonical-boundary-v1"
+    ],
+    "CAPABILITY_BOOTSTRAP": [
+      "2026-07-11-codex-capability-startup-omission-v1",
+      "2026-07-13-chatgpt-plus-mcp-plan-boundary-v1"
+    ],
+    "CAPABILITY_VALIDATION": [
+      "2026-07-11-windows-desktop-runner-finalization-capability-validation-v1"
+    ],
+    "CAPACITY": [
+      "2026-07-12-node-resource-aware-multi-lane-architecture-v1"
+    ],
+    "CERTUTIL_USER_STORE": [
+      "2026-07-12-issue615-certutil-root-to-trustedpeople-v1",
+      "2026-07-12-issue615-x509store-add-unsupported-certutil-v1"
+    ],
+    "CGO": [
+      "2026-07-11-node-race-validation-toolchain-blocker-v1"
+    ],
+    "CHATGPT_PLUS": [
+      "2026-07-13-chatgpt-plus-mcp-plan-boundary-v1"
+    ],
+    "CHAT_BOOTSTRAP": [
+      "2026-07-12-startup-file-opened-not-fully-read-v1"
+    ],
+    "CHAT_STARTUP": [
+      "2026-07-11-codex-capability-startup-omission-v1"
+    ],
+    "CI_EVIDENCE_INTEGRITY": [
+      "2026-07-11-node-identity-ci-laravel-dependency-preparation-v1"
+    ],
+    "CODEX": [
+      "2026-07-11-codex-capability-startup-omission-v1"
+    ],
+    "COMPOSER_DEPENDENCIES": [
+      "2026-07-11-node-identity-ci-laravel-dependency-preparation-v1"
+    ],
+    "CONCURRENCY": [
+      "2026-07-11-node-agent-core-admission-hardening-v1",
+      "2026-07-12-node-resource-aware-multi-lane-architecture-v1"
+    ],
+    "CONNECTOR_TRUNCATION": [
+      "2026-07-12-startup-file-opened-not-fully-read-v1"
+    ],
+    "CONTROLLED_CHAT": [
+      "2026-07-13-partial-read-full-file-replacement-v1"
+    ],
+    "CONTROLLED_RUNNER": [
+      "2026-07-11-controlled-runner-activation-vs-first-install-v1",
+      "2026-07-11-controlled-runner-bounded-first-install-v1",
+      "2026-07-11-controlled-runner-runtime-provisioning-state-v1",
+      "2026-07-11-first-install-native-stderr-process-boundary-v1",
+      "2026-07-11-windows-desktop-runner-finalization-gap-v1",
+      "2026-07-11-wsl-controlled-runner-auth-and-loopback-bridge-boundary-v1",
+      "2026-07-12-node-enrollment-before-dual-signing-client-v1"
+    ],
+    "CONTROLLED_RUNNER_ACTIVATION": [
+      "2026-07-11-wsl-registration-name-vs-linux-id-v1"
+    ],
+    "CREDENTIAL_BOUNDARY": [
+      "2026-07-11-controlled-runner-bounded-first-install-v1"
+    ],
+    "CROSS_LANGUAGE_INTEROPERABILITY": [
+      "2026-07-11-node-identity-claim-canonical-boundary-v1"
+    ],
+    "CROSS_PLATFORM_ARTIFACT_TRANSPORT": [
+      "2026-07-12-issue615-windows-runner-go-toolchain-gap-v1"
+    ],
+    "CROSS_PLATFORM_TESTING": [
+      "2026-07-12-node-windows-filemode-ntfs-acl-semantics-v1"
+    ],
+    "CROSS_USER_FILE_OWNERSHIP": [
+      "2026-07-11-self-hosted-runner-stale-tmp-evidence-v1"
+    ],
+    "CURRENT_USER_CERTIFICATE_STORES": [
+      "2026-07-12-issue615-x509store-add-unsupported-certutil-v1"
+    ],
+    "CUSTOM_MCP": [
+      "2026-07-13-chatgpt-plus-mcp-plan-boundary-v1"
+    ],
+    "C_COMPILER": [
+      "2026-07-11-node-race-validation-toolchain-blocker-v1"
+    ],
+    "DEPENDENCY_PINNING": [
+      "2026-07-11-node-service-host-go-module-bootstrap-v1"
+    ],
+    "DEVELOPER_MODE": [
+      "2026-07-13-chatgpt-plus-mcp-plan-boundary-v1"
+    ],
+    "DEVELOPMENT_SIGNING": [
+      "2026-07-12-issue615-zero-budget-development-signing-v1"
+    ],
+    "DIRECT_CONTROL_CHANNEL": [
+      "2026-07-12-node-resource-aware-multi-lane-architecture-v1"
+    ],
+    "DOTNET": [
+      "2026-07-11-node-windows-msi-packaging-toolchain-gap-v1"
+    ],
+    "DOTNET_SDK": [
+      "2026-07-12-issue615-winget-dotnet-manifest-scope-v1"
+    ],
+    "DURABILITY": [
+      "2026-07-13-issue289-hmac-recovery-durability-v1"
+    ],
+    "DURABLE_JOURNAL": [
+      "2026-07-11-node-agent-journal-path-hardening-v1"
+    ],
+    "ED25519": [
+      "2026-07-11-node-persistent-identity-enrollment-binding-v1",
+      "2026-07-12-node-enrollment-before-dual-signing-client-v1"
+    ],
+    "ELEMENTARY_NODE": [
+      "2026-07-11-node-agent-core-admission-hardening-v1",
+      "2026-07-11-node-agent-journal-path-hardening-v1",
+      "2026-07-11-node-identity-claim-canonical-boundary-v1",
+      "2026-07-11-node-persistent-identity-enrollment-binding-v1",
+      "2026-07-11-node-race-validation-toolchain-blocker-v1",
+      "2026-07-11-node-service-host-go-module-bootstrap-v1",
+      "2026-07-11-node-windows-installer-nondisruptive-lane-consolidation-v1",
+      "2026-07-11-node-windows-msi-packaging-toolchain-gap-v1",
+      "2026-07-11-node-windows-scm-service-host-gap-v1",
+      "2026-07-12-node-enrollment-before-dual-signing-client-v1",
+      "2026-07-12-node-resource-aware-multi-lane-architecture-v1",
+      "2026-07-12-node-windows-filemode-ntfs-acl-semantics-v1"
+    ],
+    "ENROLLMENT": [
+      "2026-07-11-node-persistent-identity-enrollment-binding-v1"
+    ],
+    "ENROLLMENT_CLAIM": [
+      "2026-07-11-node-identity-claim-canonical-boundary-v1"
+    ],
+    "EPHEMERAL_DEVELOPMENT_CA": [
+      "2026-07-12-issue615-ephemeral-development-ca-chain-v1"
+    ],
+    "EVENTUAL_CONSISTENCY": [
+      "2026-07-11-github-projects-item-gate-eventual-consistency-v1"
+    ],
+    "EVIDENCE_INTEGRITY": [
+      "2026-07-11-self-hosted-runner-stale-tmp-evidence-v1"
+    ],
+    "EVIDENCE_PRESERVATION": [
+      "2026-07-12-issue615-pr623-pr-merge-ref-source-sha-mismatch-v1"
+    ],
+    "EVIDENCE_TRUTH": [
+      "2026-07-11-github-projects-item-gate-eventual-consistency-v1"
+    ],
+    "EVIDENCE_WRITEBACK": [
+      "2026-07-12-github-actions-shared-tmp-evidence-collision-v1"
+    ],
+    "EXACT_HEAD_GUARD": [
+      "2026-07-12-issue615-pr623-pr-merge-ref-source-sha-mismatch-v1"
+    ],
+    "EXTERNAL_RUNNER_GATEWAY": [
+      "2026-07-12-runner-capability-allowlist-production-drift-v1",
+      "2026-07-13-partial-read-full-file-replacement-v1"
+    ],
+    "FAIL_CLOSED": [
+      "2026-07-13-issue289-active-run-drain-order-v1",
+      "2026-07-13-issue289-hmac-status-shape-v1"
+    ],
+    "FILESYSTEM_SAFETY": [
+      "2026-07-11-node-agent-journal-path-hardening-v1"
+    ],
+    "FILE_PERMISSIONS": [
+      "2026-07-11-node-agent-journal-path-hardening-v1"
+    ],
+    "FINALIZE_CHAT_ROLLOVER": [
+      "2026-07-11-windows-desktop-runner-finalization-capability-validation-v1",
+      "2026-07-11-windows-desktop-runner-finalization-gap-v1",
+      "2026-07-12-windows-desktop-runner-native-process-boundary-v1"
+    ],
+    "FIRST_INSTALL": [
+      "2026-07-11-controlled-runner-activation-vs-first-install-v1",
+      "2026-07-11-controlled-runner-bounded-first-install-v1",
+      "2026-07-11-first-install-native-stderr-process-boundary-v1",
+      "2026-07-11-wsl-controlled-runner-auth-and-loopback-bridge-boundary-v1"
+    ],
+    "FIRST_INSTALL_RECOVERY": [
+      "2026-07-11-controlled-runner-runtime-provisioning-state-v1"
+    ],
+    "FULL_FILE_REPLACEMENT": [
+      "2026-07-13-partial-read-full-file-replacement-v1"
+    ],
+    "GITHUB_ACTIONS": [
+      "2026-07-11-node-identity-ci-laravel-dependency-preparation-v1",
+      "2026-07-11-self-hosted-runner-stale-tmp-evidence-v1",
+      "2026-07-12-github-actions-shared-tmp-evidence-collision-v1",
+      "2026-07-12-issue615-pr623-pr-merge-ref-source-sha-mismatch-v1",
+      "2026-07-12-pr617-service-account-json-assertion-escape-mismatch-v1"
+    ],
+    "GITHUB_CONTENTS_API": [
+      "2026-07-13-partial-read-full-file-replacement-v1"
+    ],
+    "GITHUB_PROJECTS_V2": [
+      "2026-07-11-github-projects-item-gate-eventual-consistency-v1",
+      "2026-07-12-github-actions-shared-tmp-evidence-collision-v1"
+    ],
+    "GITHUB_PROJECTS_V2_ITEM_GATE": [
+      "2026-07-11-self-hosted-runner-stale-tmp-evidence-v1"
+    ],
+    "GITHUB_PROJECTS_V2_PROVISIONER": [
+      "2026-07-11-self-hosted-runner-stale-tmp-evidence-v1"
+    ],
+    "GO_CLIENT": [
+      "2026-07-11-node-identity-claim-canonical-boundary-v1"
+    ],
+    "GO_FILEMODE": [
+      "2026-07-12-node-windows-filemode-ntfs-acl-semantics-v1"
+    ],
+    "GO_MODULE": [
+      "2026-07-11-node-service-host-go-module-bootstrap-v1"
+    ],
+    "GO_RACE_DETECTOR": [
+      "2026-07-11-node-race-validation-toolchain-blocker-v1"
+    ],
+    "GO_TOOLCHAIN": [
+      "2026-07-12-issue615-windows-runner-go-toolchain-gap-v1"
+    ],
+    "GRAPHQL": [
+      "2026-07-11-github-projects-item-gate-eventual-consistency-v1"
+    ],
+    "HMAC": [
+      "2026-07-12-node-enrollment-before-dual-signing-client-v1"
+    ],
+    "HMAC_BOOTSTRAP": [
+      "2026-07-11-node-persistent-identity-enrollment-binding-v1"
+    ],
+    "HMAC_RUNNER_RECOVERY": [
+      "2026-07-13-issue289-enrollment-preactive-drain-and-hmac-recovery-v1",
+      "2026-07-13-issue289-hmac-recovery-durability-v1",
+      "2026-07-13-issue289-hmac-recovery-process-idempotency-v1"
+    ],
+    "HMAC_STATUS": [
+      "2026-07-13-issue289-hmac-status-shape-v1"
+    ],
+    "HOSTED_RUNNER_AVAILABILITY": [
+      "2026-07-11-node-race-validation-toolchain-blocker-v1"
+    ],
+    "HTTP_VALIDATION": [
+      "2026-07-11-node-identity-claim-canonical-boundary-v1"
+    ],
+    "IDEMPOTENCY": [
+      "2026-07-11-node-agent-core-admission-hardening-v1"
+    ],
+    "IDENTITY_FILE": [
+      "2026-07-12-node-windows-filemode-ntfs-acl-semantics-v1"
+    ],
+    "INSTALLER_PRODUCTIZATION": [
+      "2026-07-11-node-windows-installer-nondisruptive-lane-consolidation-v1"
+    ],
+    "ISSUE_134": [
+      "2026-07-11-controlled-runner-activation-vs-first-install-v1",
+      "2026-07-11-controlled-runner-bounded-first-install-v1",
+      "2026-07-11-controlled-runner-runtime-provisioning-state-v1",
+      "2026-07-11-first-install-native-stderr-process-boundary-v1",
+      "2026-07-11-windows-desktop-runner-finalization-capability-validation-v1",
+      "2026-07-11-windows-desktop-runner-finalization-gap-v1",
+      "2026-07-11-wsl-controlled-runner-auth-and-loopback-bridge-boundary-v1",
+      "2026-07-11-wsl-registration-name-vs-linux-id-v1",
+      "2026-07-12-runner-capability-allowlist-production-drift-v1",
+      "2026-07-12-windows-desktop-runner-native-process-boundary-v1"
+    ],
+    "ISSUE_273": [
+      "2026-07-11-github-projects-item-gate-eventual-consistency-v1",
+      "2026-07-11-self-hosted-runner-stale-tmp-evidence-v1"
+    ],
+    "ISSUE_283": [
+      "2026-07-11-github-projects-item-gate-eventual-consistency-v1",
+      "2026-07-11-node-agent-core-admission-hardening-v1",
+      "2026-07-11-node-agent-journal-path-hardening-v1",
+      "2026-07-11-node-race-validation-toolchain-blocker-v1",
+      "2026-07-11-node-windows-installer-nondisruptive-lane-consolidation-v1",
+      "2026-07-11-node-windows-msi-packaging-toolchain-gap-v1",
+      "2026-07-11-node-windows-scm-service-host-gap-v1",
+      "2026-07-11-self-hosted-runner-stale-tmp-evidence-v1",
+      "2026-07-12-node-resource-aware-multi-lane-architecture-v1"
+    ],
+    "ISSUE_289": [
+      "2026-07-11-node-identity-ci-laravel-dependency-preparation-v1",
+      "2026-07-11-node-identity-claim-canonical-boundary-v1",
+      "2026-07-11-node-persistent-identity-enrollment-binding-v1",
+      "2026-07-12-node-enrollment-before-dual-signing-client-v1",
+      "2026-07-12-node-resource-aware-multi-lane-architecture-v1",
+      "2026-07-13-issue289-active-run-drain-order-v1",
+      "2026-07-13-issue289-active-zero-proof-gate-v1",
+      "2026-07-13-issue289-enrollment-git-safe-directory-v1",
+      "2026-07-13-issue289-enrollment-preactive-drain-and-hmac-recovery-v1",
+      "2026-07-13-issue289-enrollment-unbind-marker-drift-v1",
+      "2026-07-13-issue289-enrollment-user-task-git-path-v1",
+      "2026-07-13-issue289-enrollment-validator-anchor-drift-v1",
+      "2026-07-13-issue289-hmac-recovery-durability-v1",
+      "2026-07-13-issue289-hmac-recovery-process-idempotency-v1",
+      "2026-07-13-issue289-hmac-status-shape-v1",
+      "2026-07-13-issue289-signer-capability-proof-gap-v1",
+      "2026-07-13-partial-read-full-file-replacement-v1"
+    ],
+    "ISSUE_316": [
+      "2026-07-12-node-resource-aware-multi-lane-architecture-v1"
+    ],
+    "ISSUE_336": [
+      "2026-07-12-node-resource-aware-multi-lane-architecture-v1"
+    ],
+    "ISSUE_337": [
+      "2026-07-12-node-resource-aware-multi-lane-architecture-v1"
+    ],
+    "ISSUE_604": [
+      "2026-07-11-node-race-validation-toolchain-blocker-v1"
+    ],
+    "ISSUE_614": [
+      "2026-07-11-node-service-host-go-module-bootstrap-v1",
+      "2026-07-11-node-windows-scm-service-host-gap-v1",
+      "2026-07-12-node-windows-filemode-ntfs-acl-semantics-v1",
+      "2026-07-12-pr617-service-account-json-assertion-escape-mismatch-v1"
+    ],
+    "ISSUE_615": [
+      "2026-07-11-node-windows-msi-packaging-toolchain-gap-v1",
+      "2026-07-12-issue615-certutil-root-to-trustedpeople-v1",
+      "2026-07-12-issue615-ephemeral-development-ca-chain-v1",
+      "2026-07-12-issue615-msi-payload-secret-scan-false-positive-v1",
+      "2026-07-12-issue615-native-msi-com-release-before-readback-v1",
+      "2026-07-12-issue615-native-msi-repository-root-depth-v1",
+      "2026-07-12-issue615-paid-packaging-deferred-native-msi-v1",
+      "2026-07-12-issue615-pr623-pr-merge-ref-source-sha-mismatch-v1",
+      "2026-07-12-issue615-runner03-currentuser-root-not-supported-v1",
+      "2026-07-12-issue615-windows-runner-go-toolchain-gap-v1",
+      "2026-07-12-issue615-winget-dotnet-manifest-scope-v1",
+      "2026-07-12-issue615-wix7-osmf-eula-gate-v1",
+      "2026-07-12-issue615-x509store-add-unsupported-certutil-v1",
+      "2026-07-12-issue615-zero-budget-development-signing-v1"
+    ],
+    "ITEM_GATE": [
+      "2026-07-11-github-projects-item-gate-eventual-consistency-v1"
+    ],
+    "JOURNAL_FILE": [
+      "2026-07-12-node-windows-filemode-ntfs-acl-semantics-v1"
+    ],
+    "JSON_VALIDATION": [
+      "2026-07-12-pr617-service-account-json-assertion-escape-mismatch-v1"
+    ],
+    "LARAVEL_TESTS": [
+      "2026-07-11-node-identity-ci-laravel-dependency-preparation-v1"
+    ],
+    "LINE_B_PROJECT_RUNTIME_AND_NODE_DELIVERY": [
+      "2026-07-13-issue289-active-run-drain-order-v1",
+      "2026-07-13-issue289-active-zero-proof-gate-v1",
+      "2026-07-13-issue289-enrollment-git-safe-directory-v1",
+      "2026-07-13-issue289-enrollment-preactive-drain-and-hmac-recovery-v1",
+      "2026-07-13-issue289-enrollment-unbind-marker-drift-v1",
+      "2026-07-13-issue289-enrollment-user-task-git-path-v1",
+      "2026-07-13-issue289-enrollment-validator-anchor-drift-v1",
+      "2026-07-13-issue289-hmac-recovery-durability-v1",
+      "2026-07-13-issue289-hmac-recovery-process-idempotency-v1",
+      "2026-07-13-issue289-hmac-status-shape-v1",
+      "2026-07-13-issue289-signer-capability-proof-gap-v1"
+    ],
+    "LINUX_PROOF": [
+      "2026-07-13-issue289-enrollment-validator-anchor-drift-v1"
+    ],
+    "LIVE_ENROLLMENT": [
+      "2026-07-12-node-enrollment-before-dual-signing-client-v1"
+    ],
+    "MSI_BUILD": [
+      "2026-07-12-issue615-msi-payload-secret-scan-false-positive-v1",
+      "2026-07-12-issue615-windows-runner-go-toolchain-gap-v1",
+      "2026-07-12-issue615-wix7-osmf-eula-gate-v1"
+    ],
+    "MSI_DATABASE_READBACK": [
+      "2026-07-12-issue615-native-msi-com-release-before-readback-v1"
+    ],
+    "MULTI_LANE": [
+      "2026-07-12-node-resource-aware-multi-lane-architecture-v1"
+    ],
+    "NATIVE_PROCESS": [
+      "2026-07-11-first-install-native-stderr-process-boundary-v1",
+      "2026-07-12-windows-desktop-runner-native-process-boundary-v1"
+    ],
+    "NATIVE_WINDOWS_INSTALLER": [
+      "2026-07-12-issue615-paid-packaging-deferred-native-msi-v1"
+    ],
+    "NATIVE_WINDOWS_MSI": [
+      "2026-07-12-issue615-native-msi-com-release-before-readback-v1",
+      "2026-07-12-issue615-native-msi-repository-root-depth-v1"
+    ],
+    "NODE_AGENT_CORE": [
+      "2026-07-11-node-agent-core-admission-hardening-v1",
+      "2026-07-11-node-agent-journal-path-hardening-v1",
+      "2026-07-11-node-race-validation-toolchain-blocker-v1",
+      "2026-07-11-self-hosted-runner-stale-tmp-evidence-v1"
+    ],
+    "NODE_LIVE_ENROLLMENT": [
+      "2026-07-13-issue289-active-run-drain-order-v1",
+      "2026-07-13-issue289-active-zero-proof-gate-v1",
+      "2026-07-13-issue289-enrollment-git-safe-directory-v1",
+      "2026-07-13-issue289-enrollment-preactive-drain-and-hmac-recovery-v1",
+      "2026-07-13-issue289-enrollment-unbind-marker-drift-v1",
+      "2026-07-13-issue289-enrollment-user-task-git-path-v1",
+      "2026-07-13-issue289-enrollment-validator-anchor-drift-v1",
+      "2026-07-13-issue289-hmac-status-shape-v1",
+      "2026-07-13-issue289-signer-capability-proof-gap-v1"
+    ],
+    "NODE_SERVICE_HOST": [
+      "2026-07-11-node-windows-scm-service-host-gap-v1"
+    ],
+    "NODE_SUPERVISOR": [
+      "2026-07-11-node-windows-scm-service-host-gap-v1"
+    ],
+    "NODE_WINDOWS_DEVELOPMENT_SIGNING": [
+      "2026-07-12-issue615-certutil-root-to-trustedpeople-v1",
+      "2026-07-12-issue615-ephemeral-development-ca-chain-v1",
+      "2026-07-12-issue615-runner03-currentuser-root-not-supported-v1",
+      "2026-07-12-issue615-x509store-add-unsupported-certutil-v1"
+    ],
+    "NODE_WINDOWS_MSI": [
+      "2026-07-12-issue615-paid-packaging-deferred-native-msi-v1",
+      "2026-07-12-issue615-zero-budget-development-signing-v1"
+    ],
+    "NODE_WINDOWS_MSI_SERVICE_INTEGRATION_V0_2": [
+      "2026-07-12-pr617-service-account-json-assertion-escape-mismatch-v1"
+    ],
+    "NTFS_ACL": [
+      "2026-07-12-node-windows-filemode-ntfs-acl-semantics-v1"
+    ],
+    "ONE_MACHINE_ONE_NODE": [
+      "2026-07-11-node-persistent-identity-enrollment-binding-v1",
+      "2026-07-11-node-windows-installer-nondisruptive-lane-consolidation-v1",
+      "2026-07-11-node-windows-scm-service-host-gap-v1"
+    ],
+    "OSMF": [
+      "2026-07-12-issue615-wix7-osmf-eula-gate-v1"
+    ],
+    "P4_ELEVATION": [
+      "2026-07-11-node-agent-core-admission-hardening-v1"
+    ],
+    "PACKAGE_SCOPE": [
+      "2026-07-12-issue615-winget-dotnet-manifest-scope-v1"
+    ],
+    "PACKAGING": [
+      "2026-07-12-issue615-paid-packaging-deferred-native-msi-v1"
+    ],
+    "PARTIAL_FILE_READ": [
+      "2026-07-13-partial-read-full-file-replacement-v1"
+    ],
+    "PAYLOAD_SECRET_SCAN": [
+      "2026-07-12-issue615-msi-payload-secret-scan-false-positive-v1"
+    ],
+    "PERSISTENT_IDENTITY": [
+      "2026-07-11-node-persistent-identity-enrollment-binding-v1"
+    ],
+    "PHP_GATEWAY": [
+      "2026-07-11-node-identity-claim-canonical-boundary-v1"
+    ],
+    "PLUGINS_AND_APPS": [
+      "2026-07-13-chatgpt-plus-mcp-plan-boundary-v1"
+    ],
+    "POLICY_ADMISSION": [
+      "2026-07-11-node-agent-core-admission-hardening-v1"
+    ],
+    "POWERSHELL": [
+      "2026-07-11-first-install-native-stderr-process-boundary-v1",
+      "2026-07-12-windows-desktop-runner-native-process-boundary-v1"
+    ],
+    "PRE_RUNTIME_GATE": [
+      "2026-07-11-node-race-validation-toolchain-blocker-v1"
+    ],
+    "PROCESS_IDEMPOTENCY": [
+      "2026-07-13-issue289-hmac-recovery-process-idempotency-v1"
+    ],
+    "PRODUCTION_CONFIG": [
+      "2026-07-12-runner-capability-allowlist-production-drift-v1"
+    ],
+    "PROVISIONING_INVENTORY": [
+      "2026-07-11-controlled-runner-runtime-provisioning-state-v1"
+    ],
+    "PR_617": [
+      "2026-07-12-pr617-service-account-json-assertion-escape-mismatch-v1"
+    ],
+    "PR_623": [
+      "2026-07-12-issue615-pr623-pr-merge-ref-source-sha-mismatch-v1"
+    ],
+    "PR_626": [
+      "2026-07-12-issue615-winget-dotnet-manifest-scope-v1"
+    ],
+    "PR_629": [
+      "2026-07-12-issue615-windows-runner-go-toolchain-gap-v1"
+    ],
+    "PR_638": [
+      "2026-07-12-issue615-msi-payload-secret-scan-false-positive-v1"
+    ],
+    "PR_642": [
+      "2026-07-12-issue615-wix7-osmf-eula-gate-v1"
+    ],
+    "PULL_REQUEST_MERGE_REF": [
+      "2026-07-12-issue615-pr623-pr-merge-ref-source-sha-mismatch-v1"
+    ],
+    "PYTHON": [
+      "2026-07-12-windows-desktop-runner-native-process-boundary-v1"
+    ],
+    "READ_ORDER": [
+      "2026-07-12-startup-file-opened-not-fully-read-v1"
+    ],
+    "RECOVERY": [
+      "2026-07-12-node-resource-aware-multi-lane-architecture-v1"
+    ],
+    "REPOSITORY_ROOT": [
+      "2026-07-12-issue615-native-msi-repository-root-depth-v1"
+    ],
+    "REPRODUCIBLE_BUILD": [
+      "2026-07-11-node-service-host-go-module-bootstrap-v1"
+    ],
+    "ROLLBACK": [
+      "2026-07-12-issue615-msi-payload-secret-scan-false-positive-v1",
+      "2026-07-12-issue615-windows-runner-go-toolchain-gap-v1",
+      "2026-07-12-issue615-wix7-osmf-eula-gate-v1",
+      "2026-07-13-issue289-enrollment-preactive-drain-and-hmac-recovery-v1",
+      "2026-07-13-issue289-enrollment-unbind-marker-drift-v1"
+    ],
+    "ROLLBACK_SYMMETRY": [
+      "2026-07-12-issue615-winget-dotnet-manifest-scope-v1"
+    ],
+    "RUNNER02": [
+      "2026-07-11-controlled-runner-activation-vs-first-install-v1",
+      "2026-07-11-controlled-runner-bounded-first-install-v1",
+      "2026-07-11-controlled-runner-runtime-provisioning-state-v1",
+      "2026-07-11-wsl-registration-name-vs-linux-id-v1"
+    ],
+    "RUNNER03": [
+      "2026-07-11-controlled-runner-bounded-first-install-v1",
+      "2026-07-11-controlled-runner-runtime-provisioning-state-v1",
+      "2026-07-11-first-install-native-stderr-process-boundary-v1",
+      "2026-07-11-wsl-registration-name-vs-linux-id-v1",
+      "2026-07-12-issue615-native-msi-repository-root-depth-v1"
+    ],
+    "RUNNER03_SERVICE_CONTEXT": [
+      "2026-07-12-issue615-runner03-currentuser-root-not-supported-v1"
+    ],
+    "RUNNER_AUTHENTICATION": [
+      "2026-07-11-wsl-controlled-runner-auth-and-loopback-bridge-boundary-v1"
+    ],
+    "RUNNER_REGISTRATION": [
+      "2026-07-12-runner-capability-allowlist-production-drift-v1"
+    ],
+    "RUNTIME_INVENTORY": [
+      "2026-07-11-codex-capability-startup-omission-v1",
+      "2026-07-11-controlled-runner-activation-vs-first-install-v1",
+      "2026-07-11-wsl-registration-name-vs-linux-id-v1"
+    ],
+    "SELF_HOSTED_RUNNER": [
+      "2026-07-11-node-identity-ci-laravel-dependency-preparation-v1",
+      "2026-07-11-node-race-validation-toolchain-blocker-v1",
+      "2026-07-11-self-hosted-runner-stale-tmp-evidence-v1",
+      "2026-07-12-github-actions-shared-tmp-evidence-collision-v1"
+    ],
+    "SHELL_GREP": [
+      "2026-07-12-pr617-service-account-json-assertion-escape-mismatch-v1"
+    ],
+    "SIGNER_CAPABILITY": [
+      "2026-07-13-issue289-signer-capability-proof-gap-v1"
+    ],
+    "SIGNTOOL": [
+      "2026-07-11-node-windows-msi-packaging-toolchain-gap-v1"
+    ],
+    "SOURCE_BINDING": [
+      "2026-07-13-issue289-enrollment-git-safe-directory-v1",
+      "2026-07-13-issue289-enrollment-user-task-git-path-v1"
+    ],
+    "SOURCE_VALIDATION": [
+      "2026-07-13-issue289-enrollment-validator-anchor-drift-v1"
+    ],
+    "STARTUP_BUNDLE": [
+      "2026-07-12-startup-file-opened-not-fully-read-v1"
+    ],
+    "STRICT_JSON": [
+      "2026-07-11-node-agent-core-admission-hardening-v1"
+    ],
+    "SYMLINK_DEFENSE": [
+      "2026-07-11-node-agent-journal-path-hardening-v1"
+    ],
+    "SYSTEMD": [
+      "2026-07-11-controlled-runner-activation-vs-first-install-v1",
+      "2026-07-11-controlled-runner-bounded-first-install-v1",
+      "2026-07-11-controlled-runner-runtime-provisioning-state-v1"
+    ],
+    "TMP_PERSISTENCE": [
+      "2026-07-11-self-hosted-runner-stale-tmp-evidence-v1"
+    ],
+    "TRANSFER_RESUME": [
+      "2026-07-12-startup-file-opened-not-fully-read-v1"
+    ],
+    "TRUSTED_PEOPLE": [
+      "2026-07-12-issue615-certutil-root-to-trustedpeople-v1"
+    ],
+    "TRUSTED_PUBLISHER": [
+      "2026-07-12-issue615-certutil-root-to-trustedpeople-v1"
+    ],
+    "WINDOWS": [
+      "2026-07-12-node-windows-filemode-ntfs-acl-semantics-v1"
+    ],
+    "WINDOWS_DESKTOP_RUNNER": [
+      "2026-07-11-node-windows-installer-nondisruptive-lane-consolidation-v1",
+      "2026-07-11-windows-desktop-runner-finalization-capability-validation-v1",
+      "2026-07-11-windows-desktop-runner-finalization-gap-v1",
+      "2026-07-11-wsl-controlled-runner-auth-and-loopback-bridge-boundary-v1",
+      "2026-07-12-node-enrollment-before-dual-signing-client-v1",
+      "2026-07-12-runner-capability-allowlist-production-drift-v1",
+      "2026-07-12-windows-desktop-runner-native-process-boundary-v1"
+    ],
+    "WINDOWS_INSTALLER_COM": [
+      "2026-07-12-issue615-native-msi-com-release-before-readback-v1"
+    ],
+    "WINDOWS_MSI": [
+      "2026-07-11-node-windows-installer-nondisruptive-lane-consolidation-v1",
+      "2026-07-11-node-windows-msi-packaging-toolchain-gap-v1"
+    ],
+    "WINDOWS_PROOF": [
+      "2026-07-13-issue289-active-zero-proof-gate-v1",
+      "2026-07-13-issue289-enrollment-unbind-marker-drift-v1",
+      "2026-07-13-issue289-signer-capability-proof-gap-v1"
+    ],
+    "WINDOWS_RUNNER": [
+      "2026-07-12-issue615-msi-payload-secret-scan-false-positive-v1",
+      "2026-07-12-issue615-pr623-pr-merge-ref-source-sha-mismatch-v1",
+      "2026-07-12-issue615-windows-runner-go-toolchain-gap-v1",
+      "2026-07-12-issue615-winget-dotnet-manifest-scope-v1",
+      "2026-07-12-issue615-wix7-osmf-eula-gate-v1"
+    ],
+    "WINDOWS_SCM": [
+      "2026-07-11-node-windows-scm-service-host-gap-v1"
+    ],
+    "WINDOWS_SCM_SERVICE_HOST": [
+      "2026-07-11-node-service-host-go-module-bootstrap-v1"
+    ],
+    "WINDOWS_SERVICE_ACCOUNT": [
+      "2026-07-12-pr617-service-account-json-assertion-escape-mismatch-v1"
+    ],
+    "WINDOWS_TASK_SCHEDULER": [
+      "2026-07-13-issue289-enrollment-git-safe-directory-v1",
+      "2026-07-13-issue289-enrollment-user-task-git-path-v1"
+    ],
+    "WINGET": [
+      "2026-07-12-issue615-winget-dotnet-manifest-scope-v1"
+    ],
+    "WIX": [
+      "2026-07-11-node-windows-msi-packaging-toolchain-gap-v1"
+    ],
+    "WIX_DEFERRED": [
+      "2026-07-12-issue615-paid-packaging-deferred-native-msi-v1"
+    ],
+    "WIX_TOOLSET_V7": [
+      "2026-07-12-issue615-wix7-osmf-eula-gate-v1"
+    ],
+    "WSL": [
+      "2026-07-11-controlled-runner-runtime-provisioning-state-v1",
+      "2026-07-11-first-install-native-stderr-process-boundary-v1",
+      "2026-07-11-wsl-controlled-runner-auth-and-loopback-bridge-boundary-v1",
+      "2026-07-11-wsl-registration-name-vs-linux-id-v1"
+    ],
+    "X509STORE_ADD": [
+      "2026-07-12-issue615-x509store-add-unsupported-certutil-v1"
+    ],
+    "ZERO_BUDGET": [
+      "2026-07-12-issue615-zero-budget-development-signing-v1"
+    ],
+    "ZERO_BUDGET_PACKAGING": [
+      "2026-07-12-issue615-native-msi-com-release-before-readback-v1",
+      "2026-07-12-issue615-native-msi-repository-root-depth-v1"
+    ],
+    "ZERO_BUDGET_PKI": [
+      "2026-07-12-issue615-ephemeral-development-ca-chain-v1",
+      "2026-07-12-issue615-runner03-currentuser-root-not-supported-v1"
+    ],
+    "allowlist": [
+      "2026-07-11-controlled-runner-finalization-allowlist-gap"
+    ],
+    "architecture": [
+      "2026-07-12-construction-os-next-structural-green-semantic-incomplete-v1"
+    ],
+    "bocore": [
+      "2026-07-06-bocore-runner-single-lane-capacity",
       "2026-07-11-bocore-runner-wsl-windows-exe-invalid-argument",
+      "2026-07-11-runner03-windows-background-scheduled-mode"
+    ],
+    "browser-bridge": [
+      "2026-07-11-browser-bridge-scheduled-wrapper-shadows-launcher-contract",
+      "2026-07-11-controlled-runner-finalization-allowlist-gap"
+    ],
+    "capability": [
+      "2026-07-11-capability-boundary-native-connectors-not-complete",
+      "2026-07-11-github-projects-v2-secret-workflow-access"
+    ],
+    "capability-matcher": [
+      "2026-07-11-controlled-runner-finalization-allowlist-gap"
+    ],
+    "capacity": [
       "2026-07-06-bocore-runner-single-lane-capacity",
       "2026-07-11-github-hosted-runner-unavailable-for-current-repo"
     ],
-    "repository-secrets": [
+    "chat-bootstrap": [
+      "2026-07-11-capability-boundary-native-connectors-not-complete"
+    ],
+    "chat-rollover": [
+      "2026-07-11-browser-bridge-scheduled-wrapper-shadows-launcher-contract"
+    ],
+    "chat-rollover-finalization": [
+      "2026-07-11-controlled-runner-finalization-allowlist-gap"
+    ],
+    "ci": [
+      "2026-07-11-github-hosted-runner-unavailable-for-current-repo"
+    ],
+    "construction-os-next": [
+      "2026-07-12-construction-os-next-structural-green-semantic-incomplete-v1"
+    ],
+    "controlled-runner": [
+      "2026-07-11-controlled-runner-finalization-allowlist-gap"
+    ],
+    "controlled-runner-activation": [
+      "2026-07-11-activation-validator-rendered-literal-false-negative"
+    ],
+    "cpanel": [
+      "2026-07-03-production-cpanel-no-node-runtime",
+      "2026-07-13-issue134-cpanel-exact-sha-terminal-recovery"
+    ],
+    "custom-gpt-bootstrap": [
       "2026-07-11-startup-mirror-token-secret-not-visible"
     ],
-    "capability": [
-      "2026-07-11-capability-boundary-native-connectors-not-complete"
+    "environment-contract": [
+      "2026-07-11-browser-bridge-scheduled-wrapper-shadows-launcher-contract"
+    ],
+    "evidence-validation": [
+      "2026-07-11-activation-validator-rendered-literal-false-negative"
+    ],
+    "exact-sha-deployment": [
+      "2026-07-13-issue134-cpanel-exact-sha-terminal-recovery"
+    ],
+    "execution-policy": [
+      "2026-07-11-activation-validator-rendered-literal-false-negative"
+    ],
+    "github-actions": [
+      "2026-07-06-bocore-runner-single-lane-capacity",
+      "2026-07-11-activation-validator-rendered-literal-false-negative",
+      "2026-07-11-bocore-runner-wsl-windows-exe-invalid-argument",
+      "2026-07-11-github-hosted-runner-unavailable-for-current-repo",
+      "2026-07-11-github-projects-v2-secret-workflow-access",
+      "2026-07-11-pr313-file-dispatch-bridge-overtrigger",
+      "2026-07-11-runner03-windows-background-scheduled-mode",
+      "2026-07-11-startup-mirror-manifest-contract-drift",
+      "2026-07-11-startup-mirror-manifest-validation-drift",
+      "2026-07-11-startup-mirror-token-secret-not-visible",
+      "2026-07-13-issue134-cpanel-exact-sha-terminal-recovery"
+    ],
+    "github-projects-v2": [
+      "2026-07-11-github-projects-v2-secret-workflow-access"
+    ],
+    "governance": [
+      "2026-07-11-capability-boundary-native-connectors-not-complete",
+      "2026-07-11-startup-mirror-manifest-validation-drift",
+      "2026-07-13-issue134-cpanel-exact-sha-terminal-recovery"
+    ],
+    "issue134": [
+      "2026-07-13-issue134-cpanel-exact-sha-terminal-recovery"
+    ],
+    "manifest-contract": [
+      "2026-07-11-startup-mirror-manifest-contract-drift"
+    ],
+    "mcp": [
+      "2026-07-13-issue134-cpanel-exact-sha-terminal-recovery"
+    ],
+    "payload-builder": [
+      "2026-07-11-startup-mirror-manifest-contract-drift"
+    ],
+    "powershell": [
+      "2026-07-11-activation-validator-rendered-literal-false-negative",
+      "2026-07-11-bocore-runner-wsl-windows-exe-invalid-argument"
+    ],
+    "pr313": [
+      "2026-07-11-pr313-file-dispatch-bridge-overtrigger"
+    ],
+    "problem-solution-memory": [
+      "2026-07-11-activation-validator-rendered-literal-false-negative"
     ],
     "production": [
       "2026-07-03-production-cpanel-no-node-runtime"
     ],
-    "bocore": [
-      "2026-07-11-bocore-runner-wsl-windows-exe-invalid-argument",
+    "repository-secrets": [
+      "2026-07-11-startup-mirror-token-secret-not-visible"
+    ],
+    "result-artifact-writeback": [
+      "2026-07-11-startup-mirror-manifest-contract-drift",
+      "2026-07-11-startup-mirror-manifest-validation-drift"
+    ],
+    "runner": [
       "2026-07-06-bocore-runner-single-lane-capacity",
+      "2026-07-11-github-hosted-runner-unavailable-for-current-repo",
       "2026-07-11-runner03-windows-background-scheduled-mode"
+    ],
+    "runtime": [
+      "2026-07-03-production-cpanel-no-node-runtime"
+    ],
+    "scheduled-task": [
+      "2026-07-11-browser-bridge-scheduled-wrapper-shadows-launcher-contract",
+      "2026-07-11-runner03-windows-background-scheduled-mode"
+    ],
+    "semantic-validation": [
+      "2026-07-12-construction-os-next-structural-green-semantic-incomplete-v1"
+    ],
+    "source-contract": [
+      "2026-07-11-activation-validator-rendered-literal-false-negative"
+    ],
+    "source-traceability": [
+      "2026-07-12-construction-os-next-structural-green-semantic-incomplete-v1"
+    ],
+    "startup-mirror": [
+      "2026-07-11-activation-validator-rendered-literal-false-negative",
+      "2026-07-11-startup-mirror-manifest-contract-drift",
+      "2026-07-11-startup-mirror-manifest-validation-drift",
+      "2026-07-11-startup-mirror-token-secret-not-visible"
+    ],
+    "static-validation": [
+      "2026-07-11-activation-validator-rendered-literal-false-negative"
+    ],
+    "system-twin": [
+      "2026-07-13-issue134-cpanel-exact-sha-terminal-recovery"
+    ],
+    "windows": [
+      "2026-07-11-bocore-runner-wsl-windows-exe-invalid-argument",
+      "2026-07-11-browser-bridge-scheduled-wrapper-shadows-launcher-contract",
+      "2026-07-11-runner03-windows-background-scheduled-mode"
+    ],
+    "workflow": [
+      "2026-07-11-pr313-file-dispatch-bridge-overtrigger"
+    ],
+    "workflow-concurrency": [
+      "2026-07-11-activation-validator-rendered-literal-false-negative"
+    ],
+    "workflow-step-output": [
+      "2026-07-11-activation-validator-rendered-literal-false-negative"
+    ],
+    "wsl": [
+      "2026-07-11-bocore-runner-wsl-windows-exe-invalid-argument"
     ]
   },
-  "resolved_lessons": [
-    {
-      "id": "2026-07-11-startup-mirror-token-secret-not-visible",
-      "trigger_terms": [
-        "MIRROR_TOKEN=",
-        "PUBLIC_STARTUP_MIRROR_TOKEN_REQUIRED=FAIL",
-        "ELEMENTARY_PUBLIC_STARTUP_MIRROR_TOKEN",
-        "startup mirror sync"
-      ],
-      "lesson": "The secret must be stored in the private source repository running the workflow, not in the public mirror target repository.",
-      "do_not_repeat": [
-        "do not recreate Runner 02",
-        "do not recreate Runner 03",
-        "do not rewrite startup-mirror-sync before checking repository-secret scope"
-      ]
-    }
-  ],
   "deep_retrieval_sources": [
     "docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md",
     "contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl",

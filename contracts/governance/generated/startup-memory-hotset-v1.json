@@ -1,65 +1,407 @@
 {
   "schema": "elementary.startup-memory-hotset.v1",
   "status": "ACTIVE",
+  "generated_at_utc": "2026-07-13T15:28:15Z",
   "max_entries": 25,
-  "purpose": "Compact startup memory for new ELEMENTARY chats. Load this instead of the full problem/solution ledger unless deep retrieval is required.",
   "source_files": [
     "contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl",
     "contracts/governance/problem-solution-overlays/*.json"
   ],
   "entries": [
     {
-      "id": "2026-07-11-startup-mirror-token-secret-not-visible",
-      "status": "RESOLVED",
-      "severity": "HIGH",
+      "id": "2026-07-11-node-race-validation-toolchain-blocker-v1",
+      "status": "OPEN",
+      "severity": "BLOCKER",
       "match": [
-        "MIRROR_TOKEN=",
-        "PUBLIC_STARTUP_MIRROR_TOKEN_REQUIRED=FAIL",
-        "ELEMENTARY_PUBLIC_STARTUP_MIRROR_TOKEN",
-        "startup-mirror-sync",
-        "secret in public repo"
+        "C_COMPILER_NOT_AVAILABLE",
+        "ISSUE_283",
+        "ISSUE_604",
+        "ELEMENTARY_NODE",
+        "NODE_AGENT_CORE"
       ],
-      "next": "No active blocker. If token visibility fails again, verify ELEMENTARY_PUBLIC_STARTUP_MIRROR_TOKEN is an Actions repository secret in borislavppetrov-beep/elementary-construction-os, not in the public mirror repository.",
-      "avoid": "Do not recreate runners or rewrite startup-mirror-sync before checking repository-secret scope. Do not expose token value."
+      "next": "Resolve Issue #604, run .github/workflows/node-agent-core-v0-1-race-validation.yml, and accept the gate only after compiler, CGO and race-test evidence all pass. Until then keep RUNTIME_ACTIVE=NO and PRODUCTION_ACCEPTED=NO.",
+      "avoid": "Do not mark race validation PASS when the detector did not start.; Do not treat a missing compiler as a data-race finding.; Do not hide package installation inside source validation.; Do not make a new executor, scheduler or control plane to solve a CI toolchain gap.; Do not infer runtime or production acceptance from source unit tests."
+    },
+    {
+      "id": "2026-07-11-node-windows-msi-packaging-toolchain-gap-v1",
+      "status": "OPEN",
+      "severity": "BLOCKER",
+      "match": [
+        "PASS",
+        "ELEMENTARY_NODE",
+        "ISSUE_283",
+        "ISSUE_615",
+        "WINDOWS_MSI"
+      ],
+      "next": "Execute Issue #615 through a separately authorized provisioning PR/run, update canonical inventory with exact versions, and then produce a compiled but still non-installed MSI evidence package for review.",
+      "avoid": "Do not install packaging tools implicitly in PR validation.; Do not assume WiX is installed because the SDK version is pinned in source.; Do not probe, export or upload certificate private keys during discovery.; Do not call a Windows PE payload an MSI.; Do not call an unsigned MSI distributable.; Do not mark compile or signing PASS unless the commands execute and their outputs are verified."
+    },
+    {
+      "id": "2026-07-11-node-windows-scm-service-host-gap-v1",
+      "status": "OPEN",
+      "severity": "BLOCKER",
+      "match": [
+        "ELEMENTARY_NODE",
+        "ISSUE_283",
+        "ISSUE_614",
+        "WINDOWS_SCM"
+      ],
+      "next": "Implement and validate Issue #614 as a separate source PR, then integrate the proven service executable into a later MSI revision without live installation.",
+      "avoid": "Do not register a console CLI as a Windows service.; Do not move Browser Bridge or interactive desktop automation into LocalSystem.; Do not create a second Windows runner identity or recovery authority.; Do not add MSI ServiceInstall elements before SCM lifecycle tests pass.; Do not claim runtime active from source implementation alone."
     },
     {
       "id": "2026-07-11-bocore-runner-wsl-windows-exe-invalid-argument",
       "status": "MITIGATED",
       "severity": "HIGH",
       "match": [
+        "RUN_ID=29141134264",
+        "ARTIFACT_ID=8245154456",
+        "RUNNER=",
+        "MACHINE=B",
+        "WSL_INTEROP",
         "Invalid argument",
-        "powershell.exe",
-        "cmd.exe",
-        "WSL-to-Windows .exe"
+        "bocore",
+        "windows",
+        "wsl",
+        "powershell"
       ],
-      "next": "Route Windows-native operations to Runner 03 or the governed Windows-side service channel.",
-      "avoid": "Do not call Windows .exe directly from WSL/Linux runner jobs."
+      "next": "Prefer github-actions-runner-03-windows or the authenticated Windows-side service channel for Windows-native operations.",
+      "avoid": ""
     },
     {
-      "id": "2026-07-11-capability-boundary-native-connectors-not-complete",
+      "id": "2026-07-11-controlled-runner-finalization-allowlist-gap",
+      "status": "MITIGATED",
+      "severity": "MEDIUM",
+      "match": [
+        "MERGE_SHA=70",
+        "PASS",
+        "FINALIZE_CHAT_ROLLOVER",
+        "ALLOWED_OPERATIONS",
+        "BROWSER_OPERATIONS",
+        "controlled-runner",
+        "browser-bridge",
+        "allowlist",
+        "capability-matcher"
+      ],
+      "next": "Complete bounded Runner 02 activation through PR #583 and then run a disposable end-to-end rollover through the existing claim, lease, browser execution, evidence and reconciliation path. Do not create a second executor or bypass the controlled runner.",
+      "avoid": ""
+    },
+    {
+      "id": "2026-07-11-first-install-native-stderr-process-boundary-v1",
+      "status": "MITIGATED",
+      "severity": "MEDIUM",
+      "match": [
+        "PASS",
+        "ABSENT",
+        "ISSUE_134",
+        "CONTROLLED_RUNNER",
+        "FIRST_INSTALL",
+        "RUNNER03"
+      ],
+      "next": "Run first-install Validate on the repaired capability head. If source-contract and structured evidence pass, merge the capability, execute one new merged install request, and independently verify service health, runtime version, registration, Browser Bridge/CDP and finalization routing.",
+      "avoid": "Do not infer native command failure merely because stderr is non-empty.; Do not run wsl.exe directly under ErrorActionPreference=Stop for governed mutation workflows.; Do not merge stdout and stderr before obtaining the native exit code.; Do not put shared secrets or Browser Bridge tokens in process arguments or evidence.; Do not execute Apply from the capability PR; require a new one-file merged install request."
+    },
+    {
+      "id": "2026-07-11-github-hosted-runner-unavailable-for-current-repo",
+      "status": "MITIGATED",
+      "severity": "HIGH",
+      "match": [
+        "github-actions",
+        "runner",
+        "capacity",
+        "ci"
+      ],
+      "next": "Use self-hosted lane separation or verify GitHub-hosted runner availability from repository settings before migrating validation jobs again.",
+      "avoid": ""
+    },
+    {
+      "id": "2026-07-12-node-enrollment-before-dual-signing-client-v1",
+      "status": "MITIGATED",
+      "severity": "HIGH",
+      "match": [
+        "PREFLIGHT_STATUS=PASS",
+        "AUTHORIZED_RUNNER_CODE=",
+        "DUAL_SIGNING_SOURCE_HEAD=",
+        "NODE_DUAL_SIGNING_SOURCE_VALIDATION=PASS",
+        "HMAC",
+        "NODE_IDENTITY_REQUIRED",
+        "ISSUE_289",
+        "ELEMENTARY_NODE",
+        "CONTROLLED_RUNNER",
+        "ED25519"
+      ],
+      "next": "Deploy the validated identity-aware Node executable and controlled-runner source to BoCore without creating an identity, verify the existing HMAC lane remains healthy, then perform a separately governed identity creation and live enrollment with backup/recovery, registry readback, dual-signed heartbeat and idempotency evidence.",
+      "avoid": "Do not enroll windows-desktop-runner-01 while its deployed client is HMAC-only.; Do not read private_key_base64 in Python or persist it in evidence.; Do not invoke the signer through a shell or an unrestricted command string.; Do not treat source validation as runtime deployment or live enrollment.; Do not remove HMAC after identity enrollment; the contract requires dual signing."
+    },
+    {
+      "id": "2026-07-12-runner-capability-allowlist-production-drift-v1",
+      "status": "MITIGATED",
+      "severity": "HIGH",
+      "match": [
+        "PASS",
+        "GATEWAY_HTTP_STATUS_409",
+        "HTTP_STATUS",
+        "RUNNER_CAPABILITY_SET_INVALID",
+        "HTTP",
+        "AGENT_STATUS_EVIDENCE",
+        "ISSUE_134",
+        "AUTONOMOUS_CHAT_ROLLOVER",
+        "WINDOWS_DESKTOP_RUNNER",
+        "EXTERNAL_RUNNER_GATEWAY"
+      ],
+      "next": "Validate and merge PR #621 with exact-head guard, obtain exact production deployment proof for its merge SHA, then execute no more than one new finalization activation request and independently verify runtime 1.2.0 before disposable end-to-end acceptance.",
+      "avoid": "Do not rely only on runtime Config::set to define a canonical runner operation.; Do not remove AGENT_STATUS_EVIDENCE from the runner because it is required by the existing Golden Agent Stage 0 contract.; Do not create another activation request before exact production deployment proof.; Do not bypass RUNNER_CAPABILITY_SET_INVALID by weakening ExternalRunnerGatewayService validation.; Do not proceed to end-to-end rollover while runtime 1.2.0 remains unproven."
+    },
+    {
+      "id": "2026-07-12-windows-desktop-runner-native-process-boundary-v1",
+      "status": "MITIGATED",
+      "severity": "HIGH",
+      "match": [
+        "WINDOWS_DESKTOP_RUNNER_HEALTH_FRESHNESS_TIMEOUT",
+        "RESTORED_PREVIOUS_RUNTIME",
+        "PASS",
+        "ELEMENTARY",
+        "ISSUE_134",
+        "WINDOWS_DESKTOP_RUNNER",
+        "AUTONOMOUS_CHAT_ROLLOVER",
+        "FINALIZE_CHAT_ROLLOVER"
+      ],
+      "next": "Complete exact-head validation of PR #619, merge the repair, create exactly one new finalization activation request, observe non-cancellable Apply, independently prove runtime 1.2.0 and all three governed chat operations, then execute the disposable end-to-end autonomous rollover acceptance chain.",
+      "avoid": "Do not invoke python.exe directly under ErrorActionPreference=Stop for the governed Windows Desktop Runner.; Do not treat native stderr as process failure truth.; Do not use LASTEXITCODE when a governed Process object can provide the exact native exit code.; Do not create a second task, runner identity, activation request or browser-runner path.; Do not continue to disposable end-to-end rollover until Apply and independent runtime inventory both pass."
+    },
+    {
+      "id": "2026-07-13-partial-read-full-file-replacement-v1",
+      "status": "MITIGATED",
+      "severity": "MEDIUM",
+      "match": [
+        "BAD_COMMIT=5353",
+        "PREVIOUS_GOOD_COMMIT=9044679",
+        "RESTORED_BLOB=",
+        "RECOVERY=FORCE_REF_BACK_TO_EXACT_PARENT_BEFORE_LATER_COMMITS",
+        "PRODUCTION_DEPLOYMENT=",
+        "RUNTIME_MUTATION=",
+        "GITHUB_CONTENTS_API",
+        "CONTROLLED_CHAT",
+        "PARTIAL_FILE_READ",
+        "FULL_FILE_REPLACEMENT"
+      ],
+      "next": "Review canonical entry before acting.",
+      "avoid": "Do not replace a file unless its complete content has been read or an exact blob/tree operation is used.; Do not infer omitted portions of a long file.; Do not continue after an unexpectedly large diff.; Do not claim recovery until the exact previous blob SHA is read back from main."
+    },
+    {
+      "id": "2026-07-03-production-cpanel-no-node-runtime",
       "status": "RESOLVED",
       "severity": "HIGH",
       "match": [
-        "capability unavailable",
-        "connector visibility",
-        "native chat capability",
-        "governed indirect capability"
+        "PRODUCTION_RUNTIME_FACTS",
+        "production",
+        "cpanel",
+        "runtime"
       ],
-      "next": "Read startup bundle, owner authorization, runtime inventory and memory index before limitation claims.",
-      "avoid": "Do not treat visible native connectors as complete capability inventory."
+      "next": "Do not design production workflows requiring Node/npm on the cPanel server; use build artifacts or external/BoCore runner paths.",
+      "avoid": ""
     },
     {
       "id": "2026-07-06-bocore-runner-single-lane-capacity",
       "status": "RESOLVED",
+      "severity": "MEDIUM",
+      "match": [
+        "MERGE_SHA=4",
+        "bocore",
+        "runner",
+        "capacity",
+        "github-actions"
+      ],
+      "next": "Use explicit labels for new jobs: elementary-ci-fast for fast Linux validations and elementary-bocore-extended for Windows-native tasks. Keep ADCP as the only control plane.",
+      "avoid": ""
+    },
+    {
+      "id": "2026-07-11-activation-validator-rendered-literal-false-negative",
+      "status": "RESOLVED",
       "severity": "HIGH",
       "match": [
-        "runner queue",
-        "single lane",
-        "elementary-ci-fast",
-        "elementary-bocore-extended"
+        "PASS",
+        "FAIL",
+        "JSON",
+        "PENDING_APPLY",
+        "github-actions",
+        "source-contract",
+        "static-validation",
+        "evidence-validation"
       ],
-      "next": "Use explicit runner labels for new jobs.",
-      "avoid": "Do not send all workflows to one generic self-hosted lane."
+      "next": "After latest-head writeback validation passes, merge only PR #583 with an exact-head guard. Then create a separate non-cancellable merged activation-request PR to execute Apply; do not execute Apply from the capability PR.",
+      "avoid": ""
+    },
+    {
+      "id": "2026-07-11-browser-bridge-scheduled-wrapper-shadows-launcher-contract",
+      "status": "RESOLVED",
+      "severity": "MEDIUM",
+      "match": [
+        "WRAPPER_EXECUTION_MODEL=ATTACHED_CALL",
+        "WRAPPER_DETACHED_START=",
+        "NODE_REACHES_LISTENING=",
+        "LATEST_LOG_CATEGORY=",
+        "MERGE_SHA=",
+        "HEALTH_STATUS=PASS",
+        "BRIDGE_VERSION=1.3.0",
+        "FINALIZE_CHAT_ROLLOVER=PASS",
+        "LISTENING",
+        "FINALIZE_CHAT_ROLLOVER",
+        "browser-bridge",
+        "windows",
+        "scheduled-task",
+        "environment-contract"
+      ],
+      "next": "No setup repetition is required. If the bridge regresses while Node still reaches LISTENING, compare the scheduled wrapper environment contract with the launcher defaults before changing the service, task identity or browser runtime.",
+      "avoid": ""
+    },
+    {
+      "id": "2026-07-11-capability-boundary-native-connectors-not-complete",
+      "status": "RESOLVED",
+      "severity": "MEDIUM",
+      "match": [
+        "MERGE_SHA=",
+        "capability",
+        "chat-bootstrap",
+        "governance"
+      ],
+      "next": "Keep bootstrap and authorization contract updated whenever capability drift is discovered.",
+      "avoid": ""
+    },
+    {
+      "id": "2026-07-11-codex-capability-startup-omission-v1",
+      "status": "RESOLVED",
+      "severity": "MEDIUM",
+      "match": [
+        "MERGE_SHA=",
+        "CODEX_STARTUP_VALIDATED_HEAD=43",
+        "ISSUE341_CODEX_WORKTREE_EXECUTION",
+        "CODEX",
+        "CHAT_STARTUP",
+        "CAPABILITY_BOOTSTRAP",
+        "RUNTIME_INVENTORY"
+      ],
+      "next": "Use the published startup profile for all Codex claims. If the local CLI is later placed on the Runner 03 service PATH or enabled through another governed lane, collect a new exact version readback and update the canonical runtime inventory and Codex profile.",
+      "avoid": "Do not treat official product documentation as proof that a capability is configured for ELEMENTARY.; Do not treat an owner installation report as exact runtime version evidence.; Do not claim the existing Codex worktree executor is live; it remains dry-run only until BoCore acceptance.; Do not create a second scheduler, dispatcher, runner plane or evidence authority for Codex.; Do not read or expose Codex authentication files or raw environment values."
+    },
+    {
+      "id": "2026-07-11-controlled-runner-activation-vs-first-install-v1",
+      "status": "RESOLVED",
+      "severity": "HIGH",
+      "match": [
+        "CONTROLLED_RUNNER_RUNTIME_ROOT_MISSING",
+        "NOT_REQUIRED",
+        "PASS",
+        "ISSUE_134",
+        "CONTROLLED_RUNNER",
+        "RUNNER02",
+        "SYSTEMD"
+      ],
+      "next": "Merge the read-only runtime inventory PR. Then create a separate bounded first-install capability PR with Validate-only behavior; Apply must remain gated to a one-file merged install request and an authorized secret channel.",
+      "avoid": "Do not infer live installation from source-controlled systemd files.; Do not retry an upgrade/activation workflow when the canonical runtime inventory says VERIFIED_ABSENT.; Do not invent, generate into source control or expose ADCP_RUNNER_SHARED_SECRET.; Do not broaden the service name, runtime root, command or path inputs."
+    },
+    {
+      "id": "2026-07-11-controlled-runner-bounded-first-install-v1",
+      "status": "RESOLVED",
+      "severity": "MEDIUM",
+      "match": [
+        "VERIFIED_ABSENT",
+        "PASS",
+        "ABSENT",
+        "PENDING_APPLY",
+        "ISSUE_134",
+        "CONTROLLED_RUNNER",
+        "FIRST_INSTALL",
+        "RUNNER02"
+      ],
+      "next": "After latest-head governance validation, merge PR #598 and create a one-file issue134-controlled-runner-install-request-* PR. Merge it only after Validate passes; merged-close Apply must prove live service and capability health or remove the created installation.",
+      "avoid": "Do not use the upgrade activation workflow for an absent runtime.; Do not place ADCP_RUNNER_SHARED_SECRET or ADCP_WINDOWS_BROWSER_BRIDGE_TOKEN in source, workflow arguments, logs or artifacts.; Do not overwrite a pre-existing service, runtime root, environment file or unit.; Do not install packages from the network during controlled runner first installation."
+    },
+    {
+      "id": "2026-07-11-controlled-runner-runtime-provisioning-state-v1",
+      "status": "RESOLVED",
+      "severity": "MEDIUM",
+      "match": [
+        "PARTIAL",
+        "PASS",
+        "ABSENT",
+        "ISSUE_134",
+        "CONTROLLED_RUNNER",
+        "RUNNER02",
+        "RUNNER03"
+      ],
+      "next": "Repair and validate the first-install native process boundary on an isolated capability PR. Then execute one new merged first-install request and require service health, runner registration, Browser Bridge/CDP reachability, admission and finalization routing evidence.",
+      "avoid": "Do not rerun first-install or activation while provisioning_state is PARTIAL.; Do not infer user/group absence from a helper that allows getent stdout to contaminate a boolean result.; Do not treat native stderr as command failure without checking the native exit code.; Do not expose environment-file values during inventory, recovery or installation evidence.; Do not claim recovery until a separate post-cleanup inventory proves ABSENT.; Do not reuse the failed first-install request; use a newly "
+    },
+    {
+      "id": "2026-07-11-github-projects-item-gate-eventual-consistency-v1",
+      "status": "RESOLVED",
+      "severity": "HIGH",
+      "match": [
+        "ELEMENTARY",
+        "ITEM_GATE_FAIL_CLOSED",
+        "ISSUE_273",
+        "ISSUE_283",
+        "GITHUB_PROJECTS_V2",
+        "ITEM_GATE"
+      ],
+      "next": "Run exact-head CI for PR #603. Accept the Project item gate only when the bounded execute/readback evidence returns ITEM_GATE_EXECUTE_PASS or ITEM_GATE_EXECUTE_NOOP with item_targets_present=true. Keep all field, issue, PR movement, view, automation, production and runtime-authority mutations forbidden.",
+      "avoid": "Do not treat a single immediate Projects V2 readback as definitive after addProjectV2ItemById.; Do not erase executed mutation evidence when post-write verification fails.; Do not solve propagation delay by adding another Project provisioner or by weakening the item gate.; Do not retry the mutation itself during the readback window.; Do not claim Project membership until bounded readback returns item_targets_present=true."
+    },
+    {
+      "id": "2026-07-11-github-projects-v2-secret-workflow-access",
+      "status": "RESOLVED",
+      "severity": "MEDIUM",
+      "match": [
+        "ACCESS_PREFLIGHT_RUN_ID=28938787948",
+        "CANONICAL_TARGETS_ARTIFACT_DIGEST=",
+        "github-projects-v2",
+        "github-actions",
+        "capability"
+      ],
+      "next": "Use governed workflows for Projects V2 mutations and never expose token values.",
+      "avoid": ""
+    },
+    {
+      "id": "2026-07-11-node-agent-core-admission-hardening-v1",
+      "status": "RESOLVED",
+      "severity": "HIGH",
+      "match": [
+        "PASS",
+        "JSON",
+        "ISSUE_283",
+        "ELEMENTARY_NODE",
+        "NODE_AGENT_CORE",
+        "POLICY_ADMISSION"
+      ],
+      "next": "Complete exact-head CI for PR #603, resolve any workflow blockers without weakening admission controls, then merge only after required gates pass. The following Node-specific implementation slice remains persistent cryptographic identity and enrollment under Issue #289.",
+      "avoid": "Do not treat the presence of rollback references as sufficient without equality and task binding.; Do not claim idempotency safety from sequential tests alone when concurrent delivery is possible.; Do not add new policy or envelope fields silently; unknown fields must fail closed until the schema and validator are versioned together.; Do not infer runtime activation or production acceptance from source tests."
+    },
+    {
+      "id": "2026-07-11-node-agent-journal-path-hardening-v1",
+      "status": "RESOLVED",
+      "severity": "MEDIUM",
+      "match": [
+        "ISSUE_283",
+        "ELEMENTARY_NODE",
+        "NODE_AGENT_CORE",
+        "DURABLE_JOURNAL"
+      ],
+      "next": "Complete exact-head CI for PR #603 and merge only when Node Validation, race tests, Project Item Gate and governance checks all pass. Then implement persistent cryptographic identity and enrollment under Issue #289 while reusing the existing ADCP runner registry.",
+      "avoid": "Do not assume os.OpenFile creation permissions constrain a pre-existing file.; Do not accept a caller-selected durable state path without validating its file type.; Do not follow a direct symbolic link for governed local evidence or journal state.; Do not claim runtime workspace symlink safety from lexical admission checks; enforce real filesystem containment later in the Workspace and Sandbox Manager.; Do not infer runtime activation or production acceptance from source hardening tests."
+    },
+    {
+      "id": "2026-07-11-node-identity-ci-laravel-dependency-preparation-v1",
+      "status": "RESOLVED",
+      "severity": "HIGH",
+      "match": [
+        "ISSUE_289",
+        "GITHUB_ACTIONS",
+        "SELF_HOSTED_RUNNER",
+        "LARAVEL_TESTS"
+      ],
+      "next": "Reuse the pinned Laravel preparation block in future Node application workflows and keep exact-head feature evidence separate from private local identity state.",
+      "avoid": "Do not assume application/vendor persists or belongs to the current self-hosted run.; Do not invoke php artisan tests before explicit dependency and test-database preparation.; Do not classify framework bootstrap failure as an Ed25519 or enrollment defect.; Do not upload private CI identity state with public validation artifacts."
     }
   ],
   "deep_sources": [

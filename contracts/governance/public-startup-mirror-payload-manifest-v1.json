@@ -1,9 +1,9 @@
 {
   "schema": "elementary.public-startup-mirror-payload.v1",
   "status": "PASS",
-  "generated_at_utc": "2026-07-13T13:16:17Z",
+  "generated_at_utc": "2026-07-13T16:07:23Z",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
-  "source_sha": "2ea9150d48cb27cf6060c38dd21122208ed62066",
+  "source_sha": "4ec62de4b315f6c05ee55abd8e635f4e2bf23858",
   "file_count": 24,
   "files": [
     {
@@ -40,15 +40,15 @@
     },
     {
       "path": "contracts/governance/generated/startup-memory-hotset-v1.json",
-      "sha256": "e8d4c02d6dcdea14a48b5dc4ee42d77738959a91258ed987bcd1499bd9442876"
+      "sha256": "926e8cbb3f14d60412c714f70dbb289f446d17531084a170fd5066b158079f26"
     },
     {
       "path": "contracts/governance/generated/problem-solution-router-v1.json",
-      "sha256": "c8a8332d01bb4564c66e248b3579a24f4f7e2d50333ed0d0d61401b8ab7907af"
+      "sha256": "bb9ba82969c93b72bcec9cde5e2f08e826ab7f870e58f4f064c2c3094878cb65"
     },
     {
       "path": "contracts/governance/generated/problem-solution-index-v1.jsonl",
-      "sha256": "77be2cce20b33dc5aeabfd966819a8c0f098a89d0b4be48e42fd29f9e6a6f54b"
+      "sha256": "86965fc49e5deab439dbf39a8a72f4c868894d901bdae53b26e7cb99319f65f1"
     },
     {
       "path": "contracts/governance/result-artifact-writeback-policy-v1.json",
@@ -56,7 +56,7 @@
     },
     {
       "path": "contracts/governance/result-artifact-registry-v1.jsonl",
-      "sha256": "236bc93becee0d20edd3490d28fd027b716e8754e81abc85a06db76b35fb3d0d"
+      "sha256": "cfd3218be028741168992302772daced82b863a00a03cc8a1680d334909adf7f"
     },
     {
       "path": "contracts/governance/generated/result-artifact-router-v1.json",
