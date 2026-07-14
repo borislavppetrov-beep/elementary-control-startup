@@ -1,7 +1,7 @@
 {
   "schema": "elementary.problem-solution-router.v1",
   "status": "ACTIVE",
-  "generated_at_utc": "2026-07-13T15:28:15Z",
+  "generated_at_utc": "2026-07-14T04:12:04Z",
   "routing_priority": [
     "active_blockers",
     "exact_symptom_signature",
@@ -96,6 +96,9 @@
     ],
     "AGENT_STATUS_EVIDENCE": [
       "2026-07-12-runner-capability-allowlist-production-drift-v1"
+    ],
+    "ATTEMPT_2": [
+      "2026-07-14-issue289-attempt2-signer-repair-and-sanitized-evidence-v1"
     ],
     "ATTESTATION": [
       "2026-07-12-startup-file-opened-not-fully-read-v1"
@@ -264,6 +267,9 @@
     "EVIDENCE_INTEGRITY": [
       "2026-07-11-self-hosted-runner-stale-tmp-evidence-v1"
     ],
+    "EVIDENCE_MINIMIZATION": [
+      "2026-07-14-issue289-attempt2-signer-repair-and-sanitized-evidence-v1"
+    ],
     "EVIDENCE_PRESERVATION": [
       "2026-07-12-issue615-pr623-pr-merge-ref-source-sha-mismatch-v1"
     ],
@@ -418,13 +424,20 @@
       "2026-07-13-issue289-hmac-recovery-process-idempotency-v1",
       "2026-07-13-issue289-hmac-status-shape-v1",
       "2026-07-13-issue289-signer-capability-proof-gap-v1",
-      "2026-07-13-partial-read-full-file-replacement-v1"
+      "2026-07-13-partial-read-full-file-replacement-v1",
+      "2026-07-14-issue289-attempt2-signer-repair-and-sanitized-evidence-v1"
+    ],
+    "ISSUE_289_LINE_B": [
+      "2026-07-14-issue336-msiexec-1638-installed-productcode-v1",
+      "2026-07-14-issue336-utf8-bom-findstr-writeback-false-negative-v1"
     ],
     "ISSUE_316": [
       "2026-07-12-node-resource-aware-multi-lane-architecture-v1"
     ],
     "ISSUE_336": [
-      "2026-07-12-node-resource-aware-multi-lane-architecture-v1"
+      "2026-07-12-node-resource-aware-multi-lane-architecture-v1",
+      "2026-07-14-issue336-msiexec-1638-installed-productcode-v1",
+      "2026-07-14-issue336-utf8-bom-findstr-writeback-false-negative-v1"
     ],
     "ISSUE_337": [
       "2026-07-12-node-resource-aware-multi-lane-architecture-v1"
@@ -485,6 +498,10 @@
     "LIVE_ENROLLMENT": [
       "2026-07-12-node-enrollment-before-dual-signing-client-v1"
     ],
+    "MSI_ACCEPTANCE": [
+      "2026-07-14-issue336-msiexec-1638-installed-productcode-v1",
+      "2026-07-14-issue336-utf8-bom-findstr-writeback-false-negative-v1"
+    ],
     "MSI_BUILD": [
       "2026-07-12-issue615-msi-payload-secret-scan-false-positive-v1",
       "2026-07-12-issue615-windows-runner-go-toolchain-gap-v1",
@@ -522,7 +539,8 @@
       "2026-07-13-issue289-enrollment-user-task-git-path-v1",
       "2026-07-13-issue289-enrollment-validator-anchor-drift-v1",
       "2026-07-13-issue289-hmac-status-shape-v1",
-      "2026-07-13-issue289-signer-capability-proof-gap-v1"
+      "2026-07-13-issue289-signer-capability-proof-gap-v1",
+      "2026-07-14-issue289-attempt2-signer-repair-and-sanitized-evidence-v1"
     ],
     "NODE_SERVICE_HOST": [
       "2026-07-11-node-windows-scm-service-host-gap-v1"
@@ -640,6 +658,9 @@
       "2026-07-13-issue289-enrollment-preactive-drain-and-hmac-recovery-v1",
       "2026-07-13-issue289-enrollment-unbind-marker-drift-v1"
     ],
+    "ROLLBACK_GOVERNANCE": [
+      "2026-07-14-issue289-attempt2-signer-repair-and-sanitized-evidence-v1"
+    ],
     "ROLLBACK_SYMMETRY": [
       "2026-07-12-issue615-winget-dotnet-manifest-scope-v1"
     ],
@@ -676,6 +697,9 @@
       "2026-07-11-self-hosted-runner-stale-tmp-evidence-v1",
       "2026-07-12-github-actions-shared-tmp-evidence-collision-v1"
     ],
+    "SERVICE_FAILURE_RECOVERY": [
+      "2026-07-14-issue336-msiexec-1638-installed-productcode-v1"
+    ],
     "SHELL_GREP": [
       "2026-07-12-pr617-service-account-json-assertion-escape-mismatch-v1"
     ],
@@ -706,6 +730,9 @@
       "2026-07-11-controlled-runner-bounded-first-install-v1",
       "2026-07-11-controlled-runner-runtime-provisioning-state-v1"
     ],
+    "TERMINAL_EVIDENCE_WRITEBACK": [
+      "2026-07-14-issue336-utf8-bom-findstr-writeback-false-negative-v1"
+    ],
     "TMP_PERSISTENCE": [
       "2026-07-11-self-hosted-runner-stale-tmp-evidence-v1"
     ],
@@ -729,6 +756,15 @@
       "2026-07-12-node-enrollment-before-dual-signing-client-v1",
       "2026-07-12-runner-capability-allowlist-production-drift-v1",
       "2026-07-12-windows-desktop-runner-native-process-boundary-v1"
+    ],
+    "WINDOWS_GITHUB_ACTIONS": [
+      "2026-07-14-issue336-utf8-bom-findstr-writeback-false-negative-v1"
+    ],
+    "WINDOWS_INSTALLED_SIGNER": [
+      "2026-07-14-issue289-attempt2-signer-repair-and-sanitized-evidence-v1"
+    ],
+    "WINDOWS_INSTALLER": [
+      "2026-07-14-issue336-msiexec-1638-installed-productcode-v1"
     ],
     "WINDOWS_INSTALLER_COM": [
       "2026-07-12-issue615-native-msi-com-release-before-readback-v1"
@@ -788,7 +824,8 @@
     ],
     "ZERO_BUDGET_PACKAGING": [
       "2026-07-12-issue615-native-msi-com-release-before-readback-v1",
-      "2026-07-12-issue615-native-msi-repository-root-depth-v1"
+      "2026-07-12-issue615-native-msi-repository-root-depth-v1",
+      "2026-07-14-issue336-msiexec-1638-installed-productcode-v1"
     ],
     "ZERO_BUDGET_PKI": [
       "2026-07-12-issue615-ephemeral-development-ca-chain-v1",
@@ -808,6 +845,9 @@
     "browser-bridge": [
       "2026-07-11-browser-bridge-scheduled-wrapper-shadows-launcher-contract",
       "2026-07-11-controlled-runner-finalization-allowlist-gap"
+    ],
+    "browser-bridge-9223": [
+      "2026-07-14-line-a-governance-drift-refresh"
     ],
     "capability": [
       "2026-07-11-capability-boundary-native-connectors-not-complete",
@@ -835,6 +875,9 @@
     "construction-os-next": [
       "2026-07-12-construction-os-next-structural-green-semantic-incomplete-v1"
     ],
+    "contract-identity": [
+      "2026-07-13-issue134-authorization-contract-alias"
+    ],
     "controlled-runner": [
       "2026-07-11-controlled-runner-finalization-allowlist-gap"
     ],
@@ -844,6 +887,9 @@
     "cpanel": [
       "2026-07-03-production-cpanel-no-node-runtime",
       "2026-07-13-issue134-cpanel-exact-sha-terminal-recovery"
+    ],
+    "cpanel-deployment": [
+      "2026-07-13-issue134-authorization-contract-alias"
     ],
     "custom-gpt-bootstrap": [
       "2026-07-11-startup-mirror-token-secret-not-visible"
@@ -859,6 +905,9 @@
     ],
     "execution-policy": [
       "2026-07-11-activation-validator-rendered-literal-false-negative"
+    ],
+    "fail-closed-admission": [
+      "2026-07-13-issue134-authorization-contract-alias"
     ],
     "github-actions": [
       "2026-07-06-bocore-runner-single-lane-capacity",
@@ -882,7 +931,12 @@
       "2026-07-13-issue134-cpanel-exact-sha-terminal-recovery"
     ],
     "issue134": [
-      "2026-07-13-issue134-cpanel-exact-sha-terminal-recovery"
+      "2026-07-13-issue134-authorization-contract-alias",
+      "2026-07-13-issue134-cpanel-exact-sha-terminal-recovery",
+      "2026-07-14-line-a-governance-drift-refresh"
+    ],
+    "line-a": [
+      "2026-07-14-line-a-governance-drift-refresh"
     ],
     "manifest-contract": [
       "2026-07-11-startup-mirror-manifest-contract-drift"
@@ -906,6 +960,9 @@
     "production": [
       "2026-07-03-production-cpanel-no-node-runtime"
     ],
+    "public-startup-mirror": [
+      "2026-07-14-line-a-governance-drift-refresh"
+    ],
     "repository-secrets": [
       "2026-07-11-startup-mirror-token-secret-not-visible"
     ],
@@ -921,6 +978,9 @@
     "runtime": [
       "2026-07-03-production-cpanel-no-node-runtime"
     ],
+    "runtime-inventory": [
+      "2026-07-14-line-a-governance-drift-refresh"
+    ],
     "scheduled-task": [
       "2026-07-11-browser-bridge-scheduled-wrapper-shadows-launcher-contract",
       "2026-07-11-runner03-windows-background-scheduled-mode"
@@ -933,6 +993,12 @@
     ],
     "source-traceability": [
       "2026-07-12-construction-os-next-structural-green-semantic-incomplete-v1"
+    ],
+    "standing-release-authorization": [
+      "2026-07-13-issue134-authorization-contract-alias"
+    ],
+    "startup-memory": [
+      "2026-07-14-line-a-governance-drift-refresh"
     ],
     "startup-mirror": [
       "2026-07-11-activation-validator-rendered-literal-false-negative",

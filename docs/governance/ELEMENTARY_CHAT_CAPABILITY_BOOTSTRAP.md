@@ -16,6 +16,7 @@ CODEX_CAPABILITY_PROFILE=contracts/governance/codex-capability-profile-v1.json
 CODEX_REPOSITORY_INSTRUCTIONS=AGENTS.md
 ECOSYSTEM_LEARNING_LEDGER=docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md
 MACHINE_READABLE_PROBLEM_LEDGER=contracts/governance/ecosystem-problem-solution-ledger-v1.jsonl
+PUBLIC_STARTUP_MIRROR=https://raw.githubusercontent.com/borislavppetrov-beep/elementary-control-startup/main/contracts/governance/chat-startup-context-bundle-v1.json
 ```
 
 ## Standing owner authorization
@@ -130,18 +131,18 @@ PAID_PACKAGING_DEPENDENCY_REQUIRED=false
 DEVELOPMENT_SIGNING_RUN=29203122034
 DEVELOPMENT_SIGNING_ARTIFACT=8262990887
 DEVELOPMENT_SIGNING_ARTIFACT_DIGEST=sha256:654d16fbd7188c0082242daa0356a2d7c44a1931da7cbc60830673e24662373a
-DEVELOPMENT_SIGNED_MSI_SHA256=a39c778a53a2ad25bdfd759ebf25e20dc417e14b56cdc9cf5a955b67bd471d29
+DEVELOPMENT_SIGNED_MSI_SHA256=a39c778a53a2ad25bdfd759ebf25e20dc417e14b56cd9cf5a955b67bd471d29
 ISOLATED_ACCEPTANCE_ISSUE=#336
 ISOLATED_ACCEPTANCE_RUN=29204391799
 ISOLATED_ACCEPTANCE_ARTIFACT=8263377088
 ISOLATED_ACCEPTANCE_ARTIFACT_DIGEST=sha256:d81e8d6a5a6ec8e9a31692d31229c76caefeea0f745eb14ffb9d0981041a9c36
-MSI_INSTALL=PASS
+MNS_INSTALLOPASS
 SERVICE_ACCOUNT=NT AUTHORITY\LocalService
 SERVICE_START_MODE=Manual
 ACL_HARDENING=PASS
 HEALTH=PASS
-UNINSTALL=PASS
-CLEAN_REINSTALL=PASS
+UNINSTALLOPASS
+CLEAN_REINSTALLOPASS
 FINAL_SERVICE_RUNNING=PASS
 RUNTIME_ACTIVE=false
 PRODUCTION_ACCEPTED=false
@@ -186,6 +187,20 @@ Required action:
 It is forbidden to leave newly discovered capability, version, failure or solution information only in chat text.
 
 ## Known governed capabilities
+
+### Browser Bridge 9223 live runtime
+
+The last verified bounded live readback records Browser Bridge `1.3.0` as operational with Edge CDP PASS and governed admission enabled for:
+
+```text
+CHAT.GPT3_SESSION_SCAN
+CREATE_AND_BOOTSTRAP_CHAT
+CAPTURE_SYSTEM_INTELLIGENCE_QA
+FINALIZE_CHAT_ROLLOVER
+BOCORE_SOFTWARE_INVENTORY_READBACK
+```
+
+Canonical evidence is recorded in `contracts/governance/runtime-inventory-overlays/2026-07-11-browser-bridge-1-3-0-live-readback.json`. This capability remains bounded by ADCP admission, privacy, evidence and fail-closed controls; it is not an unrestricted browser or shell path.
 
 ### Windows and terminal execution
 

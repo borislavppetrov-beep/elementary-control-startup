@@ -1,9 +1,9 @@
 {
   "schema": "elementary.public-startup-mirror-payload.v1",
   "status": "PASS",
-  "generated_at_utc": "2026-07-14T03:43:08Z",
+  "generated_at_utc": "2026-07-14T04:25:20Z",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
-  "source_sha": "8707d07216727952de049aa30933b95f535f053b",
+  "source_sha": "233eb5c064be6a2877f6424432c9e9d67c0b6489",
   "file_count": 24,
   "files": [
     {
@@ -16,7 +16,7 @@
     },
     {
       "path": "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
-      "sha256": "5f4d5bfca5227fc17db6b620bfa2baffecb4fa896714e4e248926baac909dac3"
+      "sha256": "77e63a7c23bca5abd527da43bc6ff6f82271a2ab50cd9b535c4ea130bedb1b91"
     },
     {
       "path": "contracts/governance/owner-resource-authorization-v1.json",
@@ -24,7 +24,7 @@
     },
     {
       "path": "contracts/governance/canonical-software-runtime-inventory-v1.json",
-      "sha256": "982ef4a61c68c09b1cd3027c976acdbf5e3dc96fc0bcad3de053c9159b774d59"
+      "sha256": "db880a88c17a851b71a0cff0b25079249dea83a1c17e5cb02996c94d7bebe231"
     },
     {
       "path": "contracts/governance/chatgpt-plus-capability-profile-v1.json",
@@ -40,15 +40,15 @@
     },
     {
       "path": "contracts/governance/generated/startup-memory-hotset-v1.json",
-      "sha256": "926e8cbb3f14d60412c714f70dbb289f446d17531084a170fd5066b158079f26"
+      "sha256": "48fadf5ede4f97551e861d5ddf104794422ebc08e0aa22ee1145003158e4407d"
     },
     {
       "path": "contracts/governance/generated/problem-solution-router-v1.json",
-      "sha256": "bb9ba82969c93b72bcec9cde5e2f08e826ab7f870e58f4f064c2c3094878cb65"
+      "sha256": "2c2742f275ee616815f0843b5d58a52b01bd0f20fb36b722b2d8f40c711d9b1d"
     },
     {
       "path": "contracts/governance/generated/problem-solution-index-v1.jsonl",
-      "sha256": "86965fc49e5deab439dbf39a8a72f4c868894d901bdae53b26e7cb99319f65f1"
+      "sha256": "93460ffeabc510c8872e9e4997757a861f00459651e85f1f1cf980675ada68f1"
     },
     {
       "path": "contracts/governance/result-artifact-writeback-policy-v1.json",
@@ -56,7 +56,7 @@
     },
     {
       "path": "contracts/governance/result-artifact-registry-v1.jsonl",
-      "sha256": "cfd3218be028741168992302772daced82b863a00a03cc8a1680d334909adf7f"
+      "sha256": "33819c9fc4e51ffd7e5c23ad171408604836f6767417a4e1cbab02813a90d1fd"
     },
     {
       "path": "contracts/governance/generated/result-artifact-router-v1.json",

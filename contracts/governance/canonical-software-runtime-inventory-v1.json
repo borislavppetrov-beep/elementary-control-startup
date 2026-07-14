@@ -166,13 +166,18 @@
       "PR #645 native Windows Installer backend",
       "PR #648 bounded native MSI build request",
       "Issue #615 development signing run 29203122034 artifact 8262990887",
-      "Issue #336 Node MSI acceptance run 29204391799 artifact 8263377088"
+      "Issue #336 Node MSI acceptance run 29204391799 artifact 8263377088",
+      "PR #577 merge f2ce5519b64a7b5da5cd81e0b2a7503b1cebf956",
+      "PR #578 merge b6ae3c09ecd45d4ebfb28dee71953f3a2becefae",
+      "workflow run 29151944424 artifact 8248387765 digest sha256:af6f96b25f56c59f59799c9b97dbfa9f9ce3d6e3db71bcdd7faca14148be6c21",
+      "independent readback workflow run 29150679132 attempt 4 artifact 8248395903 digest sha256:ca4c4a62abac3d6b1d4869c0c568fe3ceb948bb2b31ace435dbf04f3a3a191ee",
+      "contracts/governance/runtime-inventory-overlays/2026-07-11-browser-bridge-1-3-0-live-readback.json"
     ],
     "known_capabilities": [
       "Windows filesystem including C:\\ through governed operations",
       "Windows-native GitHub Actions Runner 03 scheduled task",
       "Linux/WSL GitHub Actions Runner 02 lane",
-      "Browser Bridge 9223 scheduled task",
+      "Browser Bridge 9223 v1.3.0 scheduled task with governed scan, bootstrap, QA capture, rollover finalization and software-inventory admission",
       "BoCore software inventory readback",
       "Node.js-based controlled browser scripts",
       "browser CDP control",
@@ -330,10 +335,26 @@
       },
       "browser_bridge_9223": {
         "status": "OPERATIONAL",
-        "version": "1.2.0",
+        "version": "1.3.0",
+        "observed_at_utc": "2026-07-11T12:03:13Z",
         "edge_cdp": "PASS",
         "edge_cdp_version": "Edg/149.0.4022.98",
-        "bocore_software_inventory_readback": "ENABLED"
+        "admission_enabled": true,
+        "supported_operations": [
+          "CHATGPT_SESSION_SCAN",
+          "CREATE_AND_BOOTSTRAP_CHAT",
+          "CAPTURE_SYSTEM_INTELLIGENCE_QA",
+          "FINALIZE_CHAT_ROLLOVER",
+          "BOCORE_SOFTWARE_INVENTORY_READBACK"
+        ],
+        "bocore_software_inventory_readback": "ENABLED",
+        "evidence_refs": [
+          "PR #577 merge f2ce5519b64a7b5da5cd81e0b2a7503b1cebf956",
+          "PR #578 merge b6ae3c09ecd45d4ebfb28dee71953f3a2becefae",
+          "workflow run 29151944424 artifact 8248387765 digest sha256:af6f96b25f56c59f59799c9b97dbfa9f9ce3d6e3db71bcdd7faca14148be6c21",
+          "independent readback workflow run 29150679132 attempt 4 artifact 8248395903 digest sha256:ca4c4a62abac3d6b1d4869c0c568fe3ceb948bb2b31ace435dbf04f3a3a191ee",
+          "contracts/governance/runtime-inventory-overlays/2026-07-11-browser-bridge-1-3-0-live-readback.json"
+        ]
       }
     },
     "policy_evidence": {
