@@ -36,12 +36,7 @@ jobs:
           test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD_SHA"
           python3 - <<'PY'
           from __future__ import annotations
-
-          import hashlib
-          import json
-          import os
-          import pathlib
-          import re
+          import hashlib, json, os, pathlib, re
 
           root = pathlib.Path('.').resolve()
           manifest_rel = 'contracts/governance/public-startup-mirror-payload-manifest-v1.json'
@@ -67,7 +62,6 @@ jobs:
           require(manifest_path.is_file(), 'PUBLIC_STARTUP_MANIFEST', f'missing={manifest_rel}')
           require(legacy_path.is_file(), 'PUBLIC_STARTUP_LEGACY_MANIFEST', f'missing={legacy_rel}')
           manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-
           require(manifest.get('schema') == 'elementary.public-startup-mirror-payload.v1', 'PUBLIC_STARTUP_MANIFEST_SCHEMA', 'unexpected')
           require(manifest.get('status') == 'PASS', 'PUBLIC_STARTUP_MANIFEST_STATUS', 'expected=PASS')
           require(manifest.get('source_repository') == 'borislavppetrov-beep/elementary-construction-os', 'PUBLIC_STARTUP_SOURCE_REPOSITORY', 'unexpected')
@@ -87,7 +81,6 @@ jobs:
           files = manifest.get('files')
           require(isinstance(files, list) and files, 'PUBLIC_STARTUP_MANIFEST_FILES', 'empty_or_invalid')
           require(manifest.get('file_count') == len(files), 'PUBLIC_STARTUP_FILE_COUNT', f"declared={manifest.get('file_count')} actual={len(files)}")
-
           seen: set[str] = set()
           expected_legacy: list[str] = []
           for index, item in enumerate(files):
@@ -108,20 +101,16 @@ jobs:
 
           legacy_lines = [line for line in legacy_path.read_text(encoding='utf-8').splitlines() if line]
           require(legacy_lines == expected_legacy, 'PUBLIC_STARTUP_LEGACY_MANIFEST', 'content_or_order_mismatch')
-
           expected_tree = seen | {manifest_rel, legacy_rel}
-          actual_tree = {
-              path.relative_to(root).as_posix()
-              for path in root.rglob('*')
-              if path.is_file() and '.git' not in path.relative_to(root).parts
-          }
+          actual_tree = {path.relative_to(root).as_posix() for path in root.rglob('*') if path.is_file() and '.git' not in path.relative_to(root).parts}
           require(actual_tree == expected_tree, 'PUBLIC_STARTUP_REPOSITORY_TREE', f'missing={sorted(expected_tree - actual_tree)} extra={sorted(actual_tree - expected_tree)}')
 
           bundle_rel = 'contracts/governance/chat-startup-context-bundle-v1.json'
           policy_rel = 'contracts/governance/professional-execution-policy-v1.json'
           catalog_rel = 'contracts/governance/professional-execution-profile-catalog-v1.json'
-          workflow_rel = '.github/workflows/public-startup-repository-validation.yml'
-          for rel in (bundle_rel, policy_rel, catalog_rel, workflow_rel):
+          validator_rel = '.github/workflows/public-startup-repository-validation.yml'
+          opener_rel = '.github/workflows/public-startup-pr-opener.yml'
+          for rel in (bundle_rel, policy_rel, catalog_rel, validator_rel, opener_rel):
               require(rel in seen, 'PUBLIC_STARTUP_REQUIRED_FILE', f'missing_from_manifest={rel}')
 
           bundle = json.loads((root / bundle_rel).read_text(encoding='utf-8'))
@@ -131,12 +120,25 @@ jobs:
           require(policy.get('schema') == 'elementary.professional-execution-policy.v1' and policy.get('status') == 'ACTIVE', 'PUBLIC_STARTUP_POLICY', 'invalid')
           require(catalog.get('schema') == 'elementary.professional-execution-profile-catalog.v1' and catalog.get('status') == 'ACTIVE', 'PUBLIC_STARTUP_PROFILE_CATALOG', 'invalid')
           require(catalog.get('policy') == policy_rel, 'PUBLIC_STARTUP_PROFILE_CATALOG', 'policy_link_mismatch')
-
           rule = bundle.get('professional_execution_rule')
           require(isinstance(rule, dict), 'PUBLIC_STARTUP_PROFESSIONAL_RULE', 'missing')
           require(rule.get('policy') == policy_rel, 'PUBLIC_STARTUP_PROFESSIONAL_RULE', 'policy_link_mismatch')
           require(rule.get('profile_catalog') == catalog_rel, 'PUBLIC_STARTUP_PROFESSIONAL_RULE', 'catalog_link_mismatch')
           require(rule.get('unknown_profile_fails_closed') is True, 'PUBLIC_STARTUP_PROFESSIONAL_RULE', 'unknown_profile_not_fail_closed')
+
+          opener_text = (root / opener_rel).read_text(encoding='utf-8')
+          opener_markers = (
+              'sync/public-startup-mirror',
+              'pull-requests:' + ' write',
+              'github.token',
+              'PRIMARY_SOURCE_SHA',
+              'STARTUP_AUTO_MERGE=false',
+          )
+          for marker in opener_markers:
+              require(marker in opener_text, 'PUBLIC_STARTUP_NATIVE_PR_OPENER', f'missing={marker}')
+          require(re.search(r'git\s+push[^\n]*(?:HEAD:main|refs/heads/main)', opener_text) is None, 'PUBLIC_STARTUP_NATIVE_PR_OPENER', 'direct_main_push')
+          auto_merge_pattern = r'\b(?:gh\s+pr\s+' + 'merge' + '|' + 'merge_' + 'pull_request' + '|' + '/' + 'merge' + r')\b'
+          require(re.search(auto_merge_pattern, opener_text) is None, 'PUBLIC_STARTUP_NATIVE_PR_OPENER', 'automatic_merge')
 
           read_order: list[str] = []
           for item in bundle.get('read_order', []):
@@ -177,12 +179,14 @@ jobs:
               'read_order_count': len(read_order),
               'secret_scan': 'PASS',
               'repository_tree': 'EXACT',
+              'native_pr_opener': 'PASS',
           }
           pathlib.Path('public-startup-validation-report.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
           print('PUBLIC_STARTUP_REPOSITORY_VALIDATION=PASS')
           print(f'PRIMARY_SOURCE_SHA={source_sha}')
           print(f'PUBLIC_STARTUP_FILE_COUNT={len(files)}')
           print(f'PUBLIC_STARTUP_READ_ORDER_COUNT={len(read_order)}')
+          print('PUBLIC_STARTUP_NATIVE_PR_OPENER=PASS')
           print('PUBLIC_STARTUP_SECRET_SCAN=PASS')
           print('PUBLIC_STARTUP_REPOSITORY_TREE=EXACT')
           PY
