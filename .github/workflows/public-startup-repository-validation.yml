@@ -1,6 +1,17 @@
 name: Public Startup Repository Validation
 
 on:
+  workflow_call:
+    inputs:
+      expected_head_sha:
+        required: true
+        type: string
+      primary_source_sha:
+        required: true
+        type: string
+      pr_number:
+        required: true
+        type: string
   pull_request:
     branches: [main]
   push:
@@ -9,9 +20,10 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 concurrency:
-  group: public-startup-repository-validation-${{ github.event.pull_request.number || github.ref }}
+  group: public-startup-repository-validation-${{ inputs.pr_number || github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -20,7 +32,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      EXPECTED_HEAD_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+      EXPECTED_HEAD_SHA: ${{ inputs.expected_head_sha || (github.event_name == 'pull_request' && github.event.pull_request.head.sha) || github.sha }}
+      EXPECTED_PRIMARY_SOURCE_SHA: ${{ inputs.primary_source_sha || '' }}
+      EXPECTED_PR_NUMBER: ${{ inputs.pr_number || github.event.pull_request.number || '' }}
+      VALIDATION_MODE: ${{ inputs.expected_head_sha != '' && 'workflow_call' || github.event_name }}
     steps:
       - name: Checkout exact startup candidate
         uses: actions/checkout@v4
@@ -29,14 +44,21 @@ jobs:
           fetch-depth: 1
           persist-credentials: false
 
-      - name: Validate exact source, hashes, read order and policy links
+      - name: Validate exact source, PR binding, hashes, read order and policy links
         shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD_SHA"
           python3 - <<'PY'
           from __future__ import annotations
-          import hashlib, json, os, pathlib, re
+          import hashlib
+          import json
+          import os
+          import pathlib
+          import re
+          import urllib.request
 
           root = pathlib.Path('.').resolve()
           manifest_rel = 'contracts/governance/public-startup-mirror-payload-manifest-v1.json'
@@ -44,6 +66,12 @@ jobs:
           manifest_path = root / manifest_rel
           legacy_path = root / legacy_rel
           event_path = pathlib.Path(os.environ['GITHUB_EVENT_PATH'])
+          expected_head = os.environ['EXPECTED_HEAD_SHA']
+          expected_source = os.environ.get('EXPECTED_PRIMARY_SOURCE_SHA', '')
+          expected_pr_number = os.environ.get('EXPECTED_PR_NUMBER', '')
+          validation_mode = os.environ.get('VALIDATION_MODE', '')
+          repository = os.environ['GITHUB_REPOSITORY']
+          token = os.environ['GH_TOKEN']
 
           def fail(code: str, detail: str) -> None:
               raise SystemExit(f'{code}=FAIL {detail}')
@@ -59,6 +87,24 @@ jobs:
                       digest.update(chunk)
               return digest.hexdigest()
 
+          def api_get(path: str) -> dict:
+              request = urllib.request.Request(
+                  f'https://api.github.com/repos/{repository}{path}',
+                  headers={
+                      'Accept': 'application/vnd.github+json',
+                      'Authorization': f'Bearer {token}',
+                      'X-GitHub-Api-Version': '2022-11-28',
+                      'User-Agent': 'ELEMENTARY-Public-Startup-Repository-Validation',
+                  },
+              )
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  return json.load(response)
+
+          require(
+              re.fullmatch(r'[0-9a-f]{40}', expected_head) is not None,
+              'PUBLIC_STARTUP_EXPECTED_HEAD_SHA',
+              f'invalid={expected_head!r}',
+          )
           require(manifest_path.is_file(), 'PUBLIC_STARTUP_MANIFEST', f'missing={manifest_rel}')
           require(legacy_path.is_file(), 'PUBLIC_STARTUP_LEGACY_MANIFEST', f'missing={legacy_rel}')
           manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
@@ -70,13 +116,72 @@ jobs:
           require(manifest.get('forbidden_value_scan') == 'PASS', 'PUBLIC_STARTUP_FORBIDDEN_VALUE_SCAN', 'not_pass')
           require(manifest.get('read_order_validated') is True, 'PUBLIC_STARTUP_READ_ORDER_FLAG', 'not_true')
 
+          if expected_source:
+              require(
+                  re.fullmatch(r'[0-9a-f]{40}', expected_source) is not None,
+                  'PUBLIC_STARTUP_EXPECTED_PRIMARY_SOURCE_SHA',
+                  f'invalid={expected_source!r}',
+              )
+              require(
+                  expected_source == source_sha,
+                  'PUBLIC_STARTUP_EXPECTED_PRIMARY_SOURCE_SHA',
+                  f'expected={expected_source} manifest={source_sha}',
+              )
+
           event = json.loads(event_path.read_text(encoding='utf-8'))
           pull_request = event.get('pull_request')
+          pr_number: int | None = None
+          if expected_pr_number:
+              require(
+                  re.fullmatch(r'[1-9][0-9]*', expected_pr_number) is not None,
+                  'PUBLIC_STARTUP_PR_NUMBER',
+                  f'invalid={expected_pr_number!r}',
+              )
+              pr_number = int(expected_pr_number)
+              if not isinstance(pull_request, dict) or pull_request.get('number') != pr_number:
+                  pull_request = api_get(f'/pulls/{pr_number}')
+
           if isinstance(pull_request, dict):
               body = pull_request.get('body') or ''
               match = re.search(r'PRIMARY_SOURCE_SHA=([0-9a-f]{40})', body)
               require(match is not None, 'PUBLIC_STARTUP_PR_SOURCE_BINDING', 'missing_primary_source_sha')
               require(match.group(1) == source_sha, 'PUBLIC_STARTUP_PR_SOURCE_BINDING', f'body={match.group(1)} manifest={source_sha}')
+              require(pull_request.get('state') == 'open', 'PUBLIC_STARTUP_PR_STATE', 'not_open')
+              require(pull_request.get('base', {}).get('ref') == 'main', 'PUBLIC_STARTUP_PR_BASE', 'not_main')
+              require(pull_request.get('head', {}).get('sha') == expected_head, 'PUBLIC_STARTUP_PR_HEAD_SHA', 'mismatch')
+              require(
+                  pull_request.get('head', {}).get('repo', {}).get('full_name') == repository,
+                  'PUBLIC_STARTUP_PR_HEAD_REPOSITORY',
+                  'not_same_repository',
+              )
+
+              if validation_mode == 'workflow_call':
+                  require(pr_number is not None, 'PUBLIC_STARTUP_AUTOMATIC_VALIDATION', 'missing_pr_number')
+                  require(
+                      pull_request.get('number') == pr_number,
+                      'PUBLIC_STARTUP_AUTOMATIC_VALIDATION',
+                      'pr_number_mismatch',
+                  )
+                  require(
+                      pull_request.get('draft') is True,
+                      'PUBLIC_STARTUP_AUTOMATIC_VALIDATION',
+                      'pr_not_draft',
+                  )
+                  require(
+                      pull_request.get('head', {}).get('ref') == 'sync/public-startup-mirror',
+                      'PUBLIC_STARTUP_AUTOMATIC_VALIDATION',
+                      'unexpected_head_ref',
+                  )
+                  require(
+                      pull_request.get('user', {}).get('login') == 'github-actions[bot]',
+                      'PUBLIC_STARTUP_AUTOMATIC_VALIDATION',
+                      'unexpected_pr_author',
+                  )
+                  require(
+                      expected_source == source_sha,
+                      'PUBLIC_STARTUP_AUTOMATIC_VALIDATION',
+                      'source_binding_missing',
+                  )
 
           files = manifest.get('files')
           require(isinstance(files, list) and files, 'PUBLIC_STARTUP_MANIFEST_FILES', 'empty_or_invalid')
@@ -130,8 +235,12 @@ jobs:
           opener_markers = (
               'sync/public-startup-mirror',
               'pull-requests:' + ' write',
+              'actions:' + ' read',
               'github.token',
               'PRIMARY_SOURCE_SHA',
+              'validate-created-pr:',
+              'record-automatic-validation:',
+              'AUTOMATIC_STARTUP_VALIDATION=PASS',
               'STARTUP_AUTO_MERGE=false',
           )
           for marker in opener_markers:
@@ -171,8 +280,10 @@ jobs:
           report = {
               'schema': 'elementary.public-startup-repository-validation.v1',
               'status': 'PASS',
-              'startup_head_sha': os.environ['EXPECTED_HEAD_SHA'],
+              'validation_mode': validation_mode,
+              'startup_head_sha': expected_head,
               'primary_source_sha': source_sha,
+              'pr_number': pr_number,
               'file_count': len(files),
               'manifest_hash': sha256_file(manifest_path),
               'legacy_manifest_hash': sha256_file(legacy_path),
@@ -180,9 +291,13 @@ jobs:
               'secret_scan': 'PASS',
               'repository_tree': 'EXACT',
               'native_pr_opener': 'PASS',
+              'manual_validation_approval_used': False,
           }
           pathlib.Path('public-startup-validation-report.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
           print('PUBLIC_STARTUP_REPOSITORY_VALIDATION=PASS')
+          if validation_mode == 'workflow_call':
+              print('PUBLIC_STARTUP_AUTOMATIC_VALIDATION=PASS')
+              print('MANUAL_VALIDATION_APPROVAL_USED=false')
           print(f'PRIMARY_SOURCE_SHA={source_sha}')
           print(f'PUBLIC_STARTUP_FILE_COUNT={len(files)}')
           print(f'PUBLIC_STARTUP_READ_ORDER_COUNT={len(read_order)}')
