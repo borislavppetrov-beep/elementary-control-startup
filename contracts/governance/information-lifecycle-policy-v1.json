@@ -1,0 +1,48 @@
+{
+  "schema": "elementary.information-lifecycle-policy.v1",
+  "status": "ACTIVE",
+  "version": "1.0.0",
+  "effective_date": "2026-07-16",
+  "supersedes": null,
+  "inherits_from": [
+    "docs/architecture/ELEMENTARY_INFORMATION_RECOVERY_RECORDS_AND_LEGACY_ERADICATION_LOCK_2026-07-02.md",
+    "docs/security/BACKUP_SECURITY_AUDIT_CONTRACT.md",
+    "corporate/registry/DOCUMENT_REGISTER.md"
+  ],
+  "states": ["DISCOVERED", "CAPTURED", "HASHED", "SAFETY_CHECKED", "IDENTIFIED", "CLASSIFIED", "DEDUPLICATED", "RENAMED", "CANONICALIZED", "REVIEWED", "SOURCE_CLEANUP_ELIGIBLE", "QUARANTINED", "DELETION_APPROVED", "DELETED", "CLOSED"],
+  "exception_states": ["REVIEW_REQUIRED", "CONFLICTED", "POSSIBLE_DUPLICATE", "UNKNOWN_PROJECT", "UNKNOWN_DOCUMENT_TYPE", "LEGAL_HOLD", "CORRUPTED", "UNSUPPORTED_FORMAT", "UNKNOWN"],
+  "classification_values": ["CANONICAL", "EXACT_DUPLICATE", "NEAR_DUPLICATE", "FORMAT_RENDITION", "DERIVATIVE", "PREVIOUS_VERSION", "OFFICIAL_REVISION", "SUPERSEDED_DECISION", "TRANSFER_COPY", "BACKUP", "TEMPORARY", "CACHE", "BUILD_OUTPUT", "RUNTIME_REQUIRED", "INDEPENDENT_DOCUMENT", "UNKNOWN"],
+  "canonical_resolution_factors": ["authority", "approval_or_signature", "scope", "version_or_revision", "source_and_provenance", "implementation_state", "production_evidence", "later_supersession", "rollback_history"],
+  "retention": {
+    "record_class_fields": ["record_class", "business_function", "owner", "legal_authority", "legal_citation", "retention_trigger", "retention_period", "final_action", "review_required", "legal_hold_rule", "security_class"],
+    "exact_periods_require_professional_approval": true,
+    "approved_by_roles": ["lawyer", "accountant", "DPO", "HR_owner", "construction_process_owner"],
+    "unknown_period_behavior": "HOLD",
+    "right_to_delete_does_not_override_other_obligations": true
+  },
+  "quarantine": {
+    "default_hold_days": 30,
+    "move_requires_exact_batch": true,
+    "copy_only_is_not_migration_complete": true,
+    "source_cleanup_requires_canonical_copy_and_hash_verification": true,
+    "rollback_manifest_required": true
+  },
+  "deletion": {
+    "automatic_business_record_deletion": false,
+    "separate_owner_authorization_required": true,
+    "recycle_or_version_purge_separately_authorized": true,
+    "post_delete_rescan_required": true
+  },
+  "backup": {
+    "model": "OneDrive primary + independent local/NAS backup + periodic immutable archive",
+    "sync_is_not_backup": true,
+    "restore_test_required": true,
+    "registry_hash_reconciliation_required": true
+  },
+  "naming": {
+    "pattern": "[DOCUMENT-ID]_[SHORT-TITLE]_[VERSION-OR-REVISION]_[YYYY-MM-DD]_[STATUS].[ext]",
+    "original_name_and_path_traceable": true,
+    "rename_does_not_change_content_hash": true,
+    "conversion_creates_derivative_with_separate_hash": true
+  }
+}

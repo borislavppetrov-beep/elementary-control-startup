@@ -1,0 +1,83 @@
+{
+  "schema": "elementary.professional-execution-policy.v1",
+  "status": "ACTIVE",
+  "policy_id": "ELEMENTARY_PROFESSIONAL_EXECUTION_POLICY",
+  "version": "1.0.0",
+  "effective_date": "2026-07-16",
+  "authority": {
+    "source_and_release_truth": "GitHub main",
+    "lifecycle_and_orchestration_authority": "ELEMENTARY ADCP",
+    "policy_authority": "ELEMENTARY Agent Governance",
+    "document_records_authority": "ELEMENTARY information recovery and records canonicalization program",
+    "owner_authorization": "Issue #1160 and controlled-chat instruction dated 2026-07-16"
+  },
+  "purpose": "Provide a canonical fail-closed policy for specialist execution profiles that perform high-impact inventory, records governance, retention, quarantine and cleanup work without creating a second control plane.",
+  "profile_activation": {
+    "catalog": "contracts/governance/professional-execution-profile-catalog-v1.json",
+    "must_select_exact_profile": true,
+    "must_load_profile_before_execution": true,
+    "unknown_profile_behavior": "FAIL_CLOSED",
+    "profile_may_not_expand_owner_authority": true
+  },
+  "execution_modes": {
+    "READ_ONLY_CENSUS": {
+      "mutation_allowed": false,
+      "required_before": ["CLASSIFICATION", "QUARANTINE_PLAN", "CLEANUP_PLAN", "DELETION"]
+    },
+    "CONTROLLED_CLASSIFICATION": {
+      "mutation_allowed": false,
+      "requires": ["complete_manifest", "authority_map", "provenance", "hash_or_provider_identity"]
+    },
+    "QUARANTINE_APPLY": {
+      "mutation_allowed": true,
+      "requires": ["exact_batch", "owner_authorization", "retention_review", "legal_hold_clearance", "recovery_proof", "independent_verifier", "rollback_window"]
+    },
+    "DELETION_APPLY": {
+      "mutation_allowed": true,
+      "requires": ["exact_batch", "separate_owner_deletion_authorization", "retention_expiry", "legal_hold_clearance", "canonical_copy_verified", "dependency_clearance", "independent_verifier", "post_delete_audit"]
+    }
+  },
+  "segregation_of_duties": {
+    "single_actor_may_not_complete_all_destructive_stages": true,
+    "required_roles": ["discovery", "classification", "retention_legal_review", "independent_verification", "owner_approval", "execution", "post_execution_audit"]
+  },
+  "evidence": {
+    "manifest_required": true,
+    "source_identity_required": true,
+    "collector_identity_required": true,
+    "collection_timestamp_required": true,
+    "source_scope_required": true,
+    "hash_required_when_provider_or_filesystem_allows": true,
+    "provider_object_id_required_for_cloud_objects": true,
+    "unknown_is_not_zero": true,
+    "partial_is_not_complete": true,
+    "filename_is_not_identity": true
+  },
+  "safety": {
+    "secret_value_disclosure": false,
+    "token_value_disclosure": false,
+    "private_key_material": false,
+    "raw_environment_dump": false,
+    "credential_store_read": false,
+    "unbounded_shell": false,
+    "free_form_delete_path": false,
+    "symlink_escape": false,
+    "active_release_delete": false,
+    "previous_verified_release_delete": false,
+    "active_backup_delete": false,
+    "active_runner_workspace_delete": false,
+    "node_identity_delete_without_server_unbind": false,
+    "legal_hold_delete": false,
+    "unmanifested_delete": false,
+    "delete_without_rollback": false,
+    "fabricated_retention_period": false,
+    "second_control_plane": false,
+    "second_deployment_path": false
+  },
+  "writeback": {
+    "result_artifact_registry_required": true,
+    "problem_solution_memory_required_for_new_blocker_or_solution": true,
+    "canonical_location_required": true,
+    "evidence_digest_required_when_applicable": true
+  }
+}

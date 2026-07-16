@@ -1,10 +1,10 @@
 {
   "schema": "elementary.public-startup-mirror-payload.v1",
   "status": "PASS",
-  "generated_at_utc": "2026-07-16T03:25:23Z",
+  "generated_at_utc": "2026-07-16T08:28:26Z",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
-  "source_sha": "e74719181e69624f83d510566b52b44ed6fafe2a",
-  "file_count": 24,
+  "source_sha": "9c757706b76f2713c3b01a82da9ef60c543606e6",
+  "file_count": 33,
   "files": [
     {
       "path": "AGENTS.md",
@@ -12,7 +12,7 @@
     },
     {
       "path": "contracts/governance/chat-startup-context-bundle-v1.json",
-      "sha256": "3df9d88d7ccf2f4c531c95600e38301ef8b73f525faf21bd961fdc415ddd421b"
+      "sha256": "a9af4e95284da5b5d82a973074aedc37fe927b66990390e74e380787e5e19bd8"
     },
     {
       "path": "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
@@ -33,6 +33,42 @@
     {
       "path": "contracts/governance/codex-capability-profile-v1.json",
       "sha256": "9ea8fb489eca21ee23373396481df2ff023ee49316a259db83fb0443677f6bec"
+    },
+    {
+      "path": "contracts/governance/professional-execution-policy-v1.json",
+      "sha256": "901de8937a8e397208d63bcdd47b50f92d8f2af32789c84730c4577d85738012"
+    },
+    {
+      "path": "contracts/governance/professional-execution-profile-catalog-v1.json",
+      "sha256": "029e8ce9ea159e7b3badf91bf4f4d720f504c53711dcbdeffb50c9c2fd1061ce"
+    },
+    {
+      "path": "contracts/governance/information-lifecycle-policy-v1.json",
+      "sha256": "30418336812752ea46d1c37d4fd76678f89bb17729d7aa864fd59b477bf5d5ef"
+    },
+    {
+      "path": "contracts/governance/cross-storage-authority-map-v1.json",
+      "sha256": "0362a0ad1479f4c95accecffc6c7e8ac895feb35edb5bbc3222b379b309e61f3"
+    },
+    {
+      "path": "contracts/governance/storage-source-collector-contract-v1.json",
+      "sha256": "7548ecfcc5c648ea7607d433b816aba9ad9a45f55407615d51c3e5410536f56d"
+    },
+    {
+      "path": "contracts/governance/storage-provider-adapter-contract-v1.json",
+      "sha256": "980bf195e3e32c4c1193a71d7948fd95769ce0bc98f8a05a223f0fc8cec00571"
+    },
+    {
+      "path": "contracts/governance/global-storage-inventory-v1.jsonl",
+      "sha256": "204b93915a5b6917819aefb730af8fb2c8c735c15b7583647274dbdbff40bc53"
+    },
+    {
+      "path": "docs/governance/ELEMENTARY_STORAGE_AND_INFORMATION_GOVERNANCE_V1.md",
+      "sha256": "ce0b3426a2567e6fb92600c19436b0edb6391a76341527266f74a08b60e22810"
+    },
+    {
+      "path": "docs/runbooks/GLOBAL_STORAGE_CENSUS_AND_CLEANUP_V1.md",
+      "sha256": "2e406b813ac040fbd5bbb069dd7ea2b015599787d5acaac4e8b6cdff54be0ce8"
     },
     {
       "path": "contracts/governance/memory-kernel-v1.json",

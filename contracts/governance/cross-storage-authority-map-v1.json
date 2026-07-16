@@ -1,0 +1,26 @@
+{
+  "schema": "elementary.cross-storage-authority-map.v1",
+  "status": "ACTIVE",
+  "version": "1.0.0",
+  "authority_resolution_rule": "Asset authority is determined by record class and validated provenance, never by filename, modification time, folder depth or the words final/latest/copy.",
+  "sources": [
+    {"source":"github","authoritative_for":["source_code","CI_configuration","release_definitions","governance_contracts"],"not_authoritative_for":["signed_business_originals","runtime_state","mailbox_provenance"]},
+    {"source":"production_server","authoritative_for":["live_runtime_state","deployed_application_state","runtime_mutable_data"],"not_authoritative_for":["source_history","signed_business_originals"]},
+    {"source":"evidence_registry","authoritative_for":["immutable_execution_evidence","deployment_evidence"],"not_authoritative_for":["business_document_originals"]},
+    {"source":"onedrive","authoritative_for":["current_human_documents_and_case_files"],"transition_target":"sharepoint","not_authoritative_for":["source_code","live_runtime_state"]},
+    {"source":"sharepoint","authoritative_for":["future_team_document_libraries","content_types","retention_labels_when_implemented"],"current_state":"TARGET_NOT_ASSUMED_ACTIVE"},
+    {"source":"mailbox","authoritative_for":["email_provenance","message_and_thread_identity"],"not_authoritative_for":["canonical_attachment_after_registered_ingest"]},
+    {"source":"google_drive","authoritative_for":["objects_explicitly_registered_as_canonical_or_source_originals"],"default_state":"DISCOVERY_SOURCE_UNTIL_REGISTERED"},
+    {"source":"dropbox","authoritative_for":["objects_explicitly_registered_as_canonical"],"default_state":"DISCOVERY_SOURCE_UNTIL_REGISTERED"},
+    {"source":"bocore_windows","authoritative_for":["local_runtime_and_controlled_execution_evidence"],"not_authoritative_for":["unregistered_business_documents"]},
+    {"source":"bocore_wsl","authoritative_for":["linux_toolchain_and_governed_runner_runtime_evidence"],"not_authoritative_for":["unregistered_business_documents"]},
+    {"source":"cpanel","authoritative_for":["hosting_account_runtime_and_deployment_transport_state"],"not_authoritative_for":["source_history"]}
+  ],
+  "conflict_resolution": {
+    "latest_timestamp_wins": false,
+    "filename_suffix_wins": false,
+    "provider_priority_alone_wins": false,
+    "required_evidence": ["source_object_id_or_path","hash_when_available","authority_class","approval_state","version_lineage","implementation_or_runtime_evidence"],
+    "unresolved_behavior": "CONFLICTED_AND_HOLD"
+  }
+}

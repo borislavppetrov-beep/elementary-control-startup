@@ -1,0 +1,35 @@
+{
+  "schema": "elementary.storage-source-collector-contract.v1",
+  "status": "ACTIVE",
+  "version": "1.0.0",
+  "collector_mode": "READ_ONLY_METADATA_ONLY",
+  "required_output_format": "JSONL",
+  "required_record_fields": ["schema", "source", "collector_id", "collected_at_utc", "scope_id", "object_type", "object_identity", "display_path", "size_bytes", "modified_at_utc", "hash_state", "sha256", "symlink_state", "active_use_state", "classification", "disposition_state", "warnings"],
+  "rules": {
+    "must_not_follow_symlinks": true,
+    "must_not_read_file_content_without_hash_authorization": true,
+    "hashing_requires_explicit_flag": true,
+    "must_not_scan_secret_stores": true,
+    "must_not_emit_environment_values": true,
+    "must_not_emit_file_content": true,
+    "must_not_mutate_source": true,
+    "must_report_permission_denied": true,
+    "must_report_partial_scope": true,
+    "unknown_is_not_zero": true
+  },
+  "forbidden_roots_or_classes": ["credential stores", "private key stores", "browser credential databases", "system secrets", "runtime databases unless separately admitted", "virtual machine images unless separately admitted"],
+  "hash_policy": {
+    "default": "NOT_COMPUTED",
+    "allowed_for": ["regular_files_within_allowlisted_roots"],
+    "maximum_file_size_bytes_default": 536870912,
+    "algorithm": "SHA-256"
+  },
+  "source_adapters": {
+    "filesystem_python": "scripts/storage/collect_filesystem_inventory.py",
+    "windows_powershell": "scripts/storage/collect_windows_storage_inventory.ps1",
+    "linux_shell": "scripts/storage/collect_linux_storage_inventory.sh",
+    "cpanel_python36": "scripts/storage/collect_cpanel_storage_inventory.py",
+    "provider_normalizer": "scripts/storage/normalize_provider_inventory.py",
+    "github_api": "scripts/storage/collect_github_storage_inventory.py"
+  }
+}

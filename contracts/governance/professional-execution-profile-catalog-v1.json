@@ -1,0 +1,47 @@
+{
+  "schema": "elementary.professional-execution-profile-catalog.v1",
+  "status": "ACTIVE",
+  "version": "1.0.0",
+  "policy": "contracts/governance/professional-execution-policy-v1.json",
+  "profiles": [
+    {
+      "id": "CLOUD_STORAGE_AND_INFORMATION_GOVERNANCE",
+      "version": "1.0.0",
+      "status": "ACTIVE",
+      "purpose": "Cross-storage census, authority resolution, records classification, retention and legal-hold control, duplicate analysis, quarantine planning and bounded cleanup.",
+      "professional_roles": [
+        "information_governance_lead",
+        "records_manager",
+        "cloud_storage_architect",
+        "filesystem_and_runtime_hygiene_engineer",
+        "retention_and_legal_hold_coordinator",
+        "backup_and_recovery_verifier",
+        "security_and_access_reviewer",
+        "independent_disposition_verifier"
+      ],
+      "source_scope": [
+        "github",
+        "production_server",
+        "cpanel",
+        "bocore_windows",
+        "bocore_wsl",
+        "google_drive",
+        "onedrive",
+        "sharepoint",
+        "dropbox"
+      ],
+      "required_contracts": [
+        "contracts/governance/information-lifecycle-policy-v1.json",
+        "contracts/governance/cross-storage-authority-map-v1.json",
+        "contracts/governance/storage-source-collector-contract-v1.json",
+        "contracts/governance/global-storage-inventory-v1.jsonl",
+        "contracts/governance/storage-provider-adapter-contract-v1.json"
+      ],
+      "default_mode": "READ_ONLY_CENSUS",
+      "default_mutation_allowed": false,
+      "destructive_actions_require_separate_exact_batch_authorization": true,
+      "retention_periods_may_not_be_invented": true,
+      "completion_rule": "All scoped sources are either completely inventoried with evidence or reported with exact external blockers. Partial access is not completion."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "elementary.storage-provider-adapter-contract.v1",
+  "status": "ACTIVE",
+  "version": "1.0.0",
+  "purpose": "Normalize bounded connector or provider API metadata into the canonical global storage inventory without embedding provider credentials or creating a second connector layer.",
+  "supported_sources": ["github", "google_drive", "onedrive", "sharepoint", "dropbox"],
+  "completeness_states": ["COMPLETE", "PARTIAL", "BLOCKED", "NOT_ADMITTED"],
+  "required_source_evidence": ["source", "scope_id", "collection_timestamp", "collector_or_connector_identity", "pagination_exhausted", "metadata_capabilities", "external_blockers"],
+  "preferred_object_fields": ["provider_object_id", "provider_parent_id", "name", "display_path", "object_type", "size_bytes", "created_at_utc", "modified_at_utc", "provider_hash", "sha256", "version_identity", "owner_identity", "sharing_state", "permissions_summary", "deleted_or_trashed_state"],
+  "rules": {
+    "provider_credentials_in_input_or_output": false,
+    "raw_file_content_in_inventory": false,
+    "partial_results_may_claim_complete": false,
+    "missing_metadata_may_be_inferred": false,
+    "provider_object_id_required_when_available": true,
+    "pagination_must_be_exhausted_for_complete": true,
+    "unknown_is_not_zero": true,
+    "source_mutation": false
+  },
+  "normalizer": "scripts/storage/normalize_provider_inventory.py"
+}
