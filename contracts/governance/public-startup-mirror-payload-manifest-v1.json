@@ -1,9 +1,9 @@
 {
   "schema": "elementary.public-startup-mirror-payload.v1",
   "status": "PASS",
-  "generated_at_utc": "2026-07-16T14:02:30Z",
+  "generated_at_utc": "2026-07-16T14:50:22Z",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
-  "source_sha": "50e2bdbfd16ab98092ffa74e2b9db14c99738a6c",
+  "source_sha": "39b605effafc2012c617c3ceb9e17e53b677995d",
   "file_count": 35,
   "files": [
     {
@@ -48,7 +48,7 @@
     },
     {
       "path": "contracts/governance/professional-execution-profile-catalog-v1.json",
-      "sha256": "029e8ce9ea159e7b3badf91bf4f4d720f504c53711dcbdeffb50c9c2fd1061ce"
+      "sha256": "af111470746de17f9a744cd516a8d99e8e712a284fda6266324514bcd3b98aaf"
     },
     {
       "path": "contracts/governance/information-lifecycle-policy-v1.json",
