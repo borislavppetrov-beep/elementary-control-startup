@@ -1,0 +1,119 @@
+{
+  "schema": "elementary.professional-execution-policy.v1",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "profile_id": "REPOSITORY_CONSOLIDATION",
+  "purpose": "Default professional execution profile for repository consolidation, governance change, startup delivery, coding, review, validation, evidence and controlled release work.",
+  "load_by_default": true,
+  "authority": {
+    "source_and_release_truth": "GitHub main",
+    "orchestration_authority": "ADCP",
+    "policy_authority": "ELEMENTARY Agent Governance",
+    "local_execution_authority": "existing BoCore governed paths",
+    "canonical_primary_repository": "borislavppetrov-beep/elementary-construction-os",
+    "canonical_startup_repository": "borislavppetrov-beep/elementary-control-startup",
+    "startup_repository_role": "generated public mirror delivered through a separate pull request",
+    "second_control_plane_authorized": false
+  },
+  "roles": [
+    "repository_architect",
+    "governance_engineer",
+    "delivery_manager",
+    "security_reviewer",
+    "schema_and_consumer_impact_reviewer",
+    "test_and_acceptance_engineer",
+    "release_engineer",
+    "evidence_and_cleanup_owner"
+  ],
+  "execution_charter": {
+    "exact_main_binding_required": true,
+    "read_complete_startup_before_execution": true,
+    "repository_inventory_before_consolidation": true,
+    "schema_and_consumer_impact_audit_before_mutation": true,
+    "duplicate_canonical_mechanism_check_required": true,
+    "one_governed_branch_per_admitted_write_task": true,
+    "one_isolated_worktree_per_admitted_write_task": true,
+    "direct_write_to_main_forbidden": true,
+    "primary_and_startup_changes_require_separate_pull_requests": true,
+    "self_merge_forbidden_without_explicit_authority": true,
+    "required_checks_must_be_terminal_on_exact_head": true,
+    "unresolved_review_threads_block_acceptance": true,
+    "production_mutation_requires_separate_explicit_authorization": true,
+    "rollback_plan_required_before_consequential_mutation": true,
+    "cleanup_plan_required": true,
+    "secret_value_disclosure_forbidden": true,
+    "raw_environment_dump_forbidden": true
+  },
+  "repository_consolidation": {
+    "reuse_existing_canonical_components_first": true,
+    "parallel_kernel_control_plane_scheduler_dispatcher_registry_or_evidence_authority_forbidden": true,
+    "startup_repository_must_not_become_independent_source_of_truth": true,
+    "startup_sync_direct_main_push_forbidden": true,
+    "startup_sync_delivery": {
+      "transport": "branch_and_pull_request",
+      "canonical_branch": "main",
+      "sync_branch": "sync/public-startup-mirror",
+      "automatic_merge": false,
+      "exact_source_sha_in_manifest_required": true,
+      "forbidden_value_scan_required": true,
+      "read_order_validation_required": true,
+      "startup_pr_validation_required": true
+    }
+  },
+  "delivery_truth_integration": {
+    "canonical_contract_when_present": "contracts/governance/operational-reality-audit-v1.json",
+    "canonical_schema": "elementary.operational-reality-audit.v1",
+    "policy_must_not_create_second_delivery_truth_contract": true,
+    "fallback_when_contract_absent": "Fail closed for RUNTIME_ACTIVE, E2E_VERIFIED and PRODUCTION_ACCEPTED claims and use exact immutable evidence from existing capability, acceptance and result-artifact contracts.",
+    "state_claim_requires_exact_main_binding": true,
+    "state_claim_requires_current_evidence": true,
+    "source_only_validation_cannot_prove_runtime": true,
+    "historical_evidence_cannot_prove_current_runtime": true
+  },
+  "validation_and_acceptance": {
+    "required_validation_layers": [
+      "schema",
+      "policy_invariants",
+      "startup_bundle_reference",
+      "public_mirror_builder_allowlist",
+      "startup_sync_no_direct_main",
+      "repository_instructions",
+      "result_artifact_writeback",
+      "problem_solution_writeback"
+    ],
+    "acceptance_requires": [
+      "exact_head_validation_pass",
+      "primary_pull_request_terminal_checks_pass",
+      "startup_pull_request_terminal_checks_pass_when_startup_payload_changes",
+      "no_direct_main_push",
+      "no_secret_or_private_key_material",
+      "rollback_and_cleanup_recorded",
+      "result_artifact_registered"
+    ]
+  },
+  "rollback": {
+    "source_change": "Revert or close the governed pull request branch without altering main.",
+    "startup_delivery": "Close the startup pull request or reset only the dedicated sync branch to startup main.",
+    "runtime_or_production": "Not authorized by this policy; use the separately governed runtime or deployment rollback contract."
+  },
+  "cleanup": {
+    "temporary_branches": "Delete or supersede after merge or rejection according to repository governance.",
+    "temporary_artifacts": "Retain only bounded evidence artifacts and remove private runner-temp data.",
+    "stale_pull_requests": "Close or mark superseded when a clean exact-main replacement exists.",
+    "duplicate_workflows": "Disable or remove only after canonical replacement acceptance and rollback proof."
+  },
+  "attestation": {
+    "required_field": "PROFESSIONAL_EXECUTION_POLICY_LOADED",
+    "allowed_pass_value": "PASS"
+  },
+  "canonical_files": {
+    "policy": "contracts/governance/professional-execution-policy-v1.json",
+    "documentation": "docs/governance/ELEMENTARY_PROFESSIONAL_EXECUTION_STANDARD_V1.md",
+    "validator": "scripts/governance/validate_professional_execution_policy_v1.py",
+    "workflow": ".github/workflows/professional-execution-policy-v1-validation.yml",
+    "startup_bundle": "contracts/governance/chat-startup-context-bundle-v1.json",
+    "repository_instructions": "AGENTS.md",
+    "public_mirror_builder": "scripts/governance/build_public_startup_mirror_payload.py",
+    "public_mirror_sync": ".github/workflows/startup-mirror-sync.yml"
+  }
+}
