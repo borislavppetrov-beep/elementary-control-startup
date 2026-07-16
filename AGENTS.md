@@ -7,10 +7,11 @@ These instructions apply to every Codex task, subagent, review, CLI run, IDE tas
 Before analysis, review, planning, mutation or capability claims:
 
 1. Read `contracts/governance/chat-startup-context-bundle-v1.json` from the live `main` branch when available.
-2. Read every file in its `read_order`.
-3. Load `contracts/governance/codex-capability-profile-v1.json`.
-4. If a controlled transfer/resume package is active, accept it as the operational context and continue only from its `EXACT_NEXT_ACTION`.
-5. Return the startup attestation required by the bundle before mutation.
+2. Read every file in its `read_order` completely from beginning to end.
+3. Load `contracts/governance/professional-execution-policy-v1.json` and apply profile `REPOSITORY_CONSOLIDATION`.
+4. Load `contracts/governance/codex-capability-profile-v1.json`.
+5. If a controlled transfer/resume package is active, accept it as the operational context and continue only from its `EXACT_NEXT_ACTION`.
+6. Return the startup attestation required by the bundle before mutation, including `PROFESSIONAL_EXECUTION_POLICY_LOADED=PASS`.
 
 ## Authority
 
@@ -20,9 +21,27 @@ LIFECYCLE_AND_ORCHESTRATION_AUTHORITY=ADCP
 POLICY_AUTHORITY=ELEMENTARY Agent Governance
 LOCAL_EXECUTION_AUTHORITY=existing BoCore governed paths
 CODEX_ROLE=bounded coding/review worker
+PROFESSIONAL_EXECUTION_PROFILE=REPOSITORY_CONSOLIDATION
 ```
 
 Do not create a second scheduler, dispatcher, runner backlog, browser service, evidence authority or control plane.
+
+## Professional execution profile
+
+For repository consolidation, governance, startup delivery, coding, review, validation, evidence and release work:
+
+- bind the task to exact current `main` before mutation;
+- inventory relevant repositories, open PRs and active execution lines;
+- complete schema and consumer impact review;
+- prove that no duplicate canonical mechanism is being introduced;
+- use one governed branch and one isolated worktree per admitted write task;
+- keep primary and startup repository changes in separate pull requests;
+- never push directly to primary or startup `main`;
+- define rollback, cleanup, validation and evidence ownership;
+- do not create a second delivery-truth contract; integrate with `elementary.operational-reality-audit.v1` when present;
+- fail closed on runtime and production claims when current exact evidence is absent.
+
+The public startup repository is a generated mirror. It is not an independent source of truth, and startup sync must use branch-and-pull-request delivery with no automatic merge.
 
 ## Capability truth
 
@@ -45,6 +64,7 @@ Official Codex documentation or an owner installation report does not prove exac
 - Use existing validation commands and workflows; do not weaken gates to obtain green CI.
 - Do not merge your own work unless the active authority explicitly permits it and all required checks and exact-head guards pass.
 - Do not mutate production from a source/capability PR.
+- When startup payload changes, open and validate a separate pull request in `borislavppetrov-beep/elementary-control-startup`.
 
 ## Subagents and parallel work
 
