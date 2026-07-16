@@ -1,9 +1,9 @@
 {
   "schema": "elementary.public-startup-mirror-payload.v1",
   "status": "PASS",
-  "generated_at_utc": "2026-07-16T18:10:41Z",
+  "generated_at_utc": "2026-07-16T18:29:23Z",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
-  "source_sha": "983e27117c8fcf5e3feb33c7993c7402c71ed1f2",
+  "source_sha": "24865d06d14d9d1e63f0966c05bbc6a250bb290b",
   "file_count": 36,
   "files": [
     {
@@ -16,7 +16,7 @@
     },
     {
       "path": ".github/workflows/public-startup-pr-opener.yml",
-      "sha256": "00eca2fd1fbe1768cdd46156fc6a0ec92ac829d8468725504a836cb0c6f4ed90"
+      "sha256": "aa4f96da9448f0e8ac8cb54d32f2152e40e0833a3ac94f64d5564a0af7108af6"
     },
     {
       "path": "contracts/governance/chat-startup-context-bundle-v1.json",
