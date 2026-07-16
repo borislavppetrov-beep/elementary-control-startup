@@ -1,0 +1,125 @@
+name: Public Startup Repository Validation
+
+on:
+  push:
+    branches: [main, "sync/public-startup-mirror"]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-startup-repository-validation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    if: ${{ github.repository == 'borislavppetrov-beep/elementary-control-startup' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout startup candidate
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Validate manifest, startup read order and policy
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from __future__ import annotations
+
+          import hashlib
+          import json
+          import pathlib
+          import re
+
+          root = pathlib.Path('.')
+          manifest_path = root / 'contracts/governance/public-startup-mirror-payload-manifest-v1.json'
+          bundle_path = root / 'contracts/governance/chat-startup-context-bundle-v1.json'
+          policy_path = root / 'contracts/governance/professional-execution-policy-v1.json'
+          agents_path = root / 'AGENTS.md'
+
+          for path in (manifest_path, bundle_path, policy_path, agents_path):
+              if not path.is_file():
+                  raise SystemExit(f'REQUIRED_STARTUP_FILE_MISSING:{path}')
+
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          if manifest.get('schema') != 'elementary.public-startup-mirror-payload.v1':
+              raise SystemExit('STARTUP_MANIFEST_SCHEMA=FAIL')
+          if manifest.get('status') != 'PASS':
+              raise SystemExit('STARTUP_MANIFEST_STATUS=FAIL')
+          if manifest.get('source_repository') != 'borislavppetrov-beep/elementary-construction-os':
+              raise SystemExit('STARTUP_MANIFEST_SOURCE_REPOSITORY=FAIL')
+          if manifest.get('forbidden_value_scan') != 'PASS' or manifest.get('read_order_validated') is not True:
+              raise SystemExit('STARTUP_MANIFEST_SAFETY=FAIL')
+
+          entries = manifest.get('files', [])
+          if int(manifest.get('file_count', -1)) != len(entries):
+              raise SystemExit('STARTUP_MANIFEST_FILE_COUNT=FAIL')
+          for entry in entries:
+              path = root / entry['path']
+              if not path.is_file():
+                  raise SystemExit(f'STARTUP_MANIFEST_FILE_MISSING:{entry["path"]}')
+              observed = hashlib.sha256(path.read_bytes()).hexdigest()
+              if observed != entry['sha256']:
+                  raise SystemExit(f'STARTUP_MANIFEST_HASH_MISMATCH:{entry["path"]}')
+
+          bundle = json.loads(bundle_path.read_text(encoding='utf-8'))
+          read_order = []
+          for item in bundle.get('read_order', []):
+              if isinstance(item, str):
+                  read_order.append(item)
+              elif isinstance(item, dict):
+                  value = item.get('path') or item.get('file')
+                  if isinstance(value, str):
+                      read_order.append(value)
+          required_policy = 'contracts/governance/professional-execution-policy-v1.json'
+          if required_policy not in read_order:
+              raise SystemExit('STARTUP_POLICY_READ_ORDER=FAIL')
+          for rel in read_order:
+              if not (root / rel).is_file():
+                  raise SystemExit(f'STARTUP_READ_ORDER_FILE_MISSING:{rel}')
+          if 'PROFESSIONAL_EXECUTION_POLICY_LOADED' not in bundle.get('required_startup_attestation_fields', []):
+              raise SystemExit('STARTUP_POLICY_ATTESTATION=FAIL')
+
+          policy = json.loads(policy_path.read_text(encoding='utf-8'))
+          if policy.get('schema') != 'elementary.professional-execution-policy.v1':
+              raise SystemExit('PROFESSIONAL_POLICY_SCHEMA=FAIL')
+          if policy.get('profile_id') != 'REPOSITORY_CONSOLIDATION' or policy.get('load_by_default') is not True:
+              raise SystemExit('PROFESSIONAL_POLICY_PROFILE=FAIL')
+          consolidation = policy.get('repository_consolidation', {})
+          delivery = consolidation.get('startup_sync_delivery', {})
+          if consolidation.get('startup_sync_direct_main_push_forbidden') is not True:
+              raise SystemExit('PROFESSIONAL_POLICY_DIRECT_MAIN=FAIL')
+          if delivery.get('transport') != 'branch_and_pull_request' or delivery.get('automatic_merge') is not False:
+              raise SystemExit('PROFESSIONAL_POLICY_STARTUP_DELIVERY=FAIL')
+
+          agents = agents_path.read_text(encoding='utf-8')
+          if required_policy not in agents or 'PROFESSIONAL_EXECUTION_POLICY_LOADED' not in agents:
+              raise SystemExit('STARTUP_AGENTS_POLICY_REFERENCE=FAIL')
+
+          forbidden = (
+              re.compile(r'ghp_[A-Za-z0-9_]{20,}'),
+              re.compile(r'github_pat_[A-Za-z0-9_]{20,}'),
+              re.compile(r'-----BEGIN (?:RSA |OPENSSH |EC |DSA |)PRIVATE KEY-----'),
+          )
+          for path in root.rglob('*'):
+              if not path.is_file() or '.git' in path.parts:
+                  continue
+              if path.suffix.lower() not in {'.json', '.jsonl', '.md', '.txt', '.yml', '.yaml', '.py'} and path.name != 'AGENTS.md':
+                  continue
+              text = path.read_text(encoding='utf-8')
+              for pattern in forbidden:
+                  if pattern.search(text):
+                      raise SystemExit(f'STARTUP_FORBIDDEN_VALUE=FAIL:{path}')
+
+          print('STARTUP_REPOSITORY_VALIDATION=PASS')
+          print(f'STARTUP_SOURCE_SHA={manifest.get("source_sha")}')
+          print('PROFESSIONAL_EXECUTION_POLICY_LOADED=PASS')
+          print('STARTUP_DIRECT_MAIN_PUSH=false')
+          print('SECRET_VALUES_COLLECTED=false')
+          PY
