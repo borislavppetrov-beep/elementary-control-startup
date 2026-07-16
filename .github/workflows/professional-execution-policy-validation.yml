@@ -1,0 +1,47 @@
+name: Startup Professional Execution Policy Validation
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "contracts/governance/chat-startup-context-bundle-v1.json"
+      - "contracts/governance/professional-execution-policy-v1.json"
+      - "docs/governance/PROFESSIONAL_EXECUTION_PROMPT_STANDARD.md"
+      - "scripts/governance/validate_professional_execution_policy.py"
+      - "tests/governance/**"
+      - ".github/workflows/professional-execution-policy-validation.yml"
+  push:
+    branches: [main]
+    paths:
+      - "contracts/governance/chat-startup-context-bundle-v1.json"
+      - "contracts/governance/professional-execution-policy-v1.json"
+      - "docs/governance/PROFESSIONAL_EXECUTION_PROMPT_STANDARD.md"
+      - "scripts/governance/validate_professional_execution_policy.py"
+      - "tests/governance/**"
+      - ".github/workflows/professional-execution-policy-validation.yml"
+permissions:
+  contents: read
+concurrency:
+  group: startup-professional-execution-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Exact head
+        run: test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+      - name: Validate policy and bundle
+        run: python scripts/governance/validate_professional_execution_policy.py
+      - name: Test mutation gate
+        run: python -m unittest tests.governance.test_professional_execution_policy
+      - name: Validate JSON and secret scan
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m json.tool contracts/governance/professional-execution-policy-v1.json >/dev/null
+          python -m json.tool contracts/governance/chat-startup-context-bundle-v1.json >/dev/null
+          ! grep -RIE '(ghp_[A-Za-z0-9_]{20,}|github_pat_[A-Za-z0-9_]{20,}|-----BEGIN .*PRIVATE KEY-----)' contracts/governance docs/governance scripts/governance tests/governance
+          echo SECRET_VALUE_SCAN=PASS
