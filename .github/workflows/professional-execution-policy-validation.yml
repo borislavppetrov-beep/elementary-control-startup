@@ -27,12 +27,27 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      EXPECTED_SOURCE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+      EXPECTED_BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.sha }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout exact source
+        uses: actions/checkout@v4
         with:
+          ref: ${{ env.EXPECTED_SOURCE_SHA }}
+          fetch-depth: 1
           persist-credentials: false
-      - name: Exact head
-        run: test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+      - name: Verify exact head and current base
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE_SHA"
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            git fetch --no-tags --depth=1 origin main
+            test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_BASE_SHA"
+          fi
+          echo EXACT_HEAD_BINDING=PASS
+          echo EXACT_BASE_BINDING=PASS
       - name: Validate policy and bundle
         run: python scripts/governance/validate_professional_execution_policy.py
       - name: Test mutation gate
