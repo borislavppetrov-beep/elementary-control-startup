@@ -26,6 +26,7 @@
     "full_problem_solution_ledger_loaded_by_default": false,
     "compact_generated_memory_loaded_by_default": true,
     "result_artifact_writeback_loaded_by_default": true,
+    "professional_execution_policy_loaded_by_default": true,
     "must_read_complete_file_content": true,
     "metadata_or_filename_only_does_not_count_as_read": true,
     "partial_or_truncated_tool_output_does_not_count_as_complete": true,
@@ -42,6 +43,22 @@
     "attestation_must_not_be_pass_before_completion": true,
     "required_attestation_field": "FULL_READ_ORDER_CONTENT_READ",
     "allowed_pass_value": "PASS"
+  },
+  "professional_execution_rule": {
+    "status": "ACTIVE",
+    "profile_id": "REPOSITORY_CONSOLIDATION",
+    "policy": "contracts/governance/professional-execution-policy-v1.json",
+    "documentation": "docs/governance/ELEMENTARY_PROFESSIONAL_EXECUTION_STANDARD_V1.md",
+    "must_load_before_planning_or_mutation": true,
+    "must_bind_to_exact_main": true,
+    "must_inventory_repositories_and_active_prs": true,
+    "must_complete_schema_and_consumer_impact_audit": true,
+    "must_check_for_duplicate_canonical_mechanisms": true,
+    "direct_main_write_forbidden": true,
+    "primary_and_startup_changes_require_separate_pull_requests": true,
+    "startup_direct_main_push_forbidden": true,
+    "delivery_truth_contract_must_not_be_duplicated": true,
+    "rollback_and_cleanup_required": true
   },
   "codex_rule": {
     "status": "ACTIVE",
@@ -90,10 +107,11 @@
     "status": "REQUIRED",
     "applies_when": "an existing chat is packaged, rolled over, transferred or resumed in a new chat",
     "must_include_instruction_for_new_chat": true,
-    "instruction_required_text": "Before continuing work, read contracts/governance/chat-startup-context-bundle-v1.json from the live GitHub repository on main when available, then read the complete substantive content of every file in its read_order from beginning to end. Merely opening a file, reading metadata, reading only the first returned chunk, or receiving truncated output does not count as read; continue through every remaining line or range before attesting PASS. For Codex repository work, also obey AGENTS.md. Distinguish product availability, project integration and live runtime activation. Use the compact generated problem/solution memory first. Register produced outputs through the result/artifact writeback policy. Use full ledger files only as deep retrieval sources when relevant. Use uploaded Knowledge only as fallback bootstrap if live repository access is unavailable. Confirm the required startup attestation fields, including FULL_READ_ORDER_CONTENT_READ=PASS, before capability claims, runtime-version claims, repeated-problem diagnoses, result/artifact claims or execution.",
+    "instruction_required_text": "Before continuing work, read contracts/governance/chat-startup-context-bundle-v1.json from the live GitHub repository on main when available, then read the complete substantive content of every file in its read_order from beginning to end. Merely opening a file, reading metadata, reading only the first returned chunk, or receiving truncated output does not count as read; continue through every remaining line or range before attesting PASS. Load contracts/governance/professional-execution-policy-v1.json and apply profile REPOSITORY_CONSOLIDATION before planning or mutation. For Codex repository work, also obey AGENTS.md. Distinguish product availability, project integration and live runtime activation. Use the compact generated problem/solution memory first. Register produced outputs through the result/artifact writeback policy. Use full ledger files only as deep retrieval sources when relevant. Use uploaded Knowledge only as fallback bootstrap if live repository access is unavailable. Confirm the required startup attestation fields, including FULL_READ_ORDER_CONTENT_READ=PASS and PROFESSIONAL_EXECUTION_POLICY_LOADED=PASS, before capability claims, runtime-version claims, repeated-problem diagnoses, result/artifact claims or execution.",
     "must_include_or_reference_files": [
       "AGENTS.md",
       "contracts/governance/chat-startup-context-bundle-v1.json",
+      "contracts/governance/professional-execution-policy-v1.json",
       "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
       "contracts/governance/owner-resource-authorization-v1.json",
       "contracts/governance/canonical-software-runtime-inventory-v1.json",
@@ -111,6 +129,7 @@
       "new_chat_was_instructed_to_read_startup_bundle",
       "startup_bundle_read_order_preserved",
       "complete_substantive_content_of_every_read_order_file_was_read",
+      "professional_execution_policy_loaded_before_planning_or_mutation",
       "live_repository_preferred_over_static_snapshot",
       "codex_capability_profile_loaded_before_codex_claim",
       "compact_memory_loaded_before_repeated_problem_diagnosis",
@@ -133,51 +152,56 @@
     },
     {
       "order": 3,
+      "path": "contracts/governance/professional-execution-policy-v1.json",
+      "reason": "Default professional execution profile, repository consolidation charter, startup PR delivery and acceptance rules."
+    },
+    {
+      "order": 4,
       "path": "contracts/governance/canonical-software-runtime-inventory-v1.json",
       "reason": "Exact production/runtime/software inventory and UNVERIFIED placeholders."
     },
     {
-      "order": 4,
+      "order": 5,
       "path": "contracts/governance/chatgpt-plus-capability-profile-v1.json",
       "reason": "Current ChatGPT Plus plan, product, account-surface, project-integration and runtime capability classification and governance."
     },
     {
-      "order": 5,
+      "order": 6,
       "path": "contracts/governance/codex-capability-profile-v1.json",
       "reason": "Codex product, project-integration and live-runtime capability classification and governance."
     },
     {
-      "order": 6,
+      "order": 7,
       "path": "contracts/governance/memory-kernel-v1.json",
       "reason": "Rules for compact cross-chat learning and deep ledger retrieval."
     },
     {
-      "order": 7,
+      "order": 8,
       "path": "contracts/governance/generated/startup-memory-hotset-v1.json",
       "reason": "Compact active and high-priority problem/solution memory for startup."
     },
     {
-      "order": 8,
+      "order": 9,
       "path": "contracts/governance/generated/problem-solution-router-v1.json",
       "reason": "Machine routing by scope, active blockers and exact symptom signatures."
     },
     {
-      "order": 9,
+      "order": 10,
       "path": "contracts/governance/generated/problem-solution-index-v1.jsonl",
       "reason": "Compact machine-readable problem/solution index; full ledger remains deep retrieval source only."
     },
     {
-      "order": 10,
+      "order": 11,
       "path": "contracts/governance/result-artifact-writeback-policy-v1.json",
       "reason": "Rules requiring produced governed outputs and artifacts to be registered."
     },
     {
-      "order": 11,
+      "order": 12,
       "path": "contracts/governance/result-artifact-registry-v1.jsonl",
       "reason": "Machine-readable registry of governed outputs, artifacts and evidence references."
     },
     {
-      "order": 12,
+      "order": 13,
       "path": "contracts/governance/generated/result-artifact-router-v1.json",
       "reason": "Compact routing rules for deciding when and how to register produced outputs."
     }
@@ -187,6 +211,7 @@
     "FULL_READ_ORDER_CONTENT_READ",
     "CAPABILITY_BOOTSTRAP_LOADED",
     "OWNER_RESOURCE_AUTHORIZATION_LOADED",
+    "PROFESSIONAL_EXECUTION_POLICY_LOADED",
     "CANONICAL_SOFTWARE_INVENTORY_LOADED",
     "CHATGPT_PLUS_CAPABILITY_PROFILE_LOADED",
     "CHATGPT_PLAN_AND_SURFACE_CHECKED_BEFORE_FEATURE_CLAIM",
@@ -213,6 +238,7 @@
   },
   "drift_writeback_rule": {
     "capability_or_authorization_drift": "Update contracts/governance/owner-resource-authorization-v1.json or create blocking issue.",
+    "professional_execution_or_repository_consolidation_drift": "Update contracts/governance/professional-execution-policy-v1.json, AGENTS.md, this startup bundle and the public startup mirror delivery workflow through separate governed primary and startup pull requests.",
     "software_or_runtime_drift": "Update contracts/governance/canonical-software-runtime-inventory-v1.json or create blocking issue.",
     "chatgpt_plan_product_account_or_surface_drift": "Update contracts/governance/chatgpt-plus-capability-profile-v1.json, the ChatGPT Plus architecture alignment and startup capability bootstrap as applicable after checking current official OpenAI sources and the exact account surface.",
     "codex_product_or_integration_drift": "Update contracts/governance/codex-capability-profile-v1.json, AGENTS.md and capability bootstrap as applicable.",
