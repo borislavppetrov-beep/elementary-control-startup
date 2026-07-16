@@ -1,10 +1,10 @@
 {
   "schema": "elementary.public-startup-mirror-payload.v1",
   "status": "PASS",
-  "generated_at_utc": "2026-07-16T14:50:22Z",
+  "generated_at_utc": "2026-07-16T15:32:42Z",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
-  "source_sha": "39b605effafc2012c617c3ceb9e17e53b677995d",
-  "file_count": 35,
+  "source_sha": "db843ea2237062c5058ed1134df09e2fdaca4d1b",
+  "file_count": 36,
   "files": [
     {
       "path": "AGENTS.md",
@@ -20,7 +20,7 @@
     },
     {
       "path": "contracts/governance/chat-startup-context-bundle-v1.json",
-      "sha256": "a9af4e95284da5b5d82a973074aedc37fe927b66990390e74e380787e5e19bd8"
+      "sha256": "549e1e4fb03b6f187d1f7dcfd22319006b658e87f4360697c29b5799cc91cbe7"
     },
     {
       "path": "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
@@ -44,7 +44,11 @@
     },
     {
       "path": "contracts/governance/professional-execution-policy-v1.json",
-      "sha256": "901de8937a8e397208d63bcdd47b50f92d8f2af32789c84730c4577d85738012"
+      "sha256": "d4a897767b3eac37d5faece9601b21fe44531201a653f648dbd0ad904401f28d"
+    },
+    {
+      "path": "docs/governance/PROFESSIONAL_EXECUTION_PROMPT_STANDARD.md",
+      "sha256": "d8d531c8f47ab0f8ef71cf011cdee7f271e4f3b4f75eb77e377bb8b352e77b0a"
     },
     {
       "path": "contracts/governance/professional-execution-profile-catalog-v1.json",

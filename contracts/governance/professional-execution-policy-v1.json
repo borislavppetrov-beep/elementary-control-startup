@@ -2,7 +2,7 @@
   "schema": "elementary.professional-execution-policy.v1",
   "status": "ACTIVE",
   "policy_id": "ELEMENTARY_PROFESSIONAL_EXECUTION_POLICY",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "effective_date": "2026-07-16",
   "authority": {
     "source_and_release_truth": "GitHub main",
@@ -11,35 +11,151 @@
     "document_records_authority": "ELEMENTARY information recovery and records canonicalization program",
     "owner_authorization": "Issue #1160 and controlled-chat instruction dated 2026-07-16"
   },
-  "purpose": "Provide a canonical fail-closed policy for specialist execution profiles that perform high-impact inventory, records governance, retention, quarantine and cleanup work without creating a second control plane.",
+  "purpose": "Provide the single canonical fail-closed professional execution policy for high-impact architecture, engineering, repository, infrastructure, security, production, data, storage, UI, regulated-document and research work without creating a second control plane.",
   "profile_activation": {
     "catalog": "contracts/governance/professional-execution-profile-catalog-v1.json",
+    "required": true,
+    "mode": "FAIL_CLOSED",
     "must_select_exact_profile": true,
     "must_load_profile_before_execution": true,
+    "must_load_profile_required_sources_before_mutation": true,
+    "generic_profile_allowed_when_specialized_match_exists": false,
     "unknown_profile_behavior": "FAIL_CLOSED",
-    "profile_may_not_expand_owner_authority": true
+    "profile_may_not_expand_owner_authority": true,
+    "activation_required_before": [
+      "architecture_decision",
+      "code_mutation",
+      "workflow_mutation",
+      "repository_mutation",
+      "production_mutation",
+      "server_mutation",
+      "cloud_storage_mutation",
+      "destructive_action",
+      "security_sensitive_action",
+      "data_migration"
+    ]
+  },
+  "execution_charter": {
+    "required": true,
+    "required_fields": [
+      "exact_task",
+      "source_of_truth",
+      "scope",
+      "out_of_scope",
+      "acceptance_criteria",
+      "stop_conditions",
+      "mutation_policy",
+      "destructive_action_policy",
+      "rollback_policy",
+      "evidence_policy",
+      "cleanup_policy",
+      "temporary_file_policy",
+      "conflict_policy",
+      "exact_main_binding",
+      "delivery_truth_policy"
+    ],
+    "must_exist_before_mutation": true,
+    "chat_only_unstructured_intent_is_not_charter": true
+  },
+  "required_attestation_fields": [
+    "PROFESSIONAL_EXECUTION_PROFILE_ACTIVATED",
+    "PROFESSIONAL_EXECUTION_PROFILE_ID",
+    "PROFESSIONAL_EXECUTION_PROFILE_VERSION",
+    "PROFESSIONAL_ROLES_LOADED",
+    "EXECUTION_CHARTER_CREATED",
+    "SOURCE_OF_TRUTH_RESOLVED",
+    "ROLLBACK_PLAN_PRESENT",
+    "CLEANUP_PLAN_PRESENT"
+  ],
+  "mutation_gate": {
+    "required_status": "PASS",
+    "on_failure": "BLOCK_MUTATION",
+    "missing_field_behavior": "BLOCK_MUTATION",
+    "unknown_profile_behavior": "BLOCK_MUTATION",
+    "stale_main_behavior": "BLOCK_MUTATION",
+    "source_or_runtime_claim_without_evidence": "BLOCK_CLAIM"
+  },
+  "delivery_truth": {
+    "allowed_states": [
+      "ACCEPTED",
+      "CONTRACTED",
+      "IMPLEMENTED",
+      "PROVISIONED",
+      "RUNTIME_ACTIVE",
+      "VISIBLE",
+      "E2E_VERIFIED",
+      "PRODUCTION_ACCEPTED"
+    ],
+    "states_are_independent": true,
+    "runtime_active_requires": [
+      "EXACT_CURRENT_MAIN_BINDING=PASS",
+      "LIVE_RUNTIME_PRESENT=true",
+      "LIVE_RUNTIME_ENABLED=true",
+      "FRESH_HEALTH_READBACK=PASS",
+      "ROLLBACK_DISABLED_STATE=false",
+      "E2E_OPERATION_EXECUTED=PASS",
+      "EVIDENCE_RECONCILED=PASS"
+    ],
+    "source_merge_or_ci_is_not_runtime_activation": true,
+    "acceptance_followed_by_rollback_is_not_active": true,
+    "weighted_percent_requires_machine_readable_acceptance_matrix": true
   },
   "execution_modes": {
     "READ_ONLY_CENSUS": {
       "mutation_allowed": false,
-      "required_before": ["CLASSIFICATION", "QUARANTINE_PLAN", "CLEANUP_PLAN", "DELETION"]
+      "required_before": [
+        "CLASSIFICATION",
+        "QUARANTINE_PLAN",
+        "CLEANUP_PLAN",
+        "DELETION"
+      ]
     },
     "CONTROLLED_CLASSIFICATION": {
       "mutation_allowed": false,
-      "requires": ["complete_manifest", "authority_map", "provenance", "hash_or_provider_identity"]
+      "requires": [
+        "complete_manifest",
+        "authority_map",
+        "provenance",
+        "hash_or_provider_identity"
+      ]
     },
     "QUARANTINE_APPLY": {
       "mutation_allowed": true,
-      "requires": ["exact_batch", "owner_authorization", "retention_review", "legal_hold_clearance", "recovery_proof", "independent_verifier", "rollback_window"]
+      "requires": [
+        "exact_batch",
+        "owner_authorization",
+        "retention_review",
+        "legal_hold_clearance",
+        "recovery_proof",
+        "independent_verifier",
+        "rollback_window"
+      ]
     },
     "DELETION_APPLY": {
       "mutation_allowed": true,
-      "requires": ["exact_batch", "separate_owner_deletion_authorization", "retention_expiry", "legal_hold_clearance", "canonical_copy_verified", "dependency_clearance", "independent_verifier", "post_delete_audit"]
+      "requires": [
+        "exact_batch",
+        "separate_owner_deletion_authorization",
+        "retention_expiry",
+        "legal_hold_clearance",
+        "canonical_copy_verified",
+        "dependency_clearance",
+        "independent_verifier",
+        "post_delete_audit"
+      ]
     }
   },
   "segregation_of_duties": {
     "single_actor_may_not_complete_all_destructive_stages": true,
-    "required_roles": ["discovery", "classification", "retention_legal_review", "independent_verification", "owner_approval", "execution", "post_execution_audit"]
+    "required_roles": [
+      "discovery",
+      "classification",
+      "retention_legal_review",
+      "independent_verification",
+      "owner_approval",
+      "execution",
+      "post_execution_audit"
+    ]
   },
   "evidence": {
     "manifest_required": true,
@@ -49,6 +165,8 @@
     "source_scope_required": true,
     "hash_required_when_provider_or_filesystem_allows": true,
     "provider_object_id_required_for_cloud_objects": true,
+    "exact_main_binding_required_for_repository_mutation": true,
+    "terminal_exact_head_validation_required": true,
     "unknown_is_not_zero": true,
     "partial_is_not_complete": true,
     "filename_is_not_identity": true
@@ -72,12 +190,22 @@
     "delete_without_rollback": false,
     "fabricated_retention_period": false,
     "second_control_plane": false,
-    "second_deployment_path": false
+    "second_deployment_path": false,
+    "direct_main_write": false,
+    "force_push": false,
+    "stale_ci_reuse": false
   },
   "writeback": {
     "result_artifact_registry_required": true,
     "problem_solution_memory_required_for_new_blocker_or_solution": true,
     "canonical_location_required": true,
     "evidence_digest_required_when_applicable": true
+  },
+  "backward_compatibility": {
+    "schema_remains_v1": true,
+    "existing_storage_execution_modes_preserved": true,
+    "existing_storage_required_contracts_preserved_in_profile_catalog": true,
+    "additive_fields_only_except_read_order_migration": true,
+    "read_order_migration_requires_validator_and_public_mirror_readback": true
   }
 }
