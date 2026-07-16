@@ -1,22 +1,26 @@
 {
   "schema": "elementary.public-startup-mirror-payload.v1",
   "status": "PASS",
-  "generated_at_utc": "2026-07-16T03:25:23Z",
+  "generated_at_utc": "2026-07-16T07:58:46Z",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
-  "source_sha": "e74719181e69624f83d510566b52b44ed6fafe2a",
-  "file_count": 24,
+  "source_sha": "ae3a215967c2a79336a62f86b7f6b8f4441e9213",
+  "file_count": 27,
   "files": [
     {
       "path": "AGENTS.md",
-      "sha256": "13902ad56fec16ca422d8ab65e8103e431cf83c7d7fea85efe110519ab61cfd8"
+      "sha256": "03db5c4de09ec96842d88ff357df923742749b141463ed0925ad953e3a124140"
     },
     {
       "path": "contracts/governance/chat-startup-context-bundle-v1.json",
-      "sha256": "3df9d88d7ccf2f4c531c95600e38301ef8b73f525faf21bd961fdc415ddd421b"
+      "sha256": "734a36cccd45f8a17d3c87e5230d8744c70d9d1250ba2a86719a9578d8227a46"
+    },
+    {
+      "path": "contracts/governance/professional-execution-policy-v1.json",
+      "sha256": "7f591bb26277d8b5749b92b00e7127701fcd80b830e6f356f4fa07905700487e"
     },
     {
       "path": "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
-      "sha256": "77e63a7c23bca5abd527da43bc6ff6f82271a2ab50cd9b535c4ea130bedb1b91"
+      "sha256": "faa25626577dfa9dc6f3666b5df647e0973358da70d063352919e7d3855a9e1a"
     },
     {
       "path": "contracts/governance/owner-resource-authorization-v1.json",
@@ -63,6 +67,14 @@
       "sha256": "724b37acbda486d5ce35e46841985a06f2f67f5d88b87f95e5a70995d9a7b685"
     },
     {
+      "path": ".github/workflows/public-startup-repository-validation.yml",
+      "sha256": "0df270cb9a086cbb81caeb04dbe0bba6ff866d7fc29fd64c0b223d1e7d3ca9d1"
+    },
+    {
+      "path": "docs/governance/ELEMENTARY_PROFESSIONAL_EXECUTION_STANDARD_V1.md",
+      "sha256": "ef7ff6171becee0bd224f7e93b242fd4137a63de8cc7fe77e22c89a09b89d960"
+    },
+    {
       "path": "docs/governance/ELEMENTARY_ECOSYSTEM_LEARNING_LEDGER.md",
       "sha256": "e2f94bdef9eaca150498eebe7078153ccfe201b21bd186c21a9013f41dc7a280"
     },
@@ -104,5 +116,7 @@
     }
   ],
   "forbidden_value_scan": "PASS",
-  "read_order_validated": true
+  "read_order_validated": true,
+  "delivery_transport": "branch_and_pull_request",
+  "direct_main_push": false
 }
