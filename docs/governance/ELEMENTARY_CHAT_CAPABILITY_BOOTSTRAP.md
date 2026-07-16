@@ -1,6 +1,6 @@
 # ELEMENTARY Chat Capability Bootstrap
 
-This file is the canonical capability, software-runtime, owner-authorization, Codex and ecosystem-learning bootstrap for every ELEMENTARY controlled chat, specialist chat, resume package, transfer package and governed agent dispatch.
+This file is the canonical capability, software-runtime, owner-authorization, professional-execution, Codex and ecosystem-learning bootstrap for every ELEMENTARY controlled chat, specialist chat, resume package, transfer package and governed agent dispatch.
 
 ## Mandatory identity
 
@@ -11,6 +11,8 @@ GOVERNANCE_SUBSYSTEM=ELEMENTARY Agent Governance
 REPOSITORY=borislavppetrov-beep/elementary-construction-os
 CANONICAL_BRANCH=main
 OWNER_RESOURCE_AUTHORIZATION=contracts/governance/owner-resource-authorization-v1.json
+PROFESSIONAL_EXECUTION_POLICY=contracts/governance/professional-execution-policy-v1.json
+PROFESSIONAL_EXECUTION_PROFILE=REPOSITORY_CONSOLIDATION
 CANONICAL_SOFTWARE_INVENTORY=contracts/governance/canonical-software-runtime-inventory-v1.json
 CODEX_CAPABILITY_PROFILE=contracts/governance/codex-capability-profile-v1.json
 CODEX_REPOSITORY_INSTRUCTIONS=AGENTS.md
@@ -25,6 +27,26 @@ The owner authorizes unrestricted use of all technically available project resou
 
 This authorization includes direct chat tools and connectors, OpenAI Codex and ChatGPT coding surfaces, plus indirect governed execution paths implemented by the control plane. Agents must use resources proactively and must not repeatedly require the owner to explain known capabilities.
 
+## Professional execution profile
+
+Every repository consolidation, governance, startup delivery, coding, review, validation, evidence and release task must load:
+
+```text
+contracts/governance/professional-execution-policy-v1.json
+```
+
+The active profile is `REPOSITORY_CONSOLIDATION`. It requires exact-main binding, repository and open-PR inventory, schema and consumer impact review, duplicate-mechanism prevention, one governed branch and isolated worktree per admitted write task, separate primary and startup pull requests, rollback, cleanup and exact-head evidence.
+
+Direct writes to primary or startup `main` are forbidden. The public startup repository is a generated mirror and cannot become an independent source of truth. Startup delivery must use a dedicated branch and separate pull request with automatic merge disabled.
+
+This profile does not create another delivery-truth contract. It integrates with `elementary.operational-reality-audit.v1` when present and fails closed for current runtime, end-to-end and production claims when exact current evidence is absent.
+
+Required startup attestation:
+
+```text
+PROFESSIONAL_EXECUTION_POLICY_LOADED=PASS
+```
+
 ## Capability-resolution rule
 
 The visible native connector inventory is not the complete capability boundary.
@@ -33,7 +55,7 @@ Before claiming that an action cannot be performed, the chat or agent must check
 
 1. Direct tools and connected applications available in the current chat.
 2. Repository contracts, allowlists and merged workflows.
-3. The Codex capability profile and repository `AGENTS.md`.
+3. The professional execution policy, Codex capability profile and repository `AGENTS.md`.
 4. BoCore and self-hosted runner capabilities.
 5. Windows, WSL and PowerShell interop paths.
 6. Controlled browser and CDP paths.
@@ -90,6 +112,7 @@ Codex remains a bounded coding worker under ADCP and Agent Governance. It does n
 
 Required behavior:
 
+- Load the professional execution profile before planning or mutation.
 - Use one isolated worktree per admitted write task.
 - Do not write directly to `main`; use a governed branch, validation and pull request.
 - Use subagents preferentially for independent read-heavy exploration, tests, triage, review and evidence synthesis.
@@ -172,17 +195,19 @@ contracts/governance/problem-solution-overlays/*.json
 
 ## Mandatory drift update rule
 
-Every ELEMENTARY chat, specialist chat, governed agent or transfer/resume package that discovers, verifies or loses a capability, software/runtime fact or material problem/solution fact must update the canonical source of truth.
+Every ELEMENTARY chat, specialist chat, governed agent or transfer/resume package that discovers, verifies or loses a capability, software/runtime fact, professional-execution fact or material problem/solution fact must update the canonical source of truth.
 
 Required action:
 
 1. Update `contracts/governance/owner-resource-authorization-v1.json` when the capability boundary changes.
-2. Update `contracts/governance/canonical-software-runtime-inventory-v1.json` when runtime or software facts change.
-3. Update `contracts/governance/codex-capability-profile-v1.json` and `AGENTS.md` when Codex product, project or repository behavior changes.
-4. Update problem/solution memory or a safe overlay for reusable operational learning.
-5. Update this bootstrap when global startup behavior changes.
-6. Create a governed branch and PR that references the evidence source.
-7. If write access is unavailable, create or update a blocking GitHub issue.
+2. Update `contracts/governance/professional-execution-policy-v1.json`, `AGENTS.md`, the startup bundle and startup delivery workflow when execution or repository-consolidation behavior changes.
+3. Update `contracts/governance/canonical-software-runtime-inventory-v1.json` when runtime or software facts change.
+4. Update `contracts/governance/codex-capability-profile-v1.json` and `AGENTS.md` when Codex product, project or repository behavior changes.
+5. Update problem/solution memory or a safe overlay for reusable operational learning.
+6. Update this bootstrap when global startup behavior changes.
+7. Create a governed primary branch and PR that references the evidence source.
+8. Create a separate startup PR when startup payload changes.
+9. If write access is unavailable, create or update a blocking GitHub issue.
 
 It is forbidden to leave newly discovered capability, version, failure or solution information only in chat text.
 
@@ -229,6 +254,7 @@ Authorized resource classes include GitHub, GitHub Actions and artifacts, GitHub
 
 ## Mandatory behavior for chats and agents
 
+- Load and apply the professional execution profile before planning or mutation.
 - Discover and use the best available capability path proactively.
 - Prefer execution and verified results over explanations of tool limitations.
 - Do not ask the owner to repeat known access or capability information.
@@ -252,6 +278,7 @@ Every generated ELEMENTARY controlled chat transfer or resume package must inclu
 ```text
 AGENTS.md
 contracts/governance/chat-startup-context-bundle-v1.json
+contracts/governance/professional-execution-policy-v1.json
 docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md
 contracts/governance/owner-resource-authorization-v1.json
 contracts/governance/canonical-software-runtime-inventory-v1.json
@@ -265,7 +292,7 @@ contracts/governance/result-artifact-registry-v1.jsonl
 contracts/governance/generated/result-artifact-router-v1.json
 ```
 
-The resume attestation must confirm the complete bundle `read_order`, including `CODEX_CAPABILITY_PROFILE_LOADED`, before reporting capability boundaries, Codex state, runtime versions, repeated problems or beginning execution.
+The resume attestation must confirm the complete bundle `read_order`, including `PROFESSIONAL_EXECUTION_POLICY_LOADED=PASS` and `CODEX_CAPABILITY_PROFILE_LOADED`, before reporting capability boundaries, Codex state, runtime versions, repeated problems or beginning execution.
 
 ## Mandatory full-content startup read
 
