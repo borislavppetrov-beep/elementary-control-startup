@@ -171,7 +171,10 @@
       "PR #578 merge b6ae3c09ecd45d4ebfb28dee71953f3a2becefae",
       "workflow run 29151944424 artifact 8248387765 digest sha256:af6f96b25f56c59f59799c9b97dbfa9f9ce3d6e3db71bcdd7faca14148be6c21",
       "independent readback workflow run 29150679132 attempt 4 artifact 8248395903 digest sha256:ca4c4a62abac3d6b1d4869c0c568fe3ceb948bb2b31ace435dbf04f3a3a191ee",
-      "contracts/governance/runtime-inventory-overlays/2026-07-11-browser-bridge-1-3-0-live-readback.json"
+      "contracts/governance/runtime-inventory-overlays/2026-07-11-browser-bridge-1-3-0-live-readback.json",
+      "PR #1215 merge 4c4c29d00c978015ab3d974e7e4c798ccf8ea260: isolated GCC runtime closure",
+      "PR #1217 merge cb312028d597f17483d992acdf4b71bd001d9661: split GCC startfile search binding",
+      "Issue #604 exact-current-main terminal for cb312028d597f17483d992acdf4b71bd001d9661: race lane PASS with artifact writeback"
     ],
     "known_capabilities": [
       "Windows filesystem including C:\\ through governed operations",
@@ -184,7 +187,8 @@
       "Git and repository tooling",
       "GitHub CLI",
       "WSL installation present; distro execution unavailable from Windows local-system/service context",
-      "bounded Windows MSI packaging-toolchain availability readback"
+      "bounded Windows MSI packaging-toolchain availability readback",
+      "zero-budget ephemeral GCC/CGO race-validation lane with full go test -race and cleanup evidence"
     ],
     "machine": {
       "name": "BOCORE",
@@ -324,7 +328,32 @@
       },
       "runner02_wsl_linux": {
         "status": "OPERATIONAL",
-        "role": "Linux/WSL queue relief lane"
+        "role": "Linux/WSL queue relief lane",
+        "race_validation": {
+          "status": "E2E_VERIFIED",
+          "observed_at_utc": "2026-07-17T04:23:03Z",
+          "issue": 604,
+          "source_sha": "cb312028d597f17483d992acdf4b71bd001d9661",
+          "source_prs": [
+            1215,
+            1217
+          ],
+          "canonical_workflow": ".github/workflows/zero-budget-operational-dependencies.yml",
+          "compiler_delivery": "EPHEMERAL_EXTRACTED_ZERO_BUDGET",
+          "compiler_version_readback": "PASS",
+          "c_compile": "PASS",
+          "cgo_enabled": true,
+          "race_detector_started": true,
+          "go_test_race_status": "PASS",
+          "data_race_detected": false,
+          "artifact_writeback": "PASS",
+          "temporary_toolchain_removed": true,
+          "system_package_install_attempted": false,
+          "persistent_host_mutation": false,
+          "node_runtime_activated": false,
+          "production_accepted": false,
+          "secret_values_recorded": false
+        }
       },
       "runner03_windows_native": {
         "status": "OPERATIONAL",

@@ -1,9 +1,9 @@
 {
   "schema": "elementary.public-startup-mirror-payload.v1",
   "status": "PASS",
-  "generated_at_utc": "2026-07-16T20:29:37Z",
+  "generated_at_utc": "2026-07-19T10:38:31Z",
   "source_repository": "borislavppetrov-beep/elementary-construction-os",
-  "source_sha": "6cb03e07c693df7e5ef85d9cd543abdf8019257c",
+  "source_sha": "8bbac8af7d57a25d85ec0c39b27f4c6250884b96",
   "file_count": 36,
   "files": [
     {
@@ -24,7 +24,7 @@
     },
     {
       "path": "docs/governance/ELEMENTARY_CHAT_CAPABILITY_BOOTSTRAP.md",
-      "sha256": "77e63a7c23bca5abd527da43bc6ff6f82271a2ab50cd9b535c4ea130bedb1b91"
+      "sha256": "d72584e6e9be88a3d5a701ffcd2d529470de04b56bbef6620a2d7e345fab4873"
     },
     {
       "path": "contracts/governance/owner-resource-authorization-v1.json",
@@ -32,7 +32,7 @@
     },
     {
       "path": "contracts/governance/canonical-software-runtime-inventory-v1.json",
-      "sha256": "db880a88c17a851b71a0cff0b25079249dea83a1c17e5cb02996c94d7bebe231"
+      "sha256": "672876c2ccc4d72c468a567d65b9692790b0592ca55db5e02f27852ecc5e9440"
     },
     {
       "path": "contracts/governance/chatgpt-plus-capability-profile-v1.json",
@@ -64,11 +64,11 @@
     },
     {
       "path": "contracts/governance/storage-source-collector-contract-v1.json",
-      "sha256": "7548ecfcc5c648ea7607d433b816aba9ad9a45f55407615d51c3e5410536f56d"
+      "sha256": "1419ed56e9b36c92ef139acd86cdc3345e53b661766b464cf85712734e076ff2"
     },
     {
       "path": "contracts/governance/storage-provider-adapter-contract-v1.json",
-      "sha256": "980bf195e3e32c4c1193a71d7948fd95769ce0bc98f8a05a223f0fc8cec00571"
+      "sha256": "19a64f61e14871bf04604ef2c1fc82128cb4756473b10059d4e3da514270aae6"
     },
     {
       "path": "contracts/governance/global-storage-inventory-v1.jsonl",

@@ -151,6 +151,32 @@ DISTRIBUTION_ALLOWED=false
 
 The development signing identity is ephemeral and non-exportable; no PFX, paid certificate, paid signing service or public trust-store mutation is used. This proves zero-budget development packaging, signing and isolated machine acceptance. It does not by itself activate ADCP polling, work execution, live enrollment, production acceptance or public distribution.
 
+### Verified zero-budget Linux race-validation boundary
+
+The governed BoCore Linux lane now has an end-to-end verified, zero-budget Go race-validation path. The compiler and its runtime closure are downloaded and extracted only into the existing private temporary directory; the host package database and persistent filesystem are not mutated.
+
+```text
+ISSUE=#604
+SOURCE_SHA=cb312028d597f17483d992acdf4b71bd001d9661
+SOURCE_PRS=#1215,#1217
+CANONICAL_WORKFLOW=.github/workflows/zero-budget-operational-dependencies.yml
+COMPILER_DELIVERY=EPHEMERAL_EXTRACTED_ZERO_BUDGET
+COMPILER_VERSION_READBACK=PASS
+C_COMPILE=PASS
+CGO_ENABLED=1
+RACE_DETECTOR_STARTED=true
+GO_TEST_RACE_STATUS=PASS
+DATA_RACE_DETECTED=false
+ARTIFACT_WRITEBACK=PASS
+TEMPORARY_TOOLCHAIN_REMOVED=true
+SYSTEM_PACKAGE_INSTALL_ATTEMPTED=false
+PERSISTENT_HOST_MUTATION=false
+NODE_RUNTIME_ACTIVE=false
+PRODUCTION_ACCEPTED=false
+```
+
+This proves the CI race gate only. It does not prove Node enrollment, admitted-work execution, Codex worktree execution, runtime activation or production acceptance.
+
 ## Ecosystem learning ledger
 
 Every chat and governed agent must load the compact generated memory first:
